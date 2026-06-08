@@ -3,70 +3,64 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pedro Rodrigues — Brutalist Editorial</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,700&display=swap" rel="stylesheet">
+<title>Pedro Rodrigues — Retouch Artist</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Fraunces:ital,opsz,wght@0,9..144,800;0,9..144,900;1,9..144,300;1,9..144,700;1,9..144,900&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #0a0a0a;
-    --fg: #f0ede6;
-    --accent: #e8420a;
-    --muted: #3a3a3a;
-    --border: #222;
-    --mono: 'JetBrains Mono', monospace;
-    --serif: 'Fraunces', serif;
+    --bg:     #0C0C0C;
+    --fg:     #EDE9E0;
+    --accent: #E03A10;
+    --dim:    rgba(237,233,224,0.12);
+    --mono:   'JetBrains Mono', monospace;
+    --serif:  'Fraunces', serif;
   }
 
-  html { cursor: none; }
+  html { cursor: none; scroll-behavior: smooth; }
 
   body {
     background: var(--bg);
     color: var(--fg);
     font-family: var(--mono);
     font-size: 13px;
-    line-height: 1.6;
     overflow-x: hidden;
   }
 
-  /* Custom cursor */
+  /* CURSOR */
   #cursor {
     position: fixed;
-    width: 12px;
-    height: 12px;
+    width: 10px; height: 10px;
     background: var(--accent);
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
     transform: translate(-50%, -50%);
-    transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease;
+    transition: width 0.2s, height 0.2s;
     mix-blend-mode: difference;
   }
-  #cursor.big {
-    width: 48px;
-    height: 48px;
-  }
+  #cursor.big { width: 48px; height: 48px; }
 
   /* NAV */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
-    z-index: 100;
+    z-index: 200;
+    height: 44px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 32px;
-    border-bottom: 1px solid var(--border);
-    background: var(--bg);
-    mix-blend-mode: normal;
+    padding: 0 28px;
+    border-bottom: 1px solid var(--dim);
+    background: rgba(12,12,12,0.85);
+    backdrop-filter: blur(12px);
   }
 
   .nav-logo {
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 700;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--fg);
     text-decoration: none;
@@ -74,483 +68,436 @@
 
   .nav-links {
     display: flex;
-    gap: 32px;
+    gap: 28px;
     list-style: none;
   }
-
   .nav-links a {
-    font-size: 11px;
-    letter-spacing: 0.12em;
+    font-size: 9px;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--fg);
     text-decoration: none;
-    opacity: 0.5;
+    opacity: 0.4;
     transition: opacity 0.2s;
   }
   .nav-links a:hover { opacity: 1; }
 
-  /* HERO */
+  /* ══════════════════════════════════════
+     HERO SLIDESHOW
+  ══════════════════════════════════════ */
   .hero {
-    min-height: 100vh;
-    padding: 120px 32px 60px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr auto;
-    gap: 0;
     position: relative;
+    width: 100vw;
+    height: 100vh;
     overflow: hidden;
   }
 
-  .hero-index {
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    opacity: 0.35;
-    align-self: start;
+  .slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
   }
 
-  .hero-status {
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    opacity: 0.35;
-    text-align: right;
-    align-self: start;
+  .slide.active { opacity: 1; z-index: 2; }
+  .slide.prev   { opacity: 0; z-index: 1; }
+
+  .slide img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
   }
 
-  .hero-headline {
-    grid-column: 1 / -1;
-    align-self: center;
-    padding: 60px 0 40px;
+  /* Dark overlay gradient */
+  .slide::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to right, rgba(12,12,12,0.75) 0%, rgba(12,12,12,0.2) 60%, transparent 100%),
+      linear-gradient(to top, rgba(12,12,12,0.6) 0%, transparent 40%);
   }
 
-  .hero-headline h1 {
-    font-family: var(--serif);
-    font-size: clamp(72px, 12vw, 160px);
-    font-weight: 900;
-    line-height: 0.9;
-    letter-spacing: -0.02em;
-  }
-
-  .hero-headline h1 em {
-    font-style: italic;
-    color: var(--accent);
-  }
-
-  .hero-sub {
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    opacity: 0.5;
-    margin-top: 24px;
+  /* Hero text overlay */
+  .hero-content {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
     display: flex;
-    gap: 32px;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 48px 40px;
+    pointer-events: none;
   }
 
-  .hero-sub span::before {
-    content: '— ';
-    color: var(--accent);
+  .hero-top {
+    position: absolute;
+    top: 60px; left: 40px;
+    right: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
   }
 
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(64px, 10vw, 140px);
+    font-weight: 900;
+    line-height: 0.88;
+    letter-spacing: -0.025em;
+  }
+
+  .hero-name .italic {
+    font-style: italic;
+    font-weight: 300;
+    color: rgba(237,233,224,0.7);
+  }
+
+  .hero-name .outline {
+    -webkit-text-stroke: 1px rgba(237,233,224,0.5);
+    color: transparent;
+  }
+
+  .hero-meta {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 8px;
+  }
+
+  .hero-meta span {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.4;
+    display: block;
+  }
+
+  .hero-meta .available {
+    opacity: 1;
+    color: #2ECC71;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    justify-content: flex-end;
+  }
+
+  .dot-green {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #2ECC71;
+    animation: blink 2.4s ease-in-out infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+  /* Bottom hero area */
   .hero-bottom {
-    grid-column: 1 / -1;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    border-top: 1px solid var(--border);
-    padding-top: 24px;
   }
 
-  .hero-scroll {
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    opacity: 0.35;
+  .hero-tagline {
+    font-size: 10px;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    animation: blink 2s infinite;
+    opacity: 0.5;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .hero-tagline::before {
+    content: '';
+    display: inline-block;
+    width: 28px; height: 1.5px;
+    background: var(--accent);
+    flex-shrink: 0;
   }
 
-  @keyframes blink {
-    0%, 100% { opacity: 0.35; }
-    50% { opacity: 0; }
+  /* Slide counter */
+  .slide-counter {
+    display: flex;
+    align-items: center;
+    gap: 20px;
   }
 
-  .hero-count {
-    font-size: 11px;
-    opacity: 0.35;
+  .counter-text {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    opacity: 0.4;
   }
 
-  /* Big decorative number */
-  .hero-bg-num {
+  .counter-dots {
+    display: flex;
+    gap: 8px;
+  }
+
+  .counter-dot {
+    width: 24px; height: 1.5px;
+    background: rgba(237,233,224,0.25);
+    cursor: pointer;
+    pointer-events: all;
+    transition: background 0.3s;
+  }
+  .counter-dot.active { background: var(--accent); }
+
+  /* Slide caption */
+  .slide-caption {
     position: absolute;
-    right: -40px;
-    bottom: -60px;
-    font-family: var(--serif);
-    font-size: 400px;
-    font-weight: 900;
-    color: transparent;
-    -webkit-text-stroke: 1px var(--muted);
-    line-height: 1;
+    bottom: 48px; right: 40px;
+    z-index: 10;
+    text-align: right;
     pointer-events: none;
-    user-select: none;
+  }
+
+  .caption-project {
+    font-family: var(--serif);
+    font-size: 14px;
+    font-style: italic;
+    opacity: 0.6;
+    margin-bottom: 2px;
+  }
+
+  .caption-tags {
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
     opacity: 0.3;
   }
 
-  /* TICKER */
+  /* Scroll hint */
+  .scroll-cue {
+    position: absolute;
+    bottom: 52px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.25;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    pointer-events: none;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 32px;
+    background: var(--fg);
+    animation: scrollpulse 2s ease-in-out infinite;
+    transform-origin: top;
+  }
+  @keyframes scrollpulse {
+    0%,100%{transform:scaleY(1); opacity:0.25}
+    50%{transform:scaleY(0.4); opacity:0.08}
+  }
+
+  /* ══════════════════════════════════════
+     TICKER
+  ══════════════════════════════════════ */
   .ticker {
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
     overflow: hidden;
     white-space: nowrap;
     padding: 10px 0;
     background: var(--accent);
+    border-top: none;
   }
 
   .ticker-inner {
     display: inline-block;
-    animation: ticker 18s linear infinite;
-    font-size: 11px;
+    animation: tick 20s linear infinite;
+    font-size: 10px;
     font-weight: 700;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--bg);
   }
+  .ticker-inner .sep { margin: 0 28px; opacity: 0.5; }
+  @keyframes tick { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-  .ticker-inner span { margin: 0 40px; }
-  .ticker-inner span::before { content: '✦ '; }
-
-  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-  /* PROJECTS SECTION */
-  .section {
-    padding: 80px 32px;
-  }
-
-  .section-label {
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    opacity: 0.4;
-    margin-bottom: 48px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-  .section-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  .projects-grid {
+  /* ══════════════════════════════════════
+     ABOUT SECTION
+  ══════════════════════════════════════ */
+  .about {
+    padding: 80px 40px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
+    gap: 80px;
+    border-bottom: 1px solid var(--dim);
   }
 
-  .project-card {
-    background: var(--bg);
-    padding: 0;
-    position: relative;
-    overflow: hidden;
-    aspect-ratio: 4/3;
-    cursor: none;
-  }
+  .about-left {}
 
-  .project-card:first-child {
-    grid-column: 1 / -1;
-    aspect-ratio: 16/7;
-  }
-
-  .project-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    filter: grayscale(20%);
-  }
-
-  .project-card:hover .project-img {
-    transform: scale(1.04);
-    filter: grayscale(0%);
-  }
-
-  .project-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, transparent 50%);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 24px;
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-
-  .project-card:hover .project-overlay { opacity: 1; }
-
-  /* Placeholder images using CSS gradients */
-  .project-card:nth-child(1) .project-img-placeholder {
-    width: 100%; height: 100%;
-    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 40%, #1a1a1a 100%);
-    position: relative;
-    overflow: hidden;
-  }
-  .project-card:nth-child(2) .project-img-placeholder {
-    background: linear-gradient(225deg, #1e1a1a 0%, #2d1f1f 50%, #1a1a1a 100%);
-  }
-  .project-card:nth-child(3) .project-img-placeholder {
-    background: linear-gradient(45deg, #1a1e1a 0%, #1f2d1f 50%, #1a1a1a 100%);
-  }
-
-  .img-placeholder {
-    width: 100%; height: 100%;
+  .section-label {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.3;
+    margin-bottom: 32px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    gap: 14px;
   }
-
-  .project-card:hover .img-placeholder { transform: scale(1.04); }
-
-  .img-placeholder-text {
-    font-family: var(--serif);
-    font-size: clamp(40px, 6vw, 80px);
-    font-weight: 900;
-    font-style: italic;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(240,237,230,0.1);
-    user-select: none;
-  }
-
-  /* Grid lines decoration */
-  .img-placeholder::after {
+  .section-label::before {
     content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(240,237,230,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(240,237,230,0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
+    display: inline-block;
+    width: 20px; height: 1px;
+    background: var(--accent);
   }
 
-  .project-info {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    padding: 20px 24px;
-    background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, transparent 100%);
-  }
-
-  .project-num {
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    opacity: 0.4;
-    margin-bottom: 4px;
-  }
-
-  .project-title {
+  .about-h2 {
     font-family: var(--serif);
-    font-size: 22px;
-    font-weight: 700;
-    line-height: 1.1;
-  }
-
-  .project-card:first-child .project-title {
-    font-size: 36px;
-  }
-
-  .project-tags {
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    opacity: 0.5;
-    margin-top: 6px;
-    text-transform: uppercase;
-  }
-
-  /* ABOUT STRIP */
-  .about-strip {
-    border-top: 1px solid var(--border);
-    padding: 80px 32px;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 80px;
-    align-items: start;
-  }
-
-  .about-left h2 {
-    font-family: var(--serif);
-    font-size: clamp(48px, 6vw, 72px);
+    font-size: clamp(40px, 5vw, 64px);
     font-weight: 900;
-    font-style: italic;
-    line-height: 0.95;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
   }
 
-  .about-left h2 em {
-    font-style: normal;
+  .about-h2 em {
+    font-style: italic;
+    font-weight: 300;
     -webkit-text-stroke: 1px var(--fg);
     color: transparent;
   }
 
-  .about-right {
-    padding-top: 8px;
+  .about-text {
+    font-size: 13px;
+    line-height: 1.9;
+    opacity: 0.55;
+    max-width: 480px;
   }
 
-  .about-right p {
-    font-size: 14px;
-    line-height: 1.8;
-    opacity: 0.7;
-    max-width: 560px;
-    margin-bottom: 32px;
+  .about-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: 40px;
   }
+
+  .services-list {}
+
+  .service-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--dim);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+    cursor: default;
+  }
+  .service-item:first-child { border-top: 1px solid var(--dim); }
+  .service-item:hover { opacity: 1; }
+
+  .service-arrow { color: var(--accent); font-size: 14px; }
 
   .about-stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
-    border-top: 1px solid var(--border);
+    gap: 0;
+    border-top: 1px solid var(--dim);
+    margin-top: 40px;
     padding-top: 32px;
-    margin-top: 32px;
   }
+
+  .stat { border-right: 1px solid var(--dim); padding-right: 24px; }
+  .stat:last-child { border-right: none; padding-right: 0; padding-left: 24px; }
+  .stat:nth-child(2) { padding: 0 24px; }
 
   .stat-num {
     font-family: var(--serif);
-    font-size: 48px;
+    font-size: 44px;
     font-weight: 900;
     color: var(--accent);
     line-height: 1;
   }
 
   .stat-label {
-    font-size: 10px;
-    letter-spacing: 0.15em;
+    font-size: 9px;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    opacity: 0.4;
+    opacity: 0.3;
     margin-top: 4px;
   }
 
-  /* CONTACT */
+  /* ══════════════════════════════════════
+     CONTACT
+  ══════════════════════════════════════ */
   .contact {
-    border-top: 1px solid var(--border);
-    padding: 80px 32px;
+    padding: 80px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-
-  .contact-headline {
-    font-family: var(--serif);
-    font-size: clamp(48px, 8vw, 100px);
-    font-weight: 900;
-    font-style: italic;
-    line-height: 0.9;
-  }
-
-  .contact-headline a {
-    color: var(--accent);
-    text-decoration: none;
-    border-bottom: 2px solid var(--accent);
-  }
-
-  .contact-meta {
-    text-align: right;
-    opacity: 0.4;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    line-height: 2;
-    text-transform: uppercase;
-  }
-
-  /* FOOTER */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 20px 32px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    opacity: 0.3;
-    text-transform: uppercase;
-  }
-
-  /* SCROLL REVEAL */
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .reveal-delay-1 { transition-delay: 0.1s; }
-  .reveal-delay-2 { transition-delay: 0.2s; }
-  .reveal-delay-3 { transition-delay: 0.3s; }
-
-  /* Accent line decoration */
-  .accent-line {
-    display: inline-block;
-    width: 32px;
-    height: 2px;
-    background: var(--accent);
-    vertical-align: middle;
-    margin-right: 12px;
-  }
-
-  /* LAB TEASER */
-  .lab-teaser {
-    border-top: 1px solid var(--border);
-    padding: 60px 32px;
-    background: #0f0f0f;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    border-bottom: 1px solid var(--dim);
     gap: 40px;
   }
 
-  .lab-label {
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 8px;
-  }
-
-  .lab-title {
+  .contact-h2 {
     font-family: var(--serif);
-    font-size: 36px;
-    font-weight: 700;
+    font-size: clamp(48px, 7vw, 96px);
+    font-weight: 900;
     font-style: italic;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
   }
 
-  .lab-desc {
-    font-size: 12px;
-    opacity: 0.5;
-    margin-top: 8px;
-    max-width: 400px;
-    line-height: 1.7;
-  }
-
-  .lab-link {
-    display: inline-block;
-    padding: 14px 28px;
-    border: 1px solid var(--fg);
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--fg);
+  .contact-h2 a {
+    color: var(--accent);
     text-decoration: none;
-    white-space: nowrap;
-    transition: background 0.2s, color 0.2s;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 2px;
+  }
+
+  .contact-details {
+    text-align: right;
+    opacity: 0.4;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    line-height: 2.2;
+    text-transform: uppercase;
     flex-shrink: 0;
   }
-  .lab-link:hover {
-    background: var(--fg);
-    color: var(--bg);
+
+  .contact-details a {
+    color: var(--fg);
+    text-decoration: none;
+    opacity: 1;
+    border-bottom: 1px solid var(--dim);
   }
+
+  /* ══════════════════════════════════════
+     FOOTER
+  ══════════════════════════════════════ */
+  footer {
+    padding: 16px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.2;
+  }
+
+  /* REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-d1 { transition-delay: 0.1s; }
+  .reveal-d2 { transition-delay: 0.2s; }
 </style>
 </head>
 <body>
@@ -558,170 +505,207 @@
 <div id="cursor"></div>
 
 <nav>
-  <a href="#" class="nav-logo">PR / Portfolio</a>
+  <a href="#" class="nav-logo">Pedro Rodrigues</a>
   <ul class="nav-links">
-    <li><a href="#">Work</a></li>
-    <li><a href="#">About</a></li>
-    <li><a href="#">Lab</a></li>
-    <li><a href="#">Contact</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
-<section class="hero">
-  <span class="hero-index">— 001</span>
-  <span class="hero-status">Hamburg, DE ✦ Available</span>
+<!-- ══ HERO SLIDESHOW ══ -->
+<section class="hero" id="work">
 
-  <div class="hero-headline">
-    <h1>Pedro<br>Ro<em>dri</em>gues</h1>
-    <div class="hero-sub">
-      <span>Retoucher</span>
-      <span>Photoshop Artist</span>
-      <span>Hamburg</span>
+  <!-- Slides -->
+  <div class="slide active" data-caption="Porsche Macan" data-tags="Compositing · CGI · Color">
+    <img src="M33_inside_tattoo_studio_single_static_wf09_RGB.jpg" alt="Porsche Macan Beijing">
+  </div>
+  <div class="slide" data-caption="VW ID. Series" data-tags="Interior · People · Retouch">
+    <img src="IC1045_wf03_lay.jpg" alt="VW ID Interior">
+  </div>
+  <div class="slide" data-caption="VW Golf GTI" data-tags="Lifestyle · Campaign · Color">
+    <img src="GL6234_Freestyle_0242_wf03_lay.jpg" alt="VW Golf GTI Campaign">
+  </div>
+  <div class="slide" data-caption="VW Purpose" data-tags="Editorial · People · Grading">
+    <img src="WV_Purpose_T1M3_0472.jpg" alt="VW Purpose Campaign">
+  </div>
+  <div class="slide" data-caption="VW Golf" data-tags="Lifestyle · Compositing · Retouch">
+    <img src="GL6270_People_0530_wf04_lay.jpg" alt="VW Golf Lifestyle">
+  </div>
+
+  <!-- Content overlay -->
+  <div class="hero-content">
+    <div class="hero-top">
+      <h1 class="hero-name">
+        Pe<span class="italic">dro</span><br>
+        <span class="outline">Ro</span>dri<br>
+        gues
+      </h1>
+      <div class="hero-meta">
+        <span>Hamburg, DE</span>
+        <span>Retouch Artist</span>
+        <span>Photoshop Artist</span>
+        <span class="available"><span class="dot-green"></span>Available</span>
+      </div>
+    </div>
+
+    <div class="hero-bottom">
+      <div class="hero-tagline">Automotive · Lifestyle · People · CGI</div>
+      <div class="slide-counter">
+        <span class="counter-text" id="counter-text">01 / 05</span>
+        <div class="counter-dots" id="counter-dots">
+          <div class="counter-dot active" data-index="0"></div>
+          <div class="counter-dot" data-index="1"></div>
+          <div class="counter-dot" data-index="2"></div>
+          <div class="counter-dot" data-index="3"></div>
+          <div class="counter-dot" data-index="4"></div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="hero-bottom">
-    <span class="hero-scroll">↓ Scroll</span>
-    <span class="hero-count">rodrigues.de — 2026</span>
+  <!-- Caption -->
+  <div class="slide-caption">
+    <div class="caption-project" id="caption-project">Porsche Macan</div>
+    <div class="caption-tags" id="caption-tags">Compositing · CGI · Color</div>
   </div>
 
-  <div class="hero-bg-num" aria-hidden="true">01</div>
+  <!-- Scroll cue -->
+  <div class="scroll-cue">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+
 </section>
 
+<!-- TICKER -->
 <div class="ticker">
   <div class="ticker-inner">
-    <span>Image Retouching</span>
-    <span>Photoshop Artist</span>
-    <span>Compositing</span>
-    <span>Color Grading</span>
-    <span>Hamburg</span>
-    <span>Hogarth Worldwide</span>
-    <span>Advertising</span>
-    <span>Editorial</span>
-    <span>Image Retouching</span>
-    <span>Photoshop Artist</span>
-    <span>Compositing</span>
-    <span>Color Grading</span>
-    <span>Hamburg</span>
-    <span>Hogarth Worldwide</span>
-    <span>Advertising</span>
-    <span>Editorial</span>
+    Image Retouching <span class="sep">✦</span>
+    Photoshop Artist <span class="sep">✦</span>
+    Automotive CGI <span class="sep">✦</span>
+    Compositing <span class="sep">✦</span>
+    Color Grading <span class="sep">✦</span>
+    Look Development <span class="sep">✦</span>
+    Lifestyle Campaigns <span class="sep">✦</span>
+    Hamburg, Germany <span class="sep">✦</span>
+    Image Retouching <span class="sep">✦</span>
+    Photoshop Artist <span class="sep">✦</span>
+    Automotive CGI <span class="sep">✦</span>
+    Compositing <span class="sep">✦</span>
+    Color Grading <span class="sep">✦</span>
+    Look Development <span class="sep">✦</span>
+    Lifestyle Campaigns <span class="sep">✦</span>
+    Hamburg, Germany <span class="sep">✦</span>
   </div>
 </div>
 
-<section class="section">
-  <div class="section-label reveal">Selected Work — 2024/2026</div>
-
-  <div class="projects-grid">
-    <!-- Featured project -->
-    <div class="project-card reveal">
-      <div class="img-placeholder" style="background: linear-gradient(135deg, #1a1a1a 0%, #2a1f1a 40%, #1a1a1a 100%);">
-        <span class="img-placeholder-text">Campaign</span>
-      </div>
-      <div class="project-info">
-        <div class="project-num">001</div>
-        <div class="project-title">Automotive Campaign</div>
-        <div class="project-tags">Compositing · Color · Retouching</div>
-      </div>
-      <div class="project-overlay"></div>
-    </div>
-
-    <div class="project-card reveal reveal-delay-1">
-      <div class="img-placeholder" style="background: linear-gradient(225deg, #1a1a1f 0%, #1a1a2d 50%, #1a1a1a 100%);">
-        <span class="img-placeholder-text">Beauty</span>
-      </div>
-      <div class="project-info">
-        <div class="project-num">002</div>
-        <div class="project-title">Beauty Editorial</div>
-        <div class="project-tags">Skin Retouch · Hair · Shadow</div>
-      </div>
-    </div>
-
-    <div class="project-card reveal reveal-delay-2">
-      <div class="img-placeholder" style="background: linear-gradient(45deg, #1a1f1a 0%, #1f2d1a 50%, #1a1a1a 100%);">
-        <span class="img-placeholder-text">Product</span>
-      </div>
-      <div class="project-info">
-        <div class="project-num">003</div>
-        <div class="project-title">Product Packshot</div>
-        <div class="project-tags">CGI · Masking · Grading</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="lab-teaser reveal">
-  <div>
-    <div class="lab-label">Experimental</div>
-    <div class="lab-title">The Lab</div>
-    <div class="lab-desc">Weekly style experiments. Each week: a new aesthetic direction. Current: AOL/Geocities '99 Nostalgia.</div>
-  </div>
-  <a href="/lab/" class="lab-link">Enter Lab →</a>
-</div>
-
-<div class="about-strip">
+<!-- ABOUT -->
+<section class="about" id="about">
   <div class="about-left reveal">
-    <h2>About<br><em>Me</em></h2>
+    <div class="section-label">About</div>
+    <h2 class="about-h2">Image<br>Retouching<br><em>— done right.</em></h2>
+    <p class="about-text">Freelance Retouch Artist and Photoshop Artist based in Hamburg. Specialized in high-end image retouching and compositing for advertising and agency clients. From technical pre-production to final post — delivering at the highest quality level.<br><br>Full portfolio available on request.</p>
   </div>
-  <div class="about-right reveal reveal-delay-1">
-    <p>Freelance Retoucher und Photoshop Artist based in Hamburg. Spezialisiert auf High-End Image Retouching für Werbe- und Agenturkunden. Arbeit primär für Hogarth Worldwide und internationale Produktionskunden.</p>
-    <p>Pixel-genaue Ausführung, konsequente Qualität, schnelle Lieferung.</p>
+  <div class="about-right reveal reveal-d1">
+    <div class="services-list">
+      <div class="service-item">Image Retouching <span class="service-arrow">→</span></div>
+      <div class="service-item">Compositing &amp; CGI Integration <span class="service-arrow">→</span></div>
+      <div class="service-item">Color Grading <span class="service-arrow">→</span></div>
+      <div class="service-item">Look Development <span class="service-arrow">→</span></div>
+      <div class="service-item">Automotive / Lifestyle Campaigns <span class="service-arrow">→</span></div>
+      <div class="service-item">People &amp; Beauty Retouching <span class="service-arrow">→</span></div>
+    </div>
     <div class="about-stats">
-      <div>
+      <div class="stat">
         <div class="stat-num">10+</div>
-        <div class="stat-label">Years Experience</div>
+        <div class="stat-label">Years</div>
       </div>
-      <div>
+      <div class="stat">
         <div class="stat-num">400+</div>
         <div class="stat-label">Projects</div>
       </div>
-      <div>
+      <div class="stat">
         <div class="stat-num">HH</div>
-        <div class="stat-label">Based Hamburg</div>
+        <div class="stat-label">Hamburg</div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<div class="contact">
-  <div class="contact-headline reveal">
+<!-- CONTACT -->
+<section class="contact reveal" id="contact">
+  <div class="contact-h2">
     Let's<br><a href="mailto:pedro@rodrigues.de">work.</a>
   </div>
-  <div class="contact-meta reveal reveal-delay-1">
-    pedro@rodrigues.de<br>
+  <div class="contact-details">
+    <a href="mailto:pedro@rodrigues.de">pedro@rodrigues.de</a><br>
     Hamburg, Germany<br>
-    Available for Projects<br>
-    DE / EN
+    DE / EN / PT<br>
+    Available for Projects
   </div>
-</div>
+</section>
 
 <footer>
   <span>© 2026 Pedro Rodrigues</span>
-  <span>Retoucher & Photoshop Artist</span>
+  <span>Retouch Artist · Photoshop Artist</span>
   <span>rodrigues.de</span>
 </footer>
 
 <script>
-  // Custom cursor
+  // Cursor
   const cursor = document.getElementById('cursor');
   document.addEventListener('mousemove', e => {
     cursor.style.left = e.clientX + 'px';
     cursor.style.top = e.clientY + 'px';
   });
-  document.querySelectorAll('a, .project-card, button').forEach(el => {
+  document.querySelectorAll('a, .counter-dot').forEach(el => {
     el.addEventListener('mouseenter', () => cursor.classList.add('big'));
     el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
   });
 
+  // Slideshow
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.counter-dot');
+  const counterText = document.getElementById('counter-text');
+  const captionProject = document.getElementById('caption-project');
+  const captionTags = document.getElementById('caption-tags');
+  let current = 0;
+  let timer;
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+    counterText.textContent = String(current + 1).padStart(2,'0') + ' / ' + String(slides.length).padStart(2,'0');
+    captionProject.textContent = slides[current].dataset.caption;
+    captionTags.textContent = slides[current].dataset.tags;
+  }
+
+  function next() { goTo(current + 1); }
+
+  function startTimer() {
+    clearInterval(timer);
+    timer = setInterval(next, 5000);
+  }
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      goTo(parseInt(dot.dataset.index));
+      startTimer();
+    });
+  });
+
+  startTimer();
+
   // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
   reveals.forEach(el => observer.observe(el));
-
-  // Hero immediately visible
-  document.querySelectorAll('.hero .reveal, .hero-headline').forEach(el => el.classList.add('visible'));
 </script>
 </body>
 </html>
