@@ -4,90 +4,245 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pedro Rodrigues</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  @font-face {
-    font-family: 'Reglisse';
-    src: url('Reglisse.otf') format('opentype');
-  }
+  @font-face { font-family: 'Reglisse'; src: url('Reglisse.otf') format('opentype'); }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --yellow: #FFE600; --red: #FF1F1F; --blue: #0040FF;
-    --green: #00C853; --pink: #FF3DCC; --black: #111111; --white: #FFFEF0;
-    --r: 'Reglisse', cursive; --body: 'DM Sans', sans-serif;
+    --y: #FFE600; --r: #FF1F1F; --b: #0040FF;
+    --g: #00C853; --p: #FF3DCC; --k: #111111; --w: #FFFEF0;
   }
   html { cursor: none; }
-  body { background: var(--yellow); color: var(--black); font-family: var(--body); overflow-x: hidden; }
-  #cursor { position: fixed; width: 18px; height: 18px; background: var(--red); border: 3px solid var(--black); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width .15s, height .15s, background .15s; }
-  #cursor.big { width: 52px; height: 52px; background: var(--blue); }
-  body::before { content: ''; position: fixed; inset: 0; background-image: radial-gradient(circle, rgba(0,0,0,0.09) 1.5px, transparent 1.5px); background-size: 22px 22px; pointer-events: none; z-index: 0; }
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: var(--black); height: 52px; display: flex; justify-content: space-between; align-items: center; padding: 0 32px; border-bottom: 4px solid var(--black); }
-  .nav-logo { font-family: var(--r); font-size: 22px; color: var(--yellow); text-decoration: none; }
+  body { background: var(--k); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+
+  /* CURSOR */
+  #cursor { position: fixed; width: 16px; height: 16px; background: var(--r); border: 3px solid var(--w); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width .15s, height .15s; }
+  #cursor.big { width: 48px; height: 48px; background: var(--y); }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: var(--k); height: 52px; display: flex; justify-content: space-between; align-items: center; padding: 0 32px; border-bottom: 3px solid var(--y); }
+  .nav-logo { font-family: 'Reglisse', cursive; font-size: 20px; color: var(--y); text-decoration: none; }
   .nav-links { display: flex; list-style: none; }
-  .nav-links a { display: block; padding: 0 22px; height: 52px; line-height: 52px; font-family: var(--r); font-size: 16px; color: var(--white); text-decoration: none; transition: background .1s, color .1s; }
-  .nav-links a:hover { background: var(--yellow); color: var(--black); }
-  .hero { min-height: 100vh; padding-top: 52px; display: grid; grid-template-columns: 1fr 1fr; position: relative; overflow: hidden; }
-  .hero-left { padding: 56px 40px 56px 48px; display: flex; flex-direction: column; justify-content: center; background: var(--yellow); border-right: 5px solid var(--black); position: relative; z-index: 2; }
-  .eyebrow { display: inline-block; background: var(--black); color: var(--yellow); font-family: var(--r); font-size: 13px; padding: 6px 18px; margin-bottom: 28px; transform: rotate(-1.5deg); width: fit-content; }
-  .hero-name { font-family: var(--r); font-size: clamp(72px,10vw,128px); line-height: 0.92; margin-bottom: 16px; }
-  .name-w { display: block; color: var(--white); -webkit-text-stroke: 4px var(--black); paint-order: stroke fill; filter: drop-shadow(5px 5px 0 rgba(0,0,0,0.2)); }
-  .name-r { display: block; color: var(--red); -webkit-text-stroke: 4px var(--black); paint-order: stroke fill; filter: drop-shadow(5px 5px 0 rgba(0,0,0,0.2)); }
-  .tagline { font-family: var(--r); font-size: 20px; color: var(--black); margin-bottom: 36px; }
-  .btns { display: flex; gap: 14px; flex-wrap: wrap; }
-  .btn { display: inline-block; font-family: var(--r); font-size: 18px; padding: 14px 34px; border: 4px solid var(--black); text-decoration: none; box-shadow: 5px 5px 0 var(--black); transition: transform .1s, box-shadow .1s; cursor: none; }
-  .btn:hover { transform: translate(-3px,-3px); box-shadow: 8px 8px 0 var(--black); }
-  .btn-red { background: var(--red); color: var(--white); }
-  .btn-wh { background: var(--white); color: var(--black); }
-  .sticker { position: absolute; font-family: var(--r); border: 4px solid var(--black); padding: 8px 16px; font-size: 13px; box-shadow: 4px 4px 0 var(--black); pointer-events: none; }
-  .st-avail { bottom: 52px; left: 48px; background: var(--green); transform: rotate(2deg); }
-  .st-lang { top: 24px; right: 20px; background: var(--pink); transform: rotate(-2.5deg); font-size: 11px; }
-  .hero-right { position: relative; overflow: hidden; background: var(--black); }
-  .slide { position: absolute; inset: 0; opacity: 0; transition: opacity .9s ease; }
-  .slide.active { opacity: 1; }
-  .slide img { width: 100%; height: 100%; object-fit: cover; }
-  .pow { position: absolute; top: 16px; left: 16px; z-index: 10; font-family: var(--r); font-size: 52px; color: var(--yellow); -webkit-text-stroke: 3px var(--black); paint-order: stroke fill; filter: drop-shadow(4px 4px 0 rgba(0,0,0,0.3)); animation: wobble 3s ease-in-out infinite; pointer-events: none; }
-  @keyframes wobble { 0%,100%{transform:rotate(-5deg) scale(1)} 50%{transform:rotate(5deg) scale(1.08)} }
-  .slide-bar { position: absolute; bottom: 0; left: 0; right: 0; z-index: 5; background: var(--yellow); border-top: 4px solid var(--black); padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; }
-  .slide-title-el { font-family: var(--r); font-size: 16px; color: var(--black); }
-  .dots { display: flex; gap: 10px; }
-  .dot { width: 14px; height: 14px; border-radius: 50%; border: 3px solid var(--black); background: transparent; cursor: none; transition: background .2s; }
-  .dot.active { background: var(--black); }
-  .ticker { background: var(--red); border-top: 4px solid var(--black); border-bottom: 4px solid var(--black); overflow: hidden; white-space: nowrap; padding: 10px 0; position: relative; z-index: 2; }
-  .ticker-inner { display: inline-block; animation: tick 18s linear infinite; font-family: var(--r); font-size: 20px; color: var(--white); }
-  .ticker-inner .sep { margin: 0 24px; color: var(--yellow); }
+  .nav-links a { display: block; padding: 0 20px; height: 52px; line-height: 52px; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,254,240,0.5); text-decoration: none; transition: color .15s; }
+  .nav-links a:hover { color: var(--y); }
+
+  /* HERO — fullscreen with image bg */
+  .hero {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* Slideshow fills entire hero */
+  .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1s ease; z-index: 1; }
+  .slide.active { opacity: 1; z-index: 2; }
+  .slide img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+
+  /* Dark overlay so text is readable */
+  .hero-overlay {
+    position: absolute; inset: 0; z-index: 3;
+    background: linear-gradient(
+      to right,
+      rgba(17,17,17,0.88) 0%,
+      rgba(17,17,17,0.6) 45%,
+      rgba(17,17,17,0.1) 100%
+    );
+  }
+
+  /* Halftone on top of overlay */
+  .hero-halftone {
+    position: absolute; inset: 0; z-index: 4;
+    background-image: radial-gradient(circle, rgba(255,230,0,0.07) 1.5px, transparent 1.5px);
+    background-size: 22px 22px;
+    pointer-events: none;
+  }
+
+  /* Content over everything */
+  .hero-content {
+    position: absolute; inset: 0; z-index: 5;
+    padding: 52px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 56px;
+    padding-bottom: 80px;
+  }
+
+  .eyebrow {
+    display: inline-block;
+    background: var(--y);
+    color: var(--k);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    margin-bottom: 24px;
+    width: fit-content;
+    transform: rotate(-1deg);
+    border: 3px solid var(--k);
+    box-shadow: 3px 3px 0 var(--k);
+  }
+
+  .hero-name {
+    font-family: 'Reglisse', cursive;
+    font-size: clamp(80px, 12vw, 160px);
+    line-height: 0.88;
+    margin-bottom: 20px;
+    max-width: 60vw;
+  }
+
+  .name-pedro {
+    display: block;
+    color: var(--w);
+    -webkit-text-stroke: 0px;
+    text-shadow:
+      3px 3px 0 var(--k),
+      -2px -2px 0 var(--k),
+      2px -2px 0 var(--k),
+      -2px 2px 0 var(--k),
+      6px 6px 0 rgba(0,0,0,0.4);
+  }
+
+  .name-rodrigues {
+    display: block;
+    color: var(--r);
+    text-shadow:
+      3px 3px 0 var(--k),
+      -2px -2px 0 var(--k),
+      2px -2px 0 var(--k),
+      -2px 2px 0 var(--k),
+      6px 6px 0 rgba(0,0,0,0.4);
+  }
+
+  .hero-sub {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: rgba(255,254,240,0.55);
+    margin-bottom: 36px;
+  }
+
+  .hero-btns { display: flex; gap: 14px; }
+
+  .btn {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    border: 3px solid var(--w);
+    text-decoration: none;
+    box-shadow: 4px 4px 0 rgba(255,255,255,0.3);
+    transition: transform .1s, box-shadow .1s;
+    cursor: none;
+  }
+  .btn:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 rgba(255,255,255,0.3); }
+  .btn-red { background: var(--r); color: var(--w); border-color: var(--r); box-shadow: 4px 4px 0 rgba(0,0,0,0.4); }
+  .btn-red:hover { box-shadow: 6px 6px 0 rgba(0,0,0,0.4); }
+  .btn-outline { background: transparent; color: var(--w); }
+
+  /* Bottom bar */
+  .hero-bottom {
+    position: absolute;
+    bottom: 0; left: 0; right: 0; z-index: 5;
+    background: var(--y);
+    border-top: 3px solid var(--k);
+    padding: 12px 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .slide-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    color: var(--k);
+  }
+
+  .slide-dots { display: flex; gap: 8px; align-items: center; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; border: 2.5px solid var(--k); background: transparent; cursor: none; transition: background .2s; }
+  .dot.active { background: var(--k); }
+
+  .available-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--k);
+  }
+  .green-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--g); border: 2px solid var(--k); animation: blink 2s ease-in-out infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+  /* POW sticker */
+  .pow {
+    position: absolute;
+    top: 70px; right: 40px;
+    z-index: 6;
+    font-family: 'Reglisse', cursive;
+    font-size: 64px;
+    color: var(--y);
+    text-shadow: 3px 3px 0 var(--k), -2px -2px 0 var(--k), 2px -2px 0 var(--k), -2px 2px 0 var(--k), 6px 6px 0 rgba(0,0,0,0.3);
+    animation: wobble 3s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes wobble { 0%,100%{transform:rotate(-6deg) scale(1)} 50%{transform:rotate(6deg) scale(1.1)} }
+
+  /* TICKER */
+  .ticker { background: var(--r); border-top: 3px solid var(--k); border-bottom: 3px solid var(--k); overflow: hidden; white-space: nowrap; padding: 9px 0; }
+  .ticker-inner { display: inline-block; animation: tick 20s linear infinite; font-size: 14px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--w); }
+  .ticker-inner .sep { margin: 0 24px; color: var(--y); }
   @keyframes tick { from{transform:translateX(0)} to{transform:translateX(-50%)} }
-  .about { display: grid; grid-template-columns: 1fr 1fr; border-top: 5px solid var(--black); }
-  .about-left { padding: 64px 48px; background: var(--blue); border-right: 5px solid var(--black); }
-  .about-big { font-family: var(--r); font-size: clamp(40px,5.5vw,72px); color: var(--white); -webkit-text-stroke: 2px var(--black); paint-order: stroke fill; line-height: 1.0; margin-bottom: 28px; filter: drop-shadow(4px 4px 0 rgba(0,0,0,0.2)); }
-  .about-text { font-size: 15px; line-height: 1.85; color: rgba(255,254,240,0.85); max-width: 400px; }
-  .about-right { padding: 64px 48px; background: var(--white); }
-  .srv-title { font-family: var(--r); font-size: 30px; color: var(--black); margin-bottom: 20px; }
+
+  /* ABOUT */
+  .about { display: grid; grid-template-columns: 1fr 1fr; }
+
+  .about-left { padding: 64px 56px; background: var(--b); border-right: 3px solid var(--k); }
+  .about-big { font-family: 'Reglisse', cursive; font-size: clamp(44px,5.5vw,72px); color: var(--w); text-shadow: 3px 3px 0 var(--k), -1px -1px 0 var(--k); line-height: 1.0; margin-bottom: 28px; }
+  .about-text { font-size: 15px; line-height: 1.85; color: rgba(255,254,240,0.8); max-width: 400px; }
+
+  .about-right { padding: 64px 56px; background: var(--w); }
+  .srv-title { font-family: 'Reglisse', cursive; font-size: 28px; color: var(--k); margin-bottom: 20px; text-shadow: 2px 2px 0 rgba(0,0,0,0.15); }
+
   .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 40px; }
-  .tag { display: inline-block; font-family: var(--r); font-size: 14px; padding: 7px 18px; border: 3px solid var(--black); box-shadow: 3px 3px 0 var(--black); transition: transform .1s; cursor: default; }
+  .tag { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 7px 16px; border: 2.5px solid var(--k); box-shadow: 3px 3px 0 var(--k); transition: transform .1s; cursor: default; }
   .tag:hover { transform: translate(-2px,-2px); }
-  .t-red{background:var(--red);color:var(--white)} .t-yellow{background:var(--yellow);color:var(--black)} .t-blue{background:var(--blue);color:var(--white)} .t-green{background:var(--green);color:var(--black)} .t-pink{background:var(--pink);color:var(--white)} .t-black{background:var(--black);color:var(--white)}
-  .stats { display: flex; border: 4px solid var(--black); box-shadow: 5px 5px 0 var(--black); }
-  .stat-box { flex: 1; padding: 20px 16px; border-right: 4px solid var(--black); text-align: center; }
+  .t-r{background:var(--r);color:var(--w)} .t-y{background:var(--y);color:var(--k)} .t-b{background:var(--b);color:var(--w)} .t-g{background:var(--g);color:var(--k)} .t-p{background:var(--p);color:var(--w)} .t-k{background:var(--k);color:var(--w)}
+
+  .stats { display: flex; border: 3px solid var(--k); box-shadow: 5px 5px 0 var(--k); }
+  .stat-box { flex: 1; padding: 20px 16px; text-align: center; border-right: 3px solid var(--k); }
   .stat-box:last-child { border-right: none; }
-  .stat-box:nth-child(1){background:var(--yellow)} .stat-box:nth-child(2){background:var(--red)} .stat-box:nth-child(3){background:var(--white)}
-  .stat-num { font-family: var(--r); font-size: 44px; color: var(--black); line-height: 1; display: block; }
-  .stat-box:nth-child(2) .stat-num { color: var(--white); }
-  .stat-label { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--black); opacity: .55; margin-top: 4px; display: block; }
-  .stat-box:nth-child(2) .stat-label { color: rgba(255,254,240,.7); }
-  .contact { background: var(--black); border-top: 5px solid var(--black); padding: 80px 48px; display: flex; justify-content: space-between; align-items: center; gap: 40px; position: relative; overflow: hidden; }
-  .contact::before { content: '!'; position: absolute; right: -20px; top: -80px; font-family: var(--r); font-size: 500px; color: rgba(255,230,0,0.04); pointer-events: none; line-height: 1; }
-  .contact-h2 { font-family: var(--r); font-size: clamp(56px,9vw,112px); line-height: 0.9; color: var(--yellow); filter: drop-shadow(5px 5px 0 var(--red)); }
-  .contact-email { display: inline-block; margin-top: 16px; font-family: var(--r); font-size: 22px; color: var(--white); text-decoration: none; border-bottom: 3px solid var(--red); padding-bottom: 2px; transition: color .2s; }
-  .contact-email:hover { color: var(--yellow); }
-  .contact-detail { font-family: var(--r); font-size: 15px; color: rgba(255,254,240,0.4); line-height: 2; text-align: right; }
-  footer { background: var(--yellow); border-top: 4px solid var(--black); padding: 14px 48px; display: flex; justify-content: space-between; font-family: var(--r); font-size: 13px; color: var(--black); }
+  .stat-box:nth-child(1){background:var(--y)} .stat-box:nth-child(2){background:var(--r)} .stat-box:nth-child(3){background:var(--w)}
+  .stat-n { font-family: 'Reglisse', cursive; font-size: 44px; color: var(--k); line-height: 1; display: block; text-shadow: 2px 2px 0 rgba(0,0,0,0.15); }
+  .stat-box:nth-child(2) .stat-n { color: var(--w); }
+  .stat-l { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--k); opacity: .5; margin-top: 4px; display: block; }
+  .stat-box:nth-child(2) .stat-l { color: rgba(255,254,240,.6); }
+
+  /* CONTACT */
+  .contact { background: var(--k); padding: 80px 56px; display: flex; justify-content: space-between; align-items: center; gap: 40px; border-top: 3px solid var(--y); position: relative; overflow: hidden; }
+  .contact::before { content: '★'; position: absolute; right: -40px; bottom: -80px; font-family: 'Reglisse', cursive; font-size: 400px; color: rgba(255,230,0,0.04); pointer-events: none; line-height: 1; }
+  .contact-h2 { font-family: 'Reglisse', cursive; font-size: clamp(56px,8vw,100px); line-height: 0.9; color: var(--y); text-shadow: 4px 4px 0 var(--r); }
+  .contact-email { display: inline-block; margin-top: 16px; font-size: 16px; font-weight: 700; letter-spacing: .06em; color: var(--w); text-decoration: none; border-bottom: 2px solid var(--r); padding-bottom: 2px; transition: color .2s; }
+  .contact-email:hover { color: var(--y); }
+  .contact-detail { font-size: 13px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,254,240,0.35); line-height: 2.2; text-align: right; }
+
+  footer { background: var(--y); border-top: 3px solid var(--k); padding: 12px 56px; display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--k); }
+
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s, transform .65s; }
   .reveal.visible { opacity: 1; transform: none; }
-  .rd1 { transition-delay: .1s; }
+  .rd1 { transition-delay: .12s; }
 </style>
 </head>
 <body>
 <div id="cursor"></div>
+
 <nav>
   <a href="#" class="nav-logo">Pedro Rodrigues</a>
   <ul class="nav-links">
@@ -96,45 +251,52 @@
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
+
 <section class="hero" id="work">
-  <div class="hero-left">
+  <!-- Slideshow BG -->
+  <div class="slide active" data-title="Porsche Macan — Compositing"><img src="M33_inside_tattoo_studio_single_static_wf09_RGB.jpg" alt=""></div>
+  <div class="slide" data-title="VW ID. — Interior Retouch"><img src="IC1045_wf03_lay.jpg" alt=""></div>
+  <div class="slide" data-title="VW Golf GTI — Lifestyle Campaign"><img src="GL6234_Freestyle_0242_wf03_lay.jpg" alt=""></div>
+  <div class="slide" data-title="VW Purpose — Editorial"><img src="WV_Purpose_T1M3_0472.jpg" alt=""></div>
+  <div class="slide" data-title="VW Golf — People &amp; Lifestyle"><img src="GL6270_People_0530_wf04_lay.jpg" alt=""></div>
+
+  <div class="hero-overlay"></div>
+  <div class="hero-halftone"></div>
+
+  <div class="hero-content">
     <div class="eyebrow">★ Hamburg, Germany ★</div>
     <h1 class="hero-name">
-      <span class="name-w">Pedro</span>
-      <span class="name-r">Rodrigues</span>
+      <span class="name-pedro">Pedro</span>
+      <span class="name-rodrigues">Rodrigues</span>
     </h1>
-    <p class="tagline">Retouch Artist &amp; Photoshop Artist</p>
-    <div class="btns">
+    <p class="hero-sub">Retouch Artist &amp; Photoshop Artist</p>
+    <div class="hero-btns">
       <a href="#contact" class="btn btn-red">Let's Work!</a>
-      <a href="#about" class="btn btn-wh">About Me</a>
+      <a href="#about" class="btn btn-outline">About Me</a>
     </div>
-    <div class="sticker st-avail">✦ Available Now</div>
   </div>
-  <div class="hero-right">
-    <div class="sticker st-lang">DE / EN / PT</div>
-    <div class="pow">POW!</div>
-    <div class="slide active" data-title="Porsche Macan — Compositing"><img src="M33_inside_tattoo_studio_single_static_wf09_RGB.jpg" alt=""></div>
-    <div class="slide" data-title="VW ID. — Interior Retouch"><img src="IC1045_wf03_lay.jpg" alt=""></div>
-    <div class="slide" data-title="VW Golf GTI — Lifestyle Campaign"><img src="GL6234_Freestyle_0242_wf03_lay.jpg" alt=""></div>
-    <div class="slide" data-title="VW Purpose — Editorial"><img src="WV_Purpose_T1M3_0472.jpg" alt=""></div>
-    <div class="slide" data-title="VW Golf — People & Lifestyle"><img src="GL6270_People_0530_wf04_lay.jpg" alt=""></div>
-    <div class="slide-bar">
-      <span class="slide-title-el" id="slide-title">Porsche Macan — Compositing</span>
-      <div class="dots">
-        <div class="dot active" data-i="0"></div>
-        <div class="dot" data-i="1"></div>
-        <div class="dot" data-i="2"></div>
-        <div class="dot" data-i="3"></div>
-        <div class="dot" data-i="4"></div>
-      </div>
+
+  <div class="pow">POW!</div>
+
+  <div class="hero-bottom">
+    <div class="available-tag"><div class="green-dot"></div>Available for Projects</div>
+    <span class="slide-label" id="slide-label">Porsche Macan — Compositing</span>
+    <div class="slide-dots">
+      <div class="dot active" data-i="0"></div>
+      <div class="dot" data-i="1"></div>
+      <div class="dot" data-i="2"></div>
+      <div class="dot" data-i="3"></div>
+      <div class="dot" data-i="4"></div>
     </div>
   </div>
 </section>
+
 <div class="ticker">
   <div class="ticker-inner">
     Image Retouching <span class="sep">★</span> Photoshop Artist <span class="sep">★</span> Automotive CGI <span class="sep">★</span> Compositing <span class="sep">★</span> Color Grading <span class="sep">★</span> Look Development <span class="sep">★</span> Hamburg <span class="sep">★</span> Available Now <span class="sep">★</span> Image Retouching <span class="sep">★</span> Photoshop Artist <span class="sep">★</span> Automotive CGI <span class="sep">★</span> Compositing <span class="sep">★</span> Color Grading <span class="sep">★</span> Look Development <span class="sep">★</span> Hamburg <span class="sep">★</span> Available Now <span class="sep">★</span>
   </div>
 </div>
+
 <section class="about reveal" id="about">
   <div class="about-left">
     <div class="about-big">High-End<br>Retouch.<br>Done Right.</div>
@@ -143,23 +305,24 @@
   <div class="about-right reveal rd1">
     <div class="srv-title">What I Do</div>
     <div class="tags">
-      <span class="tag t-red">Image Retouching</span>
-      <span class="tag t-yellow">Compositing</span>
-      <span class="tag t-blue">Color Grading</span>
-      <span class="tag t-green">CGI Integration</span>
-      <span class="tag t-pink">Look Development</span>
-      <span class="tag t-black">Automotive</span>
-      <span class="tag t-red">Lifestyle Campaigns</span>
-      <span class="tag t-yellow">Beauty Retouch</span>
-      <span class="tag t-blue">People</span>
+      <span class="tag t-r">Image Retouching</span>
+      <span class="tag t-y">Compositing</span>
+      <span class="tag t-b">Color Grading</span>
+      <span class="tag t-g">CGI Integration</span>
+      <span class="tag t-p">Look Development</span>
+      <span class="tag t-k">Automotive</span>
+      <span class="tag t-r">Lifestyle Campaigns</span>
+      <span class="tag t-y">Beauty Retouch</span>
+      <span class="tag t-b">People</span>
     </div>
     <div class="stats">
-      <div class="stat-box"><span class="stat-num">10+</span><span class="stat-label">Years</span></div>
-      <div class="stat-box"><span class="stat-num">400+</span><span class="stat-label">Projects</span></div>
-      <div class="stat-box"><span class="stat-num">HH</span><span class="stat-label">Hamburg</span></div>
+      <div class="stat-box"><span class="stat-n">10+</span><span class="stat-l">Years</span></div>
+      <div class="stat-box"><span class="stat-n">400+</span><span class="stat-l">Projects</span></div>
+      <div class="stat-box"><span class="stat-n">HH</span><span class="stat-l">Hamburg</span></div>
     </div>
   </div>
 </section>
+
 <section class="contact reveal" id="contact">
   <div>
     <div class="contact-h2">Let's<br>Work!</div>
@@ -167,34 +330,36 @@
   </div>
   <div class="contact-detail">Hamburg, Germany<br>DE / EN / PT<br>Available for Projects</div>
 </section>
+
 <footer>
   <span>© 2026 Pedro Rodrigues</span>
   <span>Retouch Artist · Photoshop Artist</span>
   <span>rodrigues.de</span>
 </footer>
+
 <script>
   const cursor = document.getElementById('cursor');
-  document.addEventListener('mousemove', e => { cursor.style.left = e.clientX+'px'; cursor.style.top = e.clientY+'px'; });
-  document.querySelectorAll('a, .dot').forEach(el => {
+  document.addEventListener('mousemove', e => { cursor.style.left=e.clientX+'px'; cursor.style.top=e.clientY+'px'; });
+  document.querySelectorAll('a,.dot').forEach(el => {
     el.addEventListener('mouseenter', () => cursor.classList.add('big'));
     el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
   });
   const slides = document.querySelectorAll('.slide');
   const dots = document.querySelectorAll('.dot');
-  const titleEl = document.getElementById('slide-title');
+  const labelEl = document.getElementById('slide-label');
   let cur = 0, timer;
   function goTo(n) {
     slides[cur].classList.remove('active'); dots[cur].classList.remove('active');
     cur = (n + slides.length) % slides.length;
     slides[cur].classList.add('active'); dots[cur].classList.add('active');
-    titleEl.textContent = slides[cur].dataset.title;
+    labelEl.textContent = slides[cur].dataset.title;
   }
   dots.forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.i); restart(); }));
   function restart() { clearInterval(timer); timer = setInterval(() => goTo(cur+1), 4500); }
   restart();
-  const reveals = document.querySelectorAll('.reveal');
-  const obs = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), {threshold: 0.1});
-  reveals.forEach(el => obs.observe(el));
+  document.querySelectorAll('.reveal').forEach(el =>
+    new IntersectionObserver(([e]) => { if(e.isIntersecting) el.classList.add('visible'); }, {threshold:.1}).observe(el)
+  );
 </script>
 </body>
 </html>
