@@ -7,6 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   @font-face { font-family: 'Reglisse'; src: url('Reglisse.otf') format('opentype'); }
+  @font-face { font-family: 'ReglisseBack'; src: url('Reglisse_Back.otf') format('opentype'); }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
     --y: #FFE600; --r: #FF1F1F; --b: #0040FF;
@@ -35,8 +36,8 @@
 
   /* LEFT — yellow bg so font renders clean */
   .hero-left {
-    background: var(--y);
-    border-right: 4px solid var(--k);
+    background: var(--k);
+    border-right: 4px solid var(--y);
     padding: 56px 40px 80px 48px;
     display: flex;
     flex-direction: column;
@@ -56,19 +57,19 @@
 
   .eyebrow { display: inline-block; background: var(--k); color: var(--y); font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; padding: 6px 16px; margin-bottom: 24px; width: fit-content; transform: rotate(-1deg); border: 3px solid var(--k); box-shadow: 3px 3px 0 rgba(0,0,0,0.3); }
 
-  .hero-name { font-family: 'Reglisse', cursive; font-size: clamp(72px, 10vw, 132px); line-height: 0.88; margin-bottom: 20px; }
-  .name-pedro { display: block; color: var(--k); }
+  .hero-name { font-family: 'ReglisseBack', cursive; font-size: clamp(72px, 10vw, 132px); line-height: 0.88; margin-bottom: 20px; }
+  .name-pedro { display: block; color: var(--w); }
   .name-rodrigues { display: block; color: var(--r); }
 
-  .hero-sub { font-size: 14px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(17,17,17,0.55); margin-bottom: 36px; }
+  .hero-sub { font-size: 14px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,254,240,0.45); margin-bottom: 36px; }
 
   .hero-btns { display: flex; gap: 14px; }
   .btn { display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 14px 32px; border: 3px solid var(--k); text-decoration: none; box-shadow: 4px 4px 0 var(--k); transition: transform .1s, box-shadow .1s; cursor: none; }
   .btn:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--k); }
   .btn-red { background: var(--r); color: var(--w); }
-  .btn-outline { background: transparent; color: var(--k); }
+  .btn-outline { background: transparent; color: var(--w); border-color: var(--w); }
 
-  .sticker-avail { position: absolute; bottom: 48px; left: 48px; display: inline-flex; align-items: center; gap: 8px; background: var(--g); border: 3px solid var(--k); box-shadow: 3px 3px 0 var(--k); padding: 8px 16px; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; transform: rotate(1.5deg); }
+  .sticker-avail { position: absolute; bottom: 48px; left: 48px; display: inline-flex; align-items: center; gap: 8px; background: var(--g); border: 3px solid var(--y); box-shadow: 3px 3px 0 var(--k); padding: 8px 16px; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; transform: rotate(1.5deg); }
   .green-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--k); animation: blink 2s ease-in-out infinite; }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
 
