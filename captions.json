@@ -1,0 +1,41 @@
+{
+  "title": "Pedro Rodrigues",
+  "role": "Retouch Artist & Photoshop Artist",
+  "imageFolder": "",
+
+  "_hinweis": "imageFolder ist LEER — die Bilder liegen direkt im Repo-Root. Sortieren: Fotografen von oben nach unten = Reihenfolge auf der Seite; Projekte = Reihenfolge der Bilder. Ausblenden: Zeile einfach löschen (Datei bleibt erhalten). 'client', 'agency', 'title' optional — leer ('') = wird ausgeblendet. Die Namen unten ('Fotograf — …') durch die echten Fotografen ersetzen und Bilder passend umsortieren. Willst du die Bilder später doch in einen Ordner 'images/' packen, setze imageFolder auf 'images' und verschiebe die Dateien dorthin.",
+
+  "photographers": [
+    {
+      "name": "Fotograf — Name eintragen (Job GL)",
+      "projects": [
+        { "image": "GL6234_Freestyle_0242_wf03_lay.jpg", "client": "", "agency": "", "title": "" },
+        { "image": "GL6235_Freestyle_0070_wf02_lay.jpg", "client": "", "agency": "", "title": "" },
+        { "image": "GL6270_People_0530_wf04_lay.jpg", "client": "", "agency": "", "title": "" }
+      ]
+    },
+    {
+      "name": "Fotograf — Name eintragen (Job IC)",
+      "projects": [
+        { "image": "IC1031_wf02_lay.jpg", "client": "", "agency": "", "title": "" },
+        { "image": "IC1044_wf04_lay.jpg", "client": "", "agency": "", "title": "" },
+        { "image": "IC1045_wf03_lay.jpg", "client": "", "agency": "", "title": "" }
+      ]
+    },
+    {
+      "name": "Fotograf — Name eintragen (Job WV Purpose)",
+      "projects": [
+        { "image": "WV_Purpose_T1M3_0472.jpg", "client": "", "agency": "", "title": "" },
+        { "image": "WV_Purpose_T1M4_0303.jpg", "client": "", "agency": "", "title": "" },
+        { "image": "WV_Purpose_T3M1_0810.jpg", "client": "", "agency": "", "title": "" }
+      ]
+    },
+    {
+      "name": "Fotograf — Name eintragen (weitere)",
+      "projects": [
+        { "image": "M33_inside_tattoo_studio_single_static_wf09_RGB.jpg", "client": "", "agency": "", "title": "" },
+        { "image": "MA19T2DOD0001_RGB.jpg", "client": "", "agency": "", "title": "" }
+      ]
+    }
+  ]
+}
