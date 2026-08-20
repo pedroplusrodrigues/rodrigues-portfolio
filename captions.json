@@ -1,40 +1,859 @@
 {
   "title": "Pedro Rodrigues",
-  "role": "Retouch Artist & Photoshop Artist",
-  "imageFolder": "",
-
-  "_hinweis": "imageFolder ist LEER — die Bilder liegen direkt im Repo-Root. Sortieren: Fotografen von oben nach unten = Reihenfolge auf der Seite; Projekte = Reihenfolge der Bilder. Ausblenden: Zeile einfach löschen (Datei bleibt erhalten). 'client', 'agency', 'title' optional — leer ('') = wird ausgeblendet. Die Namen unten ('Fotograf — …') durch die echten Fotografen ersetzen und Bilder passend umsortieren. Willst du die Bilder später doch in einen Ordner 'images/' packen, setze imageFolder auf 'images' und verschiebe die Dateien dorthin.",
-
+  "role": "Retouch & Compositing",
+  "imageFolder": "images",
+  "hero": "",
+  "order": "shuffle",
+  "labels": {
+    "pop": "POP",
+    "dock2studios": "Dock2 Studios",
+    "flavor3d": "Flavor3D",
+    "harvest": "Harvest",
+    "innocean": "Innocean",
+    "ddb_berlin": "DDB Berlin",
+    "thjnk": "thjnk",
+    "wpp": "WPP",
+    "sf": "SF",
+    "brand_upgrade": "Brand Upgrade",
+    "halbautomatik": "Halbautomatik",
+    "vw_golf": "VW Golf",
+    "vw_golf_gti": "VW Golf GTI",
+    "vw_id3": "VW ID.3",
+    "vw_id7": "VW ID.7",
+    "vw_troc": "VW T-Roc",
+    "audi_rsegt": "Audi RS e-tron GT",
+    "audi_a5": "Audi A5",
+    "opelgrandland": "Opel Grandland",
+    "opel_grandland": "Opel Grandland",
+    "porsche_macan": "Porsche Macan",
+    "hyndai_kona": "Hyundai Kona",
+    "tesla": "Tesla",
+    "tipico": "Tipico",
+    "beats": "Beats",
+    "cocacola": "Coca-Cola",
+    "aries": "Aries",
+    "thisisnotla": "This Is Not LA",
+    "travis_scott": "Travis Scott",
+    "ob": "o.b.",
+    "samu_haber": "Samu Haber",
+    "fazer_aito": "Fazer / Aito"
+  },
+  "_hinweis": "hero = Dateiname des festen Startbilds (leer = erstes Bild). order = 'shuffle' (bei jedem Besuch neu gemischt) oder 'fixed'. Gruppen/Reihenfolge nur bei 'fixed' relevant. Pro Bild: 'image' + 'credits' (Reihenfolge = Anzeige). 'labels' übersetzt Kürzel in schöne Namen. Bild ausblenden: Zeile löschen.",
   "photographers": [
     {
-      "name": "Fotograf — Name eintragen (Job GL)",
+      "name": "Agnieszka Doroszewicz",
       "projects": [
-        { "image": "GL6234_Freestyle_0242_wf03_lay.jpg", "client": "", "agency": "", "title": "" },
-        { "image": "GL6235_Freestyle_0070_wf02_lay.jpg", "client": "", "agency": "", "title": "" },
-        { "image": "GL6270_People_0530_wf04_lay.jpg", "client": "", "agency": "", "title": "" }
+        {
+          "image": "agnieszka_doroszewicz__harvest__opelgrandland__01.jpg",
+          "credits": [
+            "harvest",
+            "opelgrandland"
+          ]
+        },
+        {
+          "image": "agnieszka_doroszewicz__harvest__opelgrandland__02.jpg",
+          "credits": [
+            "harvest",
+            "opelgrandland"
+          ]
+        },
+        {
+          "image": "agnieszka_doroszewicz__harvest__opelgrandland__03.jpg",
+          "credits": [
+            "harvest",
+            "opelgrandland"
+          ]
+        }
       ]
     },
     {
-      "name": "Fotograf — Name eintragen (Job IC)",
+      "name": "Bam",
       "projects": [
-        { "image": "IC1031_wf02_lay.jpg", "client": "", "agency": "", "title": "" },
-        { "image": "IC1044_wf04_lay.jpg", "client": "", "agency": "", "title": "" },
-        { "image": "IC1045_wf03_lay.jpg", "client": "", "agency": "", "title": "" }
+        {
+          "image": "bam__pop__aries__thisisnotla__01.jpg",
+          "credits": [
+            "pop",
+            "aries",
+            "thisisnotla"
+          ]
+        },
+        {
+          "image": "bam__pop__aries__thisisnotla__02.jpg",
+          "credits": [
+            "pop",
+            "aries",
+            "thisisnotla"
+          ]
+        },
+        {
+          "image": "bam__pop__aries__thisisnotla__03.jpg",
+          "credits": [
+            "pop",
+            "aries",
+            "thisisnotla"
+          ]
+        },
+        {
+          "image": "bam__pop__aries__thisisnotla__04.jpg",
+          "credits": [
+            "pop",
+            "aries",
+            "thisisnotla"
+          ]
+        },
+        {
+          "image": "bam__pop__aries__thisisnotla__05.jpg",
+          "credits": [
+            "pop",
+            "aries",
+            "thisisnotla"
+          ]
+        },
+        {
+          "image": "bam__pop__aries__thisisnotla__06.jpg",
+          "credits": [
+            "pop",
+            "aries",
+            "thisisnotla"
+          ]
+        },
+        {
+          "image": "bam__pop__aries__thisisnotla__07.jpg",
+          "credits": [
+            "pop",
+            "aries",
+            "thisisnotla"
+          ]
+        },
+        {
+          "image": "bam__pop__aries__thisisnotla__08.jpg",
+          "credits": [
+            "pop",
+            "aries",
+            "thisisnotla"
+          ]
+        },
+        {
+          "image": "bam__pop__aries__thisisnotla__09.jpg",
+          "credits": [
+            "pop",
+            "aries",
+            "thisisnotla"
+          ]
+        },
+        {
+          "image": "bam__pop__aries__thisisnotla__10.jpg",
+          "credits": [
+            "pop",
+            "aries",
+            "thisisnotla"
+          ]
+        },
+        {
+          "image": "bam__pop__innocean__hyndai_kona__01.jpg",
+          "credits": [
+            "pop",
+            "innocean",
+            "hyndai_kona"
+          ]
+        },
+        {
+          "image": "bam__pop__innocean__hyndai_kona__02.jpg",
+          "credits": [
+            "pop",
+            "innocean",
+            "hyndai_kona"
+          ]
+        },
+        {
+          "image": "bam__pop__innocean__hyndai_kona__03.jpg",
+          "credits": [
+            "pop",
+            "innocean",
+            "hyndai_kona"
+          ]
+        }
       ]
     },
     {
-      "name": "Fotograf — Name eintragen (Job WV Purpose)",
+      "name": "David Daub",
       "projects": [
-        { "image": "WV_Purpose_T1M3_0472.jpg", "client": "", "agency": "", "title": "" },
-        { "image": "WV_Purpose_T1M4_0303.jpg", "client": "", "agency": "", "title": "" },
-        { "image": "WV_Purpose_T3M1_0810.jpg", "client": "", "agency": "", "title": "" }
+        {
+          "image": "david_daub__pop__vw_id3__01.jpg",
+          "credits": [
+            "pop",
+            "vw_id3"
+          ]
+        },
+        {
+          "image": "david_daub__pop__vw_id3__02.jpg",
+          "credits": [
+            "pop",
+            "vw_id3"
+          ]
+        },
+        {
+          "image": "david_daub__pop__vw_id3__03.jpg",
+          "credits": [
+            "pop",
+            "vw_id3"
+          ]
+        },
+        {
+          "image": "david_daub__pop__vw_id3__04.jpg",
+          "credits": [
+            "pop",
+            "vw_id3"
+          ]
+        },
+        {
+          "image": "david_daub__pop__vw_id3__05.jpg",
+          "credits": [
+            "pop",
+            "vw_id3"
+          ]
+        },
+        {
+          "image": "david_daub__pop__vw_id3__06.jpg",
+          "credits": [
+            "pop",
+            "vw_id3"
+          ]
+        }
       ]
     },
     {
-      "name": "Fotograf — Name eintragen (weitere)",
+      "name": "David Maurer",
       "projects": [
-        { "image": "M33_inside_tattoo_studio_single_static_wf09_RGB.jpg", "client": "", "agency": "", "title": "" },
-        { "image": "MA19T2DOD0001_RGB.jpg", "client": "", "agency": "", "title": "" }
+        {
+          "image": "david_maurer__dock2studios__porsche_macan__01.jpg",
+          "credits": [
+            "dock2studios",
+            "porsche_macan"
+          ]
+        },
+        {
+          "image": "david_maurer__dock2studios__porsche_macan__02.jpg",
+          "credits": [
+            "dock2studios",
+            "porsche_macan"
+          ]
+        },
+        {
+          "image": "david_maurer__dock2studios__porsche_macan__03.jpg",
+          "credits": [
+            "dock2studios",
+            "porsche_macan"
+          ]
+        },
+        {
+          "image": "david_maurer__dock2studios__porsche_macan__04.jpg",
+          "credits": [
+            "dock2studios",
+            "porsche_macan"
+          ]
+        },
+        {
+          "image": "david_maurer__dock2studios__porsche_macan__05.jpg",
+          "credits": [
+            "dock2studios",
+            "porsche_macan"
+          ]
+        },
+        {
+          "image": "david_maurer__dock2studios__porsche_macan__06.jpg",
+          "credits": [
+            "dock2studios",
+            "porsche_macan"
+          ]
+        },
+        {
+          "image": "david_maurer__dock2studios__porsche_macan__07.jpg",
+          "credits": [
+            "dock2studios",
+            "porsche_macan"
+          ]
+        },
+        {
+          "image": "david_maurer__dock2studios__porsche_macan__08.jpg",
+          "credits": [
+            "dock2studios",
+            "porsche_macan"
+          ]
+        },
+        {
+          "image": "david_maurer__dock2studios__porsche_macan__09.jpg",
+          "credits": [
+            "dock2studios",
+            "porsche_macan"
+          ]
+        },
+        {
+          "image": "david_maurer__dock2studios__porsche_macan__10.jpg",
+          "credits": [
+            "dock2studios",
+            "porsche_macan"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Florian Bison",
+      "projects": [
+        {
+          "image": "florian_bison__pop__tipico__01.jpg",
+          "credits": [
+            "pop",
+            "tipico"
+          ]
+        },
+        {
+          "image": "florian_bison__pop__tipico__02.jpg",
+          "credits": [
+            "pop",
+            "tipico"
+          ]
+        },
+        {
+          "image": "florian_bison__pop__tipico__03.jpg",
+          "credits": [
+            "pop",
+            "tipico"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Frithjof Ohm",
+      "projects": [
+        {
+          "image": "frithjof_ohm__dock2studios__ddb_berlin__vw_golf__01.jpg",
+          "credits": [
+            "dock2studios",
+            "ddb_berlin",
+            "vw_golf"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__ddb_berlin__vw_golf__02.jpg",
+          "credits": [
+            "dock2studios",
+            "ddb_berlin",
+            "vw_golf"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__ddb_berlin__vw_golf__03.jpg",
+          "credits": [
+            "dock2studios",
+            "ddb_berlin",
+            "vw_golf"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__ddb_berlin__vw_golf__04.jpg",
+          "credits": [
+            "dock2studios",
+            "ddb_berlin",
+            "vw_golf"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__ddb_berlin__vw_golf__05.jpg",
+          "credits": [
+            "dock2studios",
+            "ddb_berlin",
+            "vw_golf"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__ddb_berlin__vw_golf__06.jpg",
+          "credits": [
+            "dock2studios",
+            "ddb_berlin",
+            "vw_golf"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__ddb_berlin__vw_golf__07.jpg",
+          "credits": [
+            "dock2studios",
+            "ddb_berlin",
+            "vw_golf"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__ddb_berlin__vw_golf_gti__01.jpg",
+          "credits": [
+            "dock2studios",
+            "ddb_berlin",
+            "vw_golf_gti"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__ddb_berlin__vw_golf_gti__02.jpg",
+          "credits": [
+            "dock2studios",
+            "ddb_berlin",
+            "vw_golf_gti"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__ddb_berlin__vw_golf_gti__03.jpg",
+          "credits": [
+            "dock2studios",
+            "ddb_berlin",
+            "vw_golf_gti"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__ddb_berlin__vw_golf_gti__04.jpg",
+          "credits": [
+            "dock2studios",
+            "ddb_berlin",
+            "vw_golf_gti"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__ddb_berlin__vw_golf_gti__05.jpg",
+          "credits": [
+            "dock2studios",
+            "ddb_berlin",
+            "vw_golf_gti"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__01.jpg",
+          "credits": [
+            "dock2studios",
+            "thjnk",
+            "audi_rsegt"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__02.jpg",
+          "credits": [
+            "dock2studios",
+            "thjnk",
+            "audi_rsegt"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__03.jpg",
+          "credits": [
+            "dock2studios",
+            "thjnk",
+            "audi_rsegt"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__04.jpg",
+          "credits": [
+            "dock2studios",
+            "thjnk",
+            "audi_rsegt"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__05.jpg",
+          "credits": [
+            "dock2studios",
+            "thjnk",
+            "audi_rsegt"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__06.jpg",
+          "credits": [
+            "dock2studios",
+            "thjnk",
+            "audi_rsegt"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__07.jpg",
+          "credits": [
+            "dock2studios",
+            "thjnk",
+            "audi_rsegt"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__08.jpg",
+          "credits": [
+            "dock2studios",
+            "thjnk",
+            "audi_rsegt"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__09.jpg",
+          "credits": [
+            "dock2studios",
+            "thjnk",
+            "audi_rsegt"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__10.jpg",
+          "credits": [
+            "dock2studios",
+            "thjnk",
+            "audi_rsegt"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__11.jpg",
+          "credits": [
+            "dock2studios",
+            "thjnk",
+            "audi_rsegt"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__12.jpg",
+          "credits": [
+            "dock2studios",
+            "thjnk",
+            "audi_rsegt"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__13.jpg",
+          "credits": [
+            "dock2studios",
+            "thjnk",
+            "audi_rsegt"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__14.jpg",
+          "credits": [
+            "dock2studios",
+            "thjnk",
+            "audi_rsegt"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__15.jpg",
+          "credits": [
+            "dock2studios",
+            "thjnk",
+            "audi_rsegt"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__16.jpg",
+          "credits": [
+            "dock2studios",
+            "thjnk",
+            "audi_rsegt"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__17.jpg",
+          "credits": [
+            "dock2studios",
+            "thjnk",
+            "audi_rsegt"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__18.jpg",
+          "credits": [
+            "dock2studios",
+            "thjnk",
+            "audi_rsegt"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__thjnk__vw_troc__01.jpg",
+          "credits": [
+            "dock2studios",
+            "thjnk",
+            "vw_troc"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__thjnk__vw_troc__02.jpg",
+          "credits": [
+            "dock2studios",
+            "thjnk",
+            "vw_troc"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__thjnk__vw_troc__03.jpg",
+          "credits": [
+            "dock2studios",
+            "thjnk",
+            "vw_troc"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__thjnk__vw_troc__04.jpg",
+          "credits": [
+            "dock2studios",
+            "thjnk",
+            "vw_troc"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__thjnk__vw_troc__05.jpg",
+          "credits": [
+            "dock2studios",
+            "thjnk",
+            "vw_troc"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__thjnk__vw_troc__06.jpg",
+          "credits": [
+            "dock2studios",
+            "thjnk",
+            "vw_troc"
+          ]
+        },
+        {
+          "image": "frithjof_ohm__dock2studios__thjnk__vw_troc__07.jpg",
+          "credits": [
+            "dock2studios",
+            "thjnk",
+            "vw_troc"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CGI",
+      "projects": [
+        {
+          "image": "fullcgi__flavor3d__opel_grandland__01.jpg",
+          "credits": [
+            "flavor3d",
+            "opel_grandland"
+          ]
+        },
+        {
+          "image": "fullcgi__flavor3d__opel_grandland__02.jpg",
+          "credits": [
+            "flavor3d",
+            "opel_grandland"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "James Law",
+      "projects": [
+        {
+          "image": "james_law__travis_scott__beats__01.jpg",
+          "credits": [
+            "travis_scott",
+            "beats"
+          ]
+        },
+        {
+          "image": "james_law__travis_scott__beats__02.jpg",
+          "credits": [
+            "travis_scott",
+            "beats"
+          ]
+        },
+        {
+          "image": "james_law__travis_scott__beats__03.jpg",
+          "credits": [
+            "travis_scott",
+            "beats"
+          ]
+        },
+        {
+          "image": "james_law__travis_scott__beats__04.jpg",
+          "credits": [
+            "travis_scott",
+            "beats"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Josselin",
+      "projects": [
+        {
+          "image": "josselin__wpp__sf__cocacola__01.jpg",
+          "credits": [
+            "wpp",
+            "sf",
+            "cocacola"
+          ]
+        },
+        {
+          "image": "josselin__wpp__sf__cocacola__02.jpg",
+          "credits": [
+            "wpp",
+            "sf",
+            "cocacola"
+          ]
+        },
+        {
+          "image": "josselin__wpp__sf__cocacola__03.jpg",
+          "credits": [
+            "wpp",
+            "sf",
+            "cocacola"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Kurtiswarienko",
+      "projects": [
+        {
+          "image": "kurtIswarienko__glosslakirstendunst__01.jpg",
+          "credits": [
+            "glosslakirstendunst"
+          ]
+        },
+        {
+          "image": "kurtIswarienko__glosslakirstendunst__02.jpg",
+          "credits": [
+            "glosslakirstendunst"
+          ]
+        },
+        {
+          "image": "kurtIswarienko__glosslakirstendunst__03.jpg",
+          "credits": [
+            "glosslakirstendunst"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Marija Mihailova",
+      "projects": [
+        {
+          "image": "marija_mihailova__wpp__sf__ob__01.jpg",
+          "credits": [
+            "wpp",
+            "sf",
+            "ob"
+          ]
+        },
+        {
+          "image": "marija_mihailova__wpp__sf__ob__02.jpg",
+          "credits": [
+            "wpp",
+            "sf",
+            "ob"
+          ]
+        },
+        {
+          "image": "marija_mihailova__wpp__sf__ob__03.jpg",
+          "credits": [
+            "wpp",
+            "sf",
+            "ob"
+          ]
+        },
+        {
+          "image": "marija_mihailova__wpp__sf__ob__04.jpg",
+          "credits": [
+            "wpp",
+            "sf",
+            "ob"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ole Westermann",
+      "projects": [
+        {
+          "image": "ole_westermann__pop__tesla__01.jpg",
+          "credits": [
+            "pop",
+            "tesla"
+          ]
+        },
+        {
+          "image": "ole_westermann__pop__tesla__02.jpg",
+          "credits": [
+            "pop",
+            "tesla"
+          ]
+        },
+        {
+          "image": "ole_westermann__pop__tesla__03.jpg",
+          "credits": [
+            "pop",
+            "tesla"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Tobias Habermann",
+      "projects": [
+        {
+          "image": "tobias_habermann__dock2studios__vw_id7__01.jpg",
+          "credits": [
+            "dock2studios",
+            "vw_id7"
+          ]
+        },
+        {
+          "image": "tobias_habermann__dock2studios__vw_id7__02.jpg",
+          "credits": [
+            "dock2studios",
+            "vw_id7"
+          ]
+        },
+        {
+          "image": "tobias_habermann__dock2studios__vw_id7__03.jpg",
+          "credits": [
+            "dock2studios",
+            "vw_id7"
+          ]
+        },
+        {
+          "image": "tobias_habermann__dock2studios__vw_id7__04.jpg",
+          "credits": [
+            "dock2studios",
+            "vw_id7"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "projects": [
+        {
+          "image": "unknown__brand_upgrade__samu_haber__fazer_aito.jpg",
+          "credits": [
+            "brand_upgrade",
+            "samu_haber",
+            "fazer_aito"
+          ]
+        },
+        {
+          "image": "unknown__halbautomatik__audi_a5.jpg",
+          "credits": [
+            "halbautomatik",
+            "audi_a5"
+          ]
+        },
+        {
+          "image": "unknown__pop__01.jpg",
+          "credits": [
+            "pop"
+          ]
+        },
+        {
+          "image": "unknown__pop__02.jpg",
+          "credits": [
+            "pop"
+          ]
+        }
       ]
     }
   ]
