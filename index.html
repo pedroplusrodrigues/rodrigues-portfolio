@@ -7,33 +7,51 @@
 <title>Pedro Rodrigues — Retouch Artist</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
 <style>
-  :root {
-    --bg: #0b0b0c;
-    --fg: #f1f1ef;
-    --dim: #7c7c7a;
-    --faint: #3a3a3d;
-    --line: #202024;
-    --sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, sans-serif;
-    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
-    --pad: clamp(18px, 3.2vw, 40px);
+  /* ---- eigene Schriften aus dem fonts/-Ordner (mit Fallback auf Google-Fonts) ---- */
+  @font-face {
+    font-family: "Phosphate";
+    src: url("fonts/Phosphate.woff2") format("woff2"),
+         url("fonts/Phosphate.woff") format("woff"),
+         url("fonts/Phosphate.otf") format("opentype"),
+         url("fonts/Phosphate.ttc") format("collection");
+    font-weight: 400 800;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "RockwellBold";
+    src: url("fonts/Rockwell-Bold.woff2") format("woff2"),
+         url("fonts/Rockwell-Bold.woff") format("woff"),
+         url("fonts/Rockwell-Bold.otf") format("opentype"),
+         url("fonts/Rockwell-Bold.ttf") format("truetype"),
+         url("fonts/Rockwell.ttc") format("collection");
+    font-weight: 700;
+    font-display: swap;
   }
 
+  :root {
+    --bg: #08080a;
+    --fg: #f4f4f2;
+    --dim: #8a8a88;
+    --faint: #34343a;
+    --line: #1c1c20;
+    --display: "Phosphate", "Syne", -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: "RockwellBold", "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --pad: clamp(18px, 3.4vw, 46px);
+  }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   html, body { height: 100%; }
-
   body {
     background: var(--bg);
     color: var(--fg);
-    font-family: var(--sans);
+    font-family: var(--mono);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     overflow: hidden;
   }
 
-  /* ---- scroll stage: one full frame per view ---- */
+  /* ---------- scroll stage ---------- */
   #stage {
     height: 100dvh;
     overflow-y: scroll;
@@ -43,268 +61,264 @@
   }
   #stage::-webkit-scrollbar { display: none; }
 
-  .frame {
+  section {
     height: 100dvh;
     scroll-snap-align: start;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: clamp(56px, 9vh, 96px) var(--pad);
-    position: relative;
   }
 
-  .frame img,
-  .placeholder {
-    max-width: min(92vw, 1500px);
+  /* ---------- hero ---------- */
+  #hero { overflow: hidden; }
+  #hero .bg {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    transform: scale(1.06);
+    animation: heroZoom 14s ease-out forwards;
+  }
+  @keyframes heroZoom { to { transform: scale(1); } }
+  #hero .scrim {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to top, rgba(8,8,10,.92) 0%, rgba(8,8,10,.15) 42%, rgba(8,8,10,.35) 100%);
+  }
+  #hero .intro {
+    position: relative;
+    width: 100%;
+    padding: var(--pad);
+    align-self: flex-end;
+    opacity: 0;
+    transform: translateY(14px);
+    animation: rise 1.2s .25s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  #hero h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    letter-spacing: -.01em;
+    line-height: .92;
+    font-size: clamp(38px, 8.5vw, 132px);
+    text-transform: uppercase;
+  }
+  #hero .sub {
+    margin-top: 14px;
+    font-size: clamp(11px, 1.4vw, 14px);
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--fg);
+  }
+  #scrollcue {
+    position: absolute;
+    left: 50%; bottom: calc(var(--pad) - 4px);
+    transform: translateX(-50%);
+    font-size: 10.5px; letter-spacing: .3em; text-transform: uppercase;
+    color: var(--dim);
+    animation: bob 2.6s ease-in-out infinite;
+  }
+  @keyframes bob { 0%,100%{ transform: translate(-50%,0);} 50%{ transform: translate(-50%,6px);} }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+
+  /* ---------- gallery frames ---------- */
+  .frame { padding: clamp(52px, 8vh, 92px) var(--pad); }
+  .frame img, .frame .placeholder {
+    max-width: min(94vw, 1600px);
     max-height: 84dvh;
-    width: auto;
-    height: auto;
+    width: auto; height: auto;
     object-fit: contain;
     display: block;
-    opacity: 0;
-    transform: translateY(8px);
-    transition: opacity .9s ease, transform .9s ease;
+    opacity: 0; transform: scale(.985);
+    transition: opacity 1s ease, transform 1.4s cubic-bezier(.2,.7,.2,1);
   }
-  .frame.seen img,
-  .frame.seen .placeholder { opacity: 1; transform: none; }
-
+  .frame.seen img, .frame.seen .placeholder { opacity: 1; transform: none; }
   .placeholder {
-    width: min(92vw, 1200px);
-    aspect-ratio: 3 / 2;
+    width: min(90vw, 1200px); aspect-ratio: 3/2;
     border: 1px solid var(--line);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    color: var(--faint);
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: .04em;
-    text-align: center;
-    padding: 24px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 10px; color: var(--faint);
+    font-size: 12px; letter-spacing: .04em; text-align: center; padding: 24px;
   }
   .placeholder .ph-file { color: var(--dim); word-break: break-all; }
 
-  /* ---- fixed chrome ---- */
-  .chrome {
-    position: fixed;
-    z-index: 10;
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: .06em;
-    color: var(--dim);
-    pointer-events: none;
-    user-select: none;
-  }
+  /* ---------- fixed chrome ---------- */
+  .chrome { position: fixed; z-index: 20; pointer-events: none; user-select: none; }
 
   #wordmark {
-    top: var(--pad);
-    left: var(--pad);
-    font-family: var(--sans);
-    color: var(--fg);
+    top: var(--pad); left: var(--pad);
+    font-family: var(--display); font-weight: 700;
+    font-size: 15px; letter-spacing: .02em; text-transform: uppercase;
+    opacity: 0; transform: translateY(-6px);
+    transition: opacity .5s ease, transform .5s ease;
   }
-  #wordmark .name {
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: .01em;
-  }
-  #wordmark .role {
-    display: block;
-    margin-top: 2px;
-    font-family: var(--mono);
-    font-size: 10.5px;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: var(--dim);
-  }
+  #wordmark.show { opacity: 1; transform: none; }
 
-  /* the signature element: a film-slate metadata block that tracks the current frame */
   #slate {
-    bottom: var(--pad);
-    left: var(--pad);
-    max-width: min(70vw, 520px);
-    transition: opacity .4s ease;
+    left: var(--pad); bottom: var(--pad);
+    max-width: min(74vw, 560px);
+    opacity: 0; transition: opacity .45s ease;
   }
-  #slate .photographer {
+  #slate.show { opacity: 1; }
+  #slate .ph {
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(15px, 2vw, 20px); letter-spacing: .01em;
     color: var(--fg);
-    font-size: 12px;
-    letter-spacing: .1em;
-    text-transform: uppercase;
   }
-  #slate .meta {
-    margin-top: 5px;
-    line-height: 1.55;
+  #slate .cr {
+    margin-top: 6px;
+    font-size: 12px; letter-spacing: .06em; line-height: 1.5;
     color: var(--dim);
   }
-  #slate .meta .agency { color: var(--fg); }
+  #slate .cr .last { color: var(--fg); }
 
   #counter {
-    bottom: var(--pad);
-    right: var(--pad);
-    text-align: right;
-    font-variant-numeric: tabular-nums;
+    right: var(--pad); bottom: var(--pad);
+    font-size: 12px; letter-spacing: .08em; color: var(--dim);
+    font-variant-numeric: tabular-nums; text-align: right;
+    opacity: 0; transition: opacity .45s ease;
   }
+  #counter.show { opacity: 1; }
   #counter .cur { color: var(--fg); }
 
-  /* hint chevron on first frame */
-  #hint {
-    bottom: calc(var(--pad) + 2px);
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 11px;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    opacity: .55;
-    transition: opacity .5s ease;
-    animation: bob 2.4s ease-in-out infinite;
-  }
-  #hint.hide { opacity: 0; }
-  @keyframes bob { 0%,100%{ transform: translate(-50%,0);} 50%{ transform: translate(-50%,5px);} }
-
-  @media (max-width: 620px) {
-    #slate { max-width: calc(100vw - 2 * var(--pad)); bottom: calc(var(--pad) + 26px); }
+  @media (max-width: 640px) {
+    #slate { max-width: calc(100vw - 2*var(--pad)); bottom: calc(var(--pad) + 26px); }
     #counter { bottom: calc(var(--pad) + 26px); }
-    #hint { display: none; }
   }
-
   @media (prefers-reduced-motion: reduce) {
     #stage { scroll-behavior: auto; }
+    #hero .bg { animation: none; transform: none; }
+    #hero .intro { animation: none; opacity: 1; transform: none; }
     .frame img, .frame .placeholder { transition: none; opacity: 1; transform: none; }
-    #hint { animation: none; }
+    #scrollcue { animation: none; }
   }
 </style>
 </head>
 <body>
-  <header id="wordmark" class="chrome">
-    <span class="name">Pedro Rodrigues</span>
-    <span class="role" id="role">Retouch Artist</span>
-  </header>
+  <header id="wordmark" class="chrome">Pedro Rodrigues</header>
 
   <main id="stage" aria-label="Portfolio"></main>
 
   <aside id="slate" class="chrome" aria-live="polite">
-    <div class="photographer" id="slate-ph"></div>
-    <div class="meta" id="slate-meta"></div>
+    <div class="ph" id="slate-ph"></div>
+    <div class="cr" id="slate-cr"></div>
   </aside>
-
   <div id="counter" class="chrome"><span class="cur">01</span> / <span class="total">01</span></div>
-  <div id="hint" class="chrome">scroll</div>
 
 <script>
-// -------- data --------
-// Deployed: this loads /captions.json from the repo — edit that file on GitHub to
-// add / reorder / relabel images. Grouping order in the file = order on the site.
-// Images live in the folder named by "imageFolder" (e.g. "images"); captions.json
-// holds bare filenames only. Preview here uses the embedded FALLBACK below.
+// ---------------- data ----------------
+// Deployed: loads /captions.json from the repo. Edit that file on GitHub to add/relabel images.
+//  - "hero": filename of the fixed start image (public-safe). Empty = first image is used.
+//  - "order": "shuffle" (reshuffled every visit) or "fixed" (as listed).
+//  - each project: "image" (filename) + "credits" (fields from the name, shown in order).
+//  - "labels": raw token -> pretty display name. "imageFolder": subfolder holding the images.
 const FALLBACK = {
   title: "Pedro Rodrigues",
-  role: "Retouch Artist & Photoshop Artist",
-  imageFolder: "",
+  role: "Retouch & Compositing",
+  imageFolder: "images",
+  hero: "",
+  order: "shuffle",
+  labels: { "pop":"POP","dock2studios":"Dock2 Studios","ddb_berlin":"DDB Berlin",
+            "vw_golf":"VW Golf","innocean":"Innocean","hyndai_kona":"Hyundai Kona" },
   photographers: [
-    {
-      name: "Fotograf — Name eintragen (Job GL)",
-      projects: [
-        { image: "GL6234_Freestyle_0242_wf03_lay.jpg", client: "", agency: "", title: "" },
-        { image: "GL6235_Freestyle_0070_wf02_lay.jpg", client: "", agency: "", title: "" },
-        { image: "GL6270_People_0530_wf04_lay.jpg",    client: "", agency: "", title: "" }
-      ]
-    },
-    {
-      name: "Fotograf — Name eintragen (Job IC)",
-      projects: [
-        { image: "IC1031_wf02_lay.jpg", client: "", agency: "", title: "" },
-        { image: "IC1044_wf04_lay.jpg", client: "", agency: "", title: "" },
-        { image: "IC1045_wf03_lay.jpg", client: "", agency: "", title: "" }
-      ]
-    },
-    {
-      name: "Fotograf — Name eintragen (Job WV Purpose)",
-      projects: [
-        { image: "WV_Purpose_T1M3_0472.jpg", client: "", agency: "", title: "" },
-        { image: "WV_Purpose_T1M4_0303.jpg", client: "", agency: "", title: "" },
-        { image: "WV_Purpose_T3M1_0810.jpg", client: "", agency: "", title: "" }
-      ]
-    },
-    {
-      name: "Fotograf — Name eintragen (weitere)",
-      projects: [
-        { image: "M33_inside_tattoo_studio_single_static_wf09_RGB.jpg", client: "", agency: "", title: "" },
-        { image: "MA19T2DOD0001_RGB.jpg", client: "", agency: "", title: "" }
-      ]
-    }
+    { name: "Frithjof Ohm", projects: [
+      { image: "frithjof_ohm__dock2studios__ddb_berlin__vw_golf__01.jpg", credits: ["dock2studios","ddb_berlin","vw_golf"] } ] },
+    { name: "Bam", projects: [
+      { image: "bam__pop__innocean__hyndai_kona__01.jpg", credits: ["pop","innocean","hyndai_kona"] } ] }
   ]
 };
 
 async function loadData() {
   try {
-    const res = await fetch("captions.json", { cache: "no-store" });
-    if (!res.ok) throw new Error("no file");
-    return await res.json();
-  } catch {
-    return FALLBACK;
-  }
+    const r = await fetch("captions.json", { cache: "no-store" });
+    if (!r.ok) throw 0;
+    return await r.json();
+  } catch { return FALLBACK; }
 }
 
-// flatten photographer groups -> ordered frame list, keeping the photographer name on each
-function toFrames(data) {
-  const out = [];
-  (data.photographers || []).forEach(group => {
-    (group.projects || []).forEach(p => out.push({ ...p, photographer: group.name }));
-  });
-  return out;
+function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+function prettify(tok, labels){
+  if (labels && Object.prototype.hasOwnProperty.call(labels, tok)) return labels[tok];
+  return String(tok).replace(/_/g," ").replace(/\b\w/g,c=>c.toUpperCase());
 }
 
-function esc(s) {
-  return String(s == null ? "" : s).replace(/[&<>"]/g, c =>
-    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-}
-
-// bare filename in captions.json -> full path using imageFolder.
-// leaves absolute URLs and paths that already contain a slash untouched.
-function resolveSrc(image, folder) {
-  const img = String(image || "");
+function resolveSrc(image, folder){
+  const img = String(image||"");
   if (/^https?:\/\//i.test(img) || img.includes("/")) return img;
-  const base = String(folder || "").replace(/\/+$/, "");
+  const base = String(folder||"").replace(/\/+$/,"");
   return base ? base + "/" + img : img;
 }
 
-const stage = document.getElementById("stage");
-const slatePh = document.getElementById("slate-ph");
-const slateMeta = document.getElementById("slate-meta");
-const counterCur = document.querySelector("#counter .cur");
-const counterTotal = document.querySelector("#counter .total");
-const hint = document.getElementById("hint");
+function toProjects(data){
+  const out = [];
+  (data.photographers||[]).forEach(g => (g.projects||[]).forEach(p => out.push({ ...p, photographer: g.name })));
+  return out;
+}
 
-function metaLine(f) {
-  const bits = [];
-  if (f.title)  bits.push(esc(f.title));
-  if (f.client) bits.push(esc(f.client));
-  const agency = f.agency ? `<span class="agency">${esc(f.agency)}</span>` : "";
-  return `${bits.join(" — ")}${bits.length && agency ? " · " : ""}${agency}`;
+function shuffle(a){
+  for (let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+
+const stage    = document.getElementById("stage");
+const wordmark = document.getElementById("wordmark");
+const slate    = document.getElementById("slate");
+const slatePh  = document.getElementById("slate-ph");
+const slateCr  = document.getElementById("slate-cr");
+const counter  = document.getElementById("counter");
+const counterCur = counter.querySelector(".cur");
+const counterTotal = counter.querySelector(".total");
+
+function creditsHTML(p, labels){
+  const c = Array.isArray(p.credits) ? p.credits : [];
+  if (!c.length) return "";
+  return c.map((t,i)=>{ const l = esc(prettify(t,labels));
+    return i===c.length-1 ? `<span class="last">${l}</span>` : l; }).join(" · ");
 }
 
 loadData().then(data => {
-  document.getElementById("role").textContent = data.role || "Retouch Artist";
   const folder = data.imageFolder || "";
-  const frames = toFrames(data);
-  counterTotal.textContent = String(frames.length).padStart(2, "0");
+  const labels = data.labels || {};
+  const all = toProjects(data);
 
-  frames.forEach((f, i) => {
+  // hero + gallery
+  const heroFile = data.hero || (all[0] && all[0].image) || "";
+  let gallery = all.filter(p => p.image !== heroFile);
+  if ((data.order || "shuffle") === "shuffle") gallery = shuffle(gallery.slice());
+  counterTotal.textContent = String(gallery.length).padStart(2,"0");
+
+  // ---- hero section ----
+  const hero = document.createElement("section");
+  hero.id = "hero"; hero.dataset.hero = "1";
+  hero.innerHTML =
+    `<div class="bg"></div><div class="scrim"></div>
+     <div class="intro">
+       <h1>${esc(data.title || "Pedro Rodrigues")}</h1>
+       <div class="sub">${esc(data.role || "Retouch Artist")}</div>
+     </div>
+     <div id="scrollcue">scroll</div>`;
+  const bg = hero.querySelector(".bg");
+  if (heroFile){
+    const probe = new Image();
+    probe.onload = () => { bg.style.backgroundImage = `url("${resolveSrc(heroFile, folder)}")`; };
+    probe.onerror = () => { bg.style.background = "linear-gradient(135deg,#141418,#0a0a0c)"; };
+    probe.src = resolveSrc(heroFile, folder);
+  } else { bg.style.background = "linear-gradient(135deg,#141418,#0a0a0c)"; }
+  stage.appendChild(hero);
+
+  // ---- gallery sections ----
+  gallery.forEach((p, i) => {
     const sec = document.createElement("section");
-    sec.className = "frame";
-    sec.dataset.i = i;
-
+    sec.className = "frame"; sec.dataset.i = i;
     const img = new Image();
-    img.alt = `${f.photographer} — ${f.title || ""}`.trim();
+    img.alt = [p.photographer, ...(p.credits||[]).map(t=>prettify(t,labels))].filter(Boolean).join(" — ");
     img.decoding = "async";
     img.loading = i < 2 ? "eager" : "lazy";
-    img.src = resolveSrc(f.image, folder);
+    img.src = resolveSrc(p.image, folder);
     img.onerror = () => {
       const ph = document.createElement("div");
       ph.className = "placeholder";
-      ph.innerHTML = `<div>Bild wird hier angezeigt, sobald es im Repo liegt</div>
-                      <div class="ph-file">${esc(resolveSrc(f.image, folder))}</div>`;
+      ph.innerHTML = `<div>Bild erscheint, sobald es im images-Ordner liegt</div>
+                      <div class="ph-file">${esc(resolveSrc(p.image, folder))}</div>`;
       img.replaceWith(ph);
       if (sec.classList.contains("seen")) ph.style.opacity = 1;
     };
@@ -312,31 +326,36 @@ loadData().then(data => {
     stage.appendChild(sec);
   });
 
-  const sections = [...stage.querySelectorAll(".frame")];
+  const sections = [...stage.querySelectorAll("section")];
 
-  const io = new IntersectionObserver((entries) => {
+  const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
-      if (e.intersectionRatio >= 0.55) {
-        const i = +e.target.dataset.i;
-        e.target.classList.add("seen");
-        const f = frames[i];
-        slatePh.textContent = f.photographer || "";
-        slateMeta.innerHTML = metaLine(f);
-        counterCur.textContent = String(i + 1).padStart(2, "0");
-        if (i > 0) hint.classList.add("hide");
+      if (e.intersectionRatio < 0.55) return;
+      const el = e.target;
+      if (el.dataset.hero){
+        wordmark.classList.remove("show");
+        slate.classList.remove("show");
+        counter.classList.remove("show");
+        return;
       }
+      el.classList.add("seen");
+      const i = +el.dataset.i;
+      const p = gallery[i];
+      slatePh.textContent = p.photographer || "";
+      slateCr.innerHTML = creditsHTML(p, labels);
+      counterCur.textContent = String(i+1).padStart(2,"0");
+      wordmark.classList.add("show");
+      slate.classList.add("show");
+      counter.classList.add("show");
     });
   }, { threshold: [0.55] });
   sections.forEach(s => io.observe(s));
 
   // keyboard nav
-  window.addEventListener("keydown", (ev) => {
+  window.addEventListener("keydown", ev => {
     const cur = Math.round(stage.scrollTop / window.innerHeight);
-    if (ev.key === "ArrowDown" || ev.key === "PageDown") {
-      ev.preventDefault(); sections[Math.min(cur + 1, sections.length - 1)]?.scrollIntoView();
-    } else if (ev.key === "ArrowUp" || ev.key === "PageUp") {
-      ev.preventDefault(); sections[Math.max(cur - 1, 0)]?.scrollIntoView();
-    }
+    if (ev.key === "ArrowDown" || ev.key === "PageDown"){ ev.preventDefault(); sections[Math.min(cur+1, sections.length-1)]?.scrollIntoView(); }
+    else if (ev.key === "ArrowUp" || ev.key === "PageUp"){ ev.preventDefault(); sections[Math.max(cur-1,0)]?.scrollIntoView(); }
   });
 });
 </script>
