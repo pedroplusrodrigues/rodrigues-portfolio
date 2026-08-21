@@ -36,7 +36,9 @@
     "travis_scott": "Travis Scott",
     "ob": "o.b.",
     "samu_haber": "Samu Haber",
-    "fazer_aito": "Fazer / Aito"
+    "fazer_aito": "Fazer / Aito",
+    "gloss_la": "Gloss LA",
+    "kirsten_dunst": "Kirsten Dunst"
   },
   "_hinweis": "hero = Dateiname des festen Startbilds (leer = erstes Bild). order = 'shuffle' (bei jedem Besuch neu gemischt) oder 'fixed'. Gruppen/Reihenfolge nur bei 'fixed' relevant. Pro Bild: 'image' + 'credits' (Reihenfolge = Anzeige). 'labels' übersetzt Kürzel in schöne Namen. Bild ausblenden: Zeile löschen.",
   "photographers": [
@@ -706,24 +708,27 @@
       ]
     },
     {
-      "name": "Kurtiswarienko",
+      "name": "Kurt Iswarienko",
       "projects": [
         {
-          "image": "kurtIswarienko__glosslakirstendunst__01.jpg",
+          "image": "kurt_Iswarienko__gloss_la__kirsten_dunst__01.jpg",
           "credits": [
-            "glosslakirstendunst"
+            "gloss_la",
+            "kirsten_dunst"
           ]
         },
         {
-          "image": "kurtIswarienko__glosslakirstendunst__02.jpg",
+          "image": "kurt_Iswarienko__gloss_la__kirsten_dunst__02.jpg",
           "credits": [
-            "glosslakirstendunst"
+            "gloss_la",
+            "kirsten_dunst"
           ]
         },
         {
-          "image": "kurtIswarienko__glosslakirstendunst__03.jpg",
+          "image": "kurt_Iswarienko__gloss_la__kirsten_dunst__03.jpg",
           "credits": [
-            "glosslakirstendunst"
+            "gloss_la",
+            "kirsten_dunst"
           ]
         }
       ]
