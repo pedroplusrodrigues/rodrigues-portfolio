@@ -172,6 +172,46 @@
   #next:hover { opacity: 1; }
   @keyframes bob2 { 0%,100%{ transform: translate(-50%,0);} 50%{ transform: translate(-50%,5px);} }
 
+  /* ---------- Info-Overlay ---------- */
+  #infoBtn {
+    top: var(--pad); right: var(--pad);
+    font-family: var(--display); font-weight: 700;
+    font-size: 13px; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--fg); background: none; border: 0; cursor: pointer;
+    text-shadow: 0 1px 14px rgba(0,0,0,.65);
+    pointer-events: auto; opacity: .82; transition: opacity .3s ease;
+  }
+  #infoBtn:hover { opacity: 1; }
+  #info {
+    position: fixed; inset: 0; z-index: 50;
+    background: rgba(6,6,8,.95);
+    -webkit-backdrop-filter: blur(7px); backdrop-filter: blur(7px);
+    display: flex; align-items: center; justify-content: center;
+    padding: clamp(28px, 8vw, 110px);
+    opacity: 0; visibility: hidden; transition: opacity .5s ease, visibility .5s;
+  }
+  #info.open { opacity: 1; visibility: visible; }
+  #info .panel { max-width: 620px; width: 100%; }
+  #info h2 {
+    font-family: var(--display); font-weight: 700; text-transform: uppercase;
+    letter-spacing: .02em; font-size: clamp(24px, 4.2vw, 40px); margin-bottom: 26px;
+  }
+  #info p {
+    font-size: clamp(14px, 1.7vw, 17px); line-height: 1.7; color: var(--dim);
+    margin-bottom: 15px; max-width: 54ch;
+  }
+  #info .contact { margin-top: 30px; font-size: 14px; letter-spacing: .04em; color: var(--dim); }
+  #info .agencies { margin-top: 24px; font-size: 13px; letter-spacing: .04em; color: var(--dim); line-height: 1.6; }
+  #info .agencies .lbl { display: block; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--faint); margin-bottom: 7px; }
+  #info a { color: var(--fg); text-decoration: none; border-bottom: 1px solid #4a4a4f; }
+  #info a:hover { border-color: var(--fg); }
+  #infoClose {
+    position: absolute; top: var(--pad); right: var(--pad);
+    background: none; border: 0; color: var(--fg); font-size: 30px; line-height: 1;
+    cursor: pointer; opacity: .8;
+  }
+  #infoClose:hover { opacity: 1; }
+
   @media (max-width: 640px) {
     #slate { max-width: calc(100vw - 2*var(--pad)); bottom: calc(var(--pad) + 30px); }
     #counter { bottom: calc(var(--pad) + 30px); }
@@ -195,6 +235,16 @@
   </aside>
   <div id="counter" class="chrome"><span class="cur">01</span> / <span class="total">01</span></div>
   <button id="next" class="chrome" aria-label="Weiter">&#8964;</button>
+  <button id="infoBtn" class="chrome">Info</button>
+  <div id="info" role="dialog" aria-modal="true" aria-label="Info">
+    <button id="infoClose" aria-label="Schließen">&times;</button>
+    <div class="panel">
+      <h2 id="info-name">Pedro Rodrigues</h2>
+      <div id="info-about"></div>
+      <div class="agencies" id="info-agencies"></div>
+      <div class="contact" id="info-contact"></div>
+    </div>
+  </div>
 
 <script>
 // Deployed: loads /captions.json from the repo. hero = festes Startbild (leer = erstes Bild).
@@ -202,6 +252,13 @@
 const FALLBACK = {
   title: "Pedro Rodrigues", role: "Retouch & Compositing",
   imageFolder: "images", hero: "", order: "shuffle",
+  about: [
+    "Retouch & compositing artist based in Hamburg.",
+    "Automotive CGI/3D · Creative Retouch · Look Development · High-End Compositing · People & Beauty · Colour",
+    "From pre-production to final master. Photo, CGI or AI-generated — made campaign-ready and on-brand."
+  ],
+  agencies: ["Agency One", "Agency Two", "Agency Three"],
+  contact: "pedro@rodrigues.de",
   labels: { "pop":"POP","dock2studios":"Dock2 Studios","ddb_berlin":"DDB Berlin","vw_golf":"VW Golf","innocean":"Innocean","hyndai_kona":"Hyundai Kona" },
   photographers: [
     { name: "Frithjof Ohm", projects: [ { image: "frithjof_ohm__dock2studios__ddb_berlin__vw_golf__01.jpg", credits: ["dock2studios","ddb_berlin","vw_golf"] } ] },
@@ -226,6 +283,19 @@ const counter=document.getElementById("counter");
 const counterCur=counter.querySelector(".cur");
 const counterTotal=counter.querySelector(".total");
 const nextBtn=document.getElementById("next");
+const infoBtn=document.getElementById("infoBtn");
+const info=document.getElementById("info");
+const infoClose=document.getElementById("infoClose");
+const infoName=document.getElementById("info-name");
+const infoAbout=document.getElementById("info-about");
+const infoAgencies=document.getElementById("info-agencies");
+const infoContact=document.getElementById("info-contact");
+function openInfo(){ info.classList.add("open"); }
+function closeInfo(){ info.classList.remove("open"); }
+infoBtn.addEventListener("click", e=>{ e.stopPropagation(); openInfo(); });
+infoClose.addEventListener("click", e=>{ e.stopPropagation(); closeInfo(); });
+info.addEventListener("click", e=>{ if(e.target===info) closeInfo(); });
+window.addEventListener("keydown", ev=>{ if(ev.key==="Escape") closeInfo(); });
 
 function creditsHTML(p,l){ const c=Array.isArray(p.credits)?p.credits:[]; if(!c.length) return ""; return c.map((t,i)=>{ const s=esc(prettify(t,l)); return i===c.length-1?`<span class="last">${s}</span>`:s; }).join(" · "); }
 
@@ -241,6 +311,14 @@ loadData().then(data=>{
   let gallery=all.filter(p=>p.image!==heroFile);
   if((data.order||"shuffle")==="shuffle") gallery=shuffle(gallery.slice());
   counterTotal.textContent=String(gallery.length).padStart(2,"0");
+
+  // Info-Overlay befüllen
+  infoName.textContent = data.title || "Pedro Rodrigues";
+  const aboutArr = Array.isArray(data.about) ? data.about : (data.about ? [data.about] : []);
+  infoAbout.innerHTML = aboutArr.map(pp => `<p>${esc(pp)}</p>`).join("");
+  const ag = Array.isArray(data.agencies) ? data.agencies.filter(Boolean) : [];
+  infoAgencies.innerHTML = ag.length ? `<span class="lbl">Selected agencies</span>${esc(ag.join(" · "))}` : "";
+  if(data.contact){ infoContact.innerHTML = `<a href="mailto:${esc(data.contact)}">${esc(data.contact)}</a>`; }
 
   // hero
   const hero=document.createElement("section");

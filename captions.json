@@ -1,6 +1,12 @@
 {
   "title": "Pedro Rodrigues",
   "role": "Retouch & Compositing",
+  "about": [
+    "Retouch & compositing artist based in Hamburg.",
+    "Automotive CGI/3D · Creative Retouch · Look Development · High-End Compositing · People & Beauty · Colour",
+    "From pre-production to final master. Photo, CGI or AI-generated — made campaign-ready and on-brand."
+  ],
+  "contact": "pedro@rodrigues.de",
   "imageFolder": "images",
   "hero": "",
   "order": "shuffle",
@@ -40,7 +46,7 @@
     "gloss_la": "Gloss LA",
     "kirsten_dunst": "Kirsten Dunst"
   },
-  "_hinweis": "hero = Dateiname des festen Startbilds (leer = erstes Bild). order = 'shuffle' (bei jedem Besuch neu gemischt) oder 'fixed'. Gruppen/Reihenfolge nur bei 'fixed' relevant. Pro Bild: 'image' + 'credits' (Reihenfolge = Anzeige). 'labels' übersetzt Kürzel in schöne Namen. Bild ausblenden: Zeile löschen.",
+  "_hinweis": "hero = Dateiname des festen Startbilds (leer = erstes Bild). order = 'shuffle' (bei jedem Besuch neu gemischt) oder 'fixed'. Gruppen/Reihenfolge nur bei 'fixed' relevant. Pro Bild: 'image' + 'credits' (Reihenfolge = Anzeige). 'labels' übersetzt Kürzel in schöne Namen. Bild ausblenden: Zeile löschen. | 'about' = Info-Text (Zeilen). 'agencies' = Liste für 'Selected agencies' (leer = wird ausgeblendet). 'contact' = E-Mail.",
   "photographers": [
     {
       "name": "Agnieszka Doroszewicz",
@@ -861,5 +867,6 @@
         }
       ]
     }
-  ]
+  ],
+  "agencies": []
 }
