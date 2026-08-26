@@ -8,6 +8,9 @@
 //     Nachteil: es steht dann im Repo.
 const HARDCODED_PASSWORD = "";
 
+// Diese Pfade sind IMMER ohne Passwort erreichbar (Impressum/Datenschutz müssen öffentlich sein).
+const PUBLIC_PATHS = ["/impressum", "/impressum.html", "/datenschutz", "/datenschutz.html"];
+
 const COOKIE = "site_auth";
 const MAX_AGE = 60 * 60 * 24 * 30; // 30 Tage eingeloggt bleiben
 
@@ -47,6 +50,11 @@ button{width:100%;margin-top:10px;padding:14px;border:0;border-radius:10px;backg
 
 export async function onRequest(context) {
   const { request, env, next } = context;
+  const url = new URL(request.url);
+
+  // Impressum/Datenschutz immer öffentlich
+  if (PUBLIC_PATHS.includes(url.pathname)) return next();
+
   const PASSWORD = (env && env.SITE_PASSWORD) || HARDCODED_PASSWORD;
 
   // Kein Passwort gesetzt -> Seite bleibt offen (kein Aussperren).
@@ -64,7 +72,7 @@ export async function onRequest(context) {
       return new Response(null, {
         status: 302,
         headers: {
-          "Location": new URL(request.url).pathname,
+          "Location": url.pathname,
           "Set-Cookie": `${COOKIE}=${expected}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${MAX_AGE}`
         }
       });
