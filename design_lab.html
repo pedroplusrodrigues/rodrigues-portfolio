@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pedro Rodrigues — Design Lab v2</title>
+<style>
+:root {
+  --bg:#09090a; --fg:#f4f4f1; --muted:#929298; --line:#242428; --panel:#101012;
+  --light:#ecebe6; --ink:#151515; --pad:clamp(16px,3vw,42px);
+}
+*{box-sizing:border-box}
+html{background:var(--bg);color:var(--fg);font-family:Arial,Helvetica,sans-serif}
+body{margin:0;background:var(--bg);color:var(--fg)}
+button{font:inherit}
+img{display:block;max-width:100%}
+.labbar{
+  position:sticky;top:0;z-index:100;background:rgba(9,9,10,.94);backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--line);padding:14px var(--pad)
+}
+.labtop{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;max-width:1800px;margin:auto}
+.brand{font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:700}
+.choices{display:flex;gap:8px;flex-wrap:wrap}
+.choice{border:1px solid var(--line);background:#151518;color:var(--fg);padding:11px 15px;border-radius:999px;cursor:pointer}
+.choice.active{background:var(--fg);color:#0a0a0b;border-color:var(--fg)}
+.view{display:none} .view.active{display:block}
+.shell{max-width:1800px;margin:auto}
+.image{background:#151517 center/cover no-repeat;position:relative;overflow:hidden}
+.image.broken{background:#121214}
+.image::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.54),transparent 58%);pointer-events:none}
+/* CINEMATIC */
+.cineHero{height:min(82vw,900px);min-height:560px}
+.cineNav{position:absolute;z-index:3;top:0;left:0;right:0;padding:var(--pad);display:flex;justify-content:space-between;gap:20px;
+  font-size:11px;letter-spacing:.17em;text-transform:uppercase}
+.cineTitle{position:absolute;z-index:3;left:var(--pad);bottom:var(--pad);max-width:1100px}
+.cineTitle small{display:block;font-size:11px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:12px}
+.cineTitle h1{font-size:clamp(50px,10vw,165px);line-height:.82;margin:0;text-transform:uppercase;letter-spacing:-.045em}
+.cineTitle p{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#ddd;margin:16px 0 0}
+.cineStrip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line)}
+.cineStrip button{background:#0d0d0f;color:var(--fg);border:0;padding:20px;text-align:left;cursor:pointer;min-height:92px}
+.cineStrip button:hover,.cineStrip button.active{background:#1a1a1e}
+.cineStrip small{color:var(--muted);display:block;margin-bottom:5px}
+.cineGallery{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--bg);padding:2px}
+.cineThumb{aspect-ratio:4/3;cursor:pointer}
+.cineThumb .meta{position:absolute;z-index:2;left:14px;right:14px;bottom:12px;opacity:0;transition:opacity .2s}
+.cineThumb:hover .meta{opacity:1}
+.cineThumb .meta b{font-size:14px}
+.cineThumb .meta span{display:block;font-size:10px;color:#ddd;margin-top:4px;text-transform:uppercase;letter-spacing:.08em}
+/* INDEX */
+.indexWrap{display:grid;grid-template-columns:minmax(290px,.65fr) 1.35fr;min-height:780px}
+.indexList{border-right:1px solid var(--line);background:#0c0c0e}
+.indexHead{padding:26px;border-bottom:1px solid var(--line);position:sticky;top:72px;background:#0c0c0e;z-index:4}
+.indexHead strong{display:block;font-size:18px}
+.indexHead span{color:var(--muted);font-size:12px}
+.indexRow{width:100%;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--fg);padding:20px 26px;text-align:left;cursor:pointer}
+.indexRow.active{background:#f0f0ee;color:#0b0b0c}
+.indexRow small{display:block;opacity:.55;margin-bottom:6px}
+.indexRow b{font-size:clamp(20px,2.5vw,40px);line-height:.95}
+.indexPreview{min-height:780px;position:sticky;top:72px;height:calc(100vh - 72px)}
+.indexMeta{position:absolute;z-index:3;left:30px;bottom:30px;right:30px}
+.indexMeta .kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#ddd}
+.indexMeta h2{font-size:clamp(44px,7vw,110px);line-height:.85;margin:8px 0 12px;text-transform:uppercase}
+.indexMeta p{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#ddd}
+/* EDITORIAL */
+.editorial{background:var(--light);color:var(--ink);padding:clamp(28px,5vw,80px)}
+.edIntro{display:grid;grid-template-columns:1.3fr .7fr;gap:40px;margin-bottom:80px}
+.edIntro h1{font-size:clamp(56px,8vw,126px);line-height:.86;margin:0;letter-spacing:-.055em}
+.edIntro p{align-self:end;max-width:560px;font-size:15px;line-height:1.65;color:#4d4d4d}
+.edGrid{display:grid;grid-template-columns:repeat(12,1fr);gap:20px;align-items:start}
+.edCard{position:relative}
+.edCard .image{background-position:center;background-size:cover}
+.edCard .cap{font-size:12px;line-height:1.45;margin-top:9px;color:#4a4a4a}
+.edCard .cap strong{color:#111}
+.edCard.wide{grid-column:span 8}
+.edCard.medium{grid-column:span 6}
+.edCard.narrow{grid-column:span 4}
+.edCard.tall .image{aspect-ratio:4/5}
+.edCard.land .image{aspect-ratio:4/3}
+.edCard.cinema .image{aspect-ratio:16/9}
+.edCard:nth-child(6n+2){margin-top:90px}
+.edCard:nth-child(6n+4){margin-top:50px}
+.edCard:nth-child(6n+6){margin-top:130px}
+.footer{padding:34px var(--pad);border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+@media(max-width:900px){
+  .cineStrip{grid-template-columns:repeat(2,1fr)}
+  .cineGallery{grid-template-columns:repeat(2,1fr)}
+  .indexWrap{grid-template-columns:1fr}
+  .indexList{border-right:0}
+  .indexHead{position:static}
+  .indexPreview{position:relative;top:auto;height:auto;min-height:520px}
+  .edIntro{grid-template-columns:1fr}
+  .edGrid{display:grid;grid-template-columns:1fr 1fr}
+  .edCard,.edCard.wide,.edCard.medium,.edCard.narrow{grid-column:auto;margin-top:0!important}
+}
+@media(max-width:620px){
+  .cineGallery{grid-template-columns:1fr}
+  .edGrid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="labbar">
+  <div class="labtop">
+    <div class="brand">Pedro Rodrigues · Design Lab</div>
+    <div class="choices">
+      <button class="choice active" data-view="cine">Variante 1 · Cinematic</button>
+      <button class="choice" data-view="index">Variante 2 · Interactive Index</button>
+      <button class="choice" data-view="editorial">Variante 3 · Editorial</button>
+    </div>
+  </div>
+</div>
+
+<main class="shell">
+  <section id="cine" class="view active">
+    <div id="cineHero" class="image cineHero">
+      <div class="cineNav"><span>Pedro Rodrigues</span><span>Retouch &amp; Compositing</span></div>
+      <div class="cineTitle"><small id="cineCounter">Selected Work / 01</small><h1 id="cineName"></h1><p id="cineCredits"></p></div>
+    </div>
+    <div class="cineStrip" id="cineStrip"></div>
+    <div class="cineGallery" id="cineGallery"></div>
+  </section>
+
+  <section id="index" class="view">
+    <div class="indexWrap">
+      <div class="indexList">
+        <div class="indexHead"><strong>Pedro Rodrigues</strong><span>Retouch &amp; Compositing</span></div>
+        <div id="indexRows"></div>
+      </div>
+      <div id="indexPreview" class="image indexPreview">
+        <div class="indexMeta"><div class="kicker">Selected Work</div><h2 id="indexName"></h2><p id="indexCredits"></p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="editorial" class="view editorial">
+    <div class="edIntro">
+      <h1>Retouch<br>as image<br>making.</h1>
+      <p>Automotive CGI/3D · Creative Retouch · Look Development · High-End Compositing · People &amp; Beauty · Colour.<br><br>From pre-production to final master. Photo, CGI or AI-generated — made campaign-ready and on-brand.</p>
+    </div>
+    <div id="edGrid" class="edGrid"></div>
+  </section>
+</main>
+
+<div class="footer">Pedro Rodrigues · Design Lab v2</div>
+
+<script>
+const PROJECTS = [{"photographer": "Agnieszka Doroszewicz", "image": "agnieszka_doroszewicz__harvest__opelgrandland__01.jpg", "credits": ["Harvest", "Opel Grandland"], "display": "Opel Grandland"}, {"photographer": "Agnieszka Doroszewicz", "image": "agnieszka_doroszewicz__harvest__opelgrandland__02.jpg", "credits": ["Harvest", "Opel Grandland"], "display": "Opel Grandland"}, {"photographer": "Agnieszka Doroszewicz", "image": "agnieszka_doroszewicz__harvest__opelgrandland__03.jpg", "credits": ["Harvest", "Opel Grandland"], "display": "Opel Grandland"}, {"photographer": "Bam", "image": "bam__pop__aries__thisisnotla__01.jpg", "credits": ["POP", "Aries", "This Is Not LA"], "display": "This Is Not LA"}, {"photographer": "Bam", "image": "bam__pop__aries__thisisnotla__02.jpg", "credits": ["POP", "Aries", "This Is Not LA"], "display": "This Is Not LA"}, {"photographer": "Bam", "image": "bam__pop__aries__thisisnotla__03.jpg", "credits": ["POP", "Aries", "This Is Not LA"], "display": "This Is Not LA"}, {"photographer": "Bam", "image": "bam__pop__aries__thisisnotla__04.jpg", "credits": ["POP", "Aries", "This Is Not LA"], "display": "This Is Not LA"}, {"photographer": "Bam", "image": "bam__pop__aries__thisisnotla__05.jpg", "credits": ["POP", "Aries", "This Is Not LA"], "display": "This Is Not LA"}, {"photographer": "Bam", "image": "bam__pop__aries__thisisnotla__06.jpg", "credits": ["POP", "Aries", "This Is Not LA"], "display": "This Is Not LA"}, {"photographer": "Bam", "image": "bam__pop__aries__thisisnotla__07.jpg", "credits": ["POP", "Aries", "This Is Not LA"], "display": "This Is Not LA"}, {"photographer": "Bam", "image": "bam__pop__aries__thisisnotla__08.jpg", "credits": ["POP", "Aries", "This Is Not LA"], "display": "This Is Not LA"}, {"photographer": "Bam", "image": "bam__pop__aries__thisisnotla__09.jpg", "credits": ["POP", "Aries", "This Is Not LA"], "display": "This Is Not LA"}, {"photographer": "Bam", "image": "bam__pop__aries__thisisnotla__10.jpg", "credits": ["POP", "Aries", "This Is Not LA"], "display": "This Is Not LA"}, {"photographer": "Bam", "image": "bam__pop__innocean__hyndai_kona__01.jpg", "credits": ["POP", "Innocean", "Hyundai Kona"], "display": "Hyundai Kona"}, {"photographer": "Bam", "image": "bam__pop__innocean__hyndai_kona__02.jpg", "credits": ["POP", "Innocean", "Hyundai Kona"], "display": "Hyundai Kona"}, {"photographer": "Bam", "image": "bam__pop__innocean__hyndai_kona__03.jpg", "credits": ["POP", "Innocean", "Hyundai Kona"], "display": "Hyundai Kona"}, {"photographer": "David Daub", "image": "david_daub__pop__vw_id3__01.jpg", "credits": ["POP", "VW ID.3"], "display": "VW ID.3"}, {"photographer": "David Daub", "image": "david_daub__pop__vw_id3__02.jpg", "credits": ["POP", "VW ID.3"], "display": "VW ID.3"}, {"photographer": "David Daub", "image": "david_daub__pop__vw_id3__03.jpg", "credits": ["POP", "VW ID.3"], "display": "VW ID.3"}, {"photographer": "David Daub", "image": "david_daub__pop__vw_id3__04.jpg", "credits": ["POP", "VW ID.3"], "display": "VW ID.3"}, {"photographer": "David Daub", "image": "david_daub__pop__vw_id3__05.jpg", "credits": ["POP", "VW ID.3"], "display": "VW ID.3"}, {"photographer": "David Daub", "image": "david_daub__pop__vw_id3__06.jpg", "credits": ["POP", "VW ID.3"], "display": "VW ID.3"}, {"photographer": "David Maurer", "image": "david_maurer__dock2studios__porsche_macan__01.jpg", "credits": ["Dock2 Studios", "Porsche Macan"], "display": "Porsche Macan"}, {"photographer": "David Maurer", "image": "david_maurer__dock2studios__porsche_macan__02.jpg", "credits": ["Dock2 Studios", "Porsche Macan"], "display": "Porsche Macan"}, {"photographer": "David Maurer", "image": "david_maurer__dock2studios__porsche_macan__03.jpg", "credits": ["Dock2 Studios", "Porsche Macan"], "display": "Porsche Macan"}, {"photographer": "David Maurer", "image": "david_maurer__dock2studios__porsche_macan__04.jpg", "credits": ["Dock2 Studios", "Porsche Macan"], "display": "Porsche Macan"}, {"photographer": "David Maurer", "image": "david_maurer__dock2studios__porsche_macan__05.jpg", "credits": ["Dock2 Studios", "Porsche Macan"], "display": "Porsche Macan"}, {"photographer": "David Maurer", "image": "david_maurer__dock2studios__porsche_macan__06.jpg", "credits": ["Dock2 Studios", "Porsche Macan"], "display": "Porsche Macan"}, {"photographer": "David Maurer", "image": "david_maurer__dock2studios__porsche_macan__07.jpg", "credits": ["Dock2 Studios", "Porsche Macan"], "display": "Porsche Macan"}, {"photographer": "David Maurer", "image": "david_maurer__dock2studios__porsche_macan__08.jpg", "credits": ["Dock2 Studios", "Porsche Macan"], "display": "Porsche Macan"}, {"photographer": "David Maurer", "image": "david_maurer__dock2studios__porsche_macan__09.jpg", "credits": ["Dock2 Studios", "Porsche Macan"], "display": "Porsche Macan"}, {"photographer": "David Maurer", "image": "david_maurer__dock2studios__porsche_macan__10.jpg", "credits": ["Dock2 Studios", "Porsche Macan"], "display": "Porsche Macan"}, {"photographer": "Florian Bison", "image": "florian_bison__pop__tipico__01.jpg", "credits": ["POP", "Tipico"], "display": "Tipico"}, {"photographer": "Florian Bison", "image": "florian_bison__pop__tipico__02.jpg", "credits": ["POP", "Tipico"], "display": "Tipico"}, {"photographer": "Florian Bison", "image": "florian_bison__pop__tipico__03.jpg", "credits": ["POP", "Tipico"], "display": "Tipico"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__ddb_berlin__vw_golf__01.jpg", "credits": ["Dock2 Studios", "DDB Berlin", "VW Golf"], "display": "VW Golf"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__ddb_berlin__vw_golf__02.jpg", "credits": ["Dock2 Studios", "DDB Berlin", "VW Golf"], "display": "VW Golf"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__ddb_berlin__vw_golf__03.jpg", "credits": ["Dock2 Studios", "DDB Berlin", "VW Golf"], "display": "VW Golf"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__ddb_berlin__vw_golf__04.jpg", "credits": ["Dock2 Studios", "DDB Berlin", "VW Golf"], "display": "VW Golf"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__ddb_berlin__vw_golf__05.jpg", "credits": ["Dock2 Studios", "DDB Berlin", "VW Golf"], "display": "VW Golf"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__ddb_berlin__vw_golf__06.jpg", "credits": ["Dock2 Studios", "DDB Berlin", "VW Golf"], "display": "VW Golf"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__ddb_berlin__vw_golf__07.jpg", "credits": ["Dock2 Studios", "DDB Berlin", "VW Golf"], "display": "VW Golf"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__ddb_berlin__vw_golf_gti__01.jpg", "credits": ["Dock2 Studios", "DDB Berlin", "VW Golf GTI"], "display": "VW Golf GTI"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__ddb_berlin__vw_golf_gti__02.jpg", "credits": ["Dock2 Studios", "DDB Berlin", "VW Golf GTI"], "display": "VW Golf GTI"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__ddb_berlin__vw_golf_gti__03.jpg", "credits": ["Dock2 Studios", "DDB Berlin", "VW Golf GTI"], "display": "VW Golf GTI"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__ddb_berlin__vw_golf_gti__04.jpg", "credits": ["Dock2 Studios", "DDB Berlin", "VW Golf GTI"], "display": "VW Golf GTI"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__ddb_berlin__vw_golf_gti__05.jpg", "credits": ["Dock2 Studios", "DDB Berlin", "VW Golf GTI"], "display": "VW Golf GTI"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__01.jpg", "credits": ["Dock2 Studios", "thjnk", "Audi RS e-tron GT"], "display": "Audi RS e-tron GT"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__02.jpg", "credits": ["Dock2 Studios", "thjnk", "Audi RS e-tron GT"], "display": "Audi RS e-tron GT"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__03.jpg", "credits": ["Dock2 Studios", "thjnk", "Audi RS e-tron GT"], "display": "Audi RS e-tron GT"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__04.jpg", "credits": ["Dock2 Studios", "thjnk", "Audi RS e-tron GT"], "display": "Audi RS e-tron GT"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__05.jpg", "credits": ["Dock2 Studios", "thjnk", "Audi RS e-tron GT"], "display": "Audi RS e-tron GT"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__06.jpg", "credits": ["Dock2 Studios", "thjnk", "Audi RS e-tron GT"], "display": "Audi RS e-tron GT"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__07.jpg", "credits": ["Dock2 Studios", "thjnk", "Audi RS e-tron GT"], "display": "Audi RS e-tron GT"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__08.jpg", "credits": ["Dock2 Studios", "thjnk", "Audi RS e-tron GT"], "display": "Audi RS e-tron GT"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__09.jpg", "credits": ["Dock2 Studios", "thjnk", "Audi RS e-tron GT"], "display": "Audi RS e-tron GT"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__10.jpg", "credits": ["Dock2 Studios", "thjnk", "Audi RS e-tron GT"], "display": "Audi RS e-tron GT"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__11.jpg", "credits": ["Dock2 Studios", "thjnk", "Audi RS e-tron GT"], "display": "Audi RS e-tron GT"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__12.jpg", "credits": ["Dock2 Studios", "thjnk", "Audi RS e-tron GT"], "display": "Audi RS e-tron GT"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__13.jpg", "credits": ["Dock2 Studios", "thjnk", "Audi RS e-tron GT"], "display": "Audi RS e-tron GT"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__14.jpg", "credits": ["Dock2 Studios", "thjnk", "Audi RS e-tron GT"], "display": "Audi RS e-tron GT"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__15.jpg", "credits": ["Dock2 Studios", "thjnk", "Audi RS e-tron GT"], "display": "Audi RS e-tron GT"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__16.jpg", "credits": ["Dock2 Studios", "thjnk", "Audi RS e-tron GT"], "display": "Audi RS e-tron GT"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__17.jpg", "credits": ["Dock2 Studios", "thjnk", "Audi RS e-tron GT"], "display": "Audi RS e-tron GT"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__thjnk__audi_rsegt__18.jpg", "credits": ["Dock2 Studios", "thjnk", "Audi RS e-tron GT"], "display": "Audi RS e-tron GT"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__thjnk__vw_troc__01.jpg", "credits": ["Dock2 Studios", "thjnk", "VW T-Roc"], "display": "VW T-Roc"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__thjnk__vw_troc__02.jpg", "credits": ["Dock2 Studios", "thjnk", "VW T-Roc"], "display": "VW T-Roc"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__thjnk__vw_troc__03.jpg", "credits": ["Dock2 Studios", "thjnk", "VW T-Roc"], "display": "VW T-Roc"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__thjnk__vw_troc__04.jpg", "credits": ["Dock2 Studios", "thjnk", "VW T-Roc"], "display": "VW T-Roc"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__thjnk__vw_troc__05.jpg", "credits": ["Dock2 Studios", "thjnk", "VW T-Roc"], "display": "VW T-Roc"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__thjnk__vw_troc__06.jpg", "credits": ["Dock2 Studios", "thjnk", "VW T-Roc"], "display": "VW T-Roc"}, {"photographer": "Frithjof Ohm", "image": "frithjof_ohm__dock2studios__thjnk__vw_troc__07.jpg", "credits": ["Dock2 Studios", "thjnk", "VW T-Roc"], "display": "VW T-Roc"}, {"photographer": "CGI", "image": "fullcgi__flavor3d__opel_grandland__01.jpg", "credits": ["Flavor3D", "Opel Grandland"], "display": "Opel Grandland"}, {"photographer": "CGI", "image": "fullcgi__flavor3d__opel_grandland__02.jpg", "credits": ["Flavor3D", "Opel Grandland"], "display": "Opel Grandland"}, {"photographer": "James Law", "image": "james_law__travis_scott__beats__01.jpg", "credits": ["Travis Scott", "Beats"], "display": "Beats"}, {"photographer": "James Law", "image": "james_law__travis_scott__beats__02.jpg", "credits": ["Travis Scott", "Beats"], "display": "Beats"}, {"photographer": "James Law", "image": "james_law__travis_scott__beats__03.jpg", "credits": ["Travis Scott", "Beats"], "display": "Beats"}, {"photographer": "James Law", "image": "james_law__travis_scott__beats__04.jpg", "credits": ["Travis Scott", "Beats"], "display": "Beats"}, {"photographer": "Josselin", "image": "josselin__wpp__sf__cocacola__01.jpg", "credits": ["WPP", "SF", "Coca-Cola"], "display": "Coca-Cola"}, {"photographer": "Josselin", "image": "josselin__wpp__sf__cocacola__02.jpg", "credits": ["WPP", "SF", "Coca-Cola"], "display": "Coca-Cola"}, {"photographer": "Josselin", "image": "josselin__wpp__sf__cocacola__03.jpg", "credits": ["WPP", "SF", "Coca-Cola"], "display": "Coca-Cola"}, {"photographer": "Kurt Iswarienko", "image": "kurt_Iswarienko__gloss_la__kirsten_dunst__01.jpg", "credits": ["Gloss LA", "Kirsten Dunst"], "display": "Kirsten Dunst"}, {"photographer": "Kurt Iswarienko", "image": "kurt_Iswarienko__gloss_la__kirsten_dunst__02.jpg", "credits": ["Gloss LA", "Kirsten Dunst"], "display": "Kirsten Dunst"}, {"photographer": "Kurt Iswarienko", "image": "kurt_Iswarienko__gloss_la__kirsten_dunst__03.jpg", "credits": ["Gloss LA", "Kirsten Dunst"], "display": "Kirsten Dunst"}, {"photographer": "Marija Mihailova", "image": "marija_mihailova__wpp__sf__ob__01.jpg", "credits": ["WPP", "SF", "o.b."], "display": "o.b."}, {"photographer": "Marija Mihailova", "image": "marija_mihailova__wpp__sf__ob__02.jpg", "credits": ["WPP", "SF", "o.b."], "display": "o.b."}, {"photographer": "Marija Mihailova", "image": "marija_mihailova__wpp__sf__ob__03.jpg", "credits": ["WPP", "SF", "o.b."], "display": "o.b."}, {"photographer": "Marija Mihailova", "image": "marija_mihailova__wpp__sf__ob__04.jpg", "credits": ["WPP", "SF", "o.b."], "display": "o.b."}, {"photographer": "Ole Westermann", "image": "ole_westermann__pop__tesla__01.jpg", "credits": ["POP", "Tesla"], "display": "Tesla"}, {"photographer": "Ole Westermann", "image": "ole_westermann__pop__tesla__02.jpg", "credits": ["POP", "Tesla"], "display": "Tesla"}, {"photographer": "Ole Westermann", "image": "ole_westermann__pop__tesla__03.jpg", "credits": ["POP", "Tesla"], "display": "Tesla"}, {"photographer": "Tobias Habermann", "image": "tobias_habermann__dock2studios__vw_id7__01.jpg", "credits": ["Dock2 Studios", "VW ID.7"], "display": "VW ID.7"}, {"photographer": "Tobias Habermann", "image": "tobias_habermann__dock2studios__vw_id7__02.jpg", "credits": ["Dock2 Studios", "VW ID.7"], "display": "VW ID.7"}, {"photographer": "Tobias Habermann", "image": "tobias_habermann__dock2studios__vw_id7__03.jpg", "credits": ["Dock2 Studios", "VW ID.7"], "display": "VW ID.7"}, {"photographer": "Tobias Habermann", "image": "tobias_habermann__dock2studios__vw_id7__04.jpg", "credits": ["Dock2 Studios", "VW ID.7"], "display": "VW ID.7"}, {"photographer": "", "image": "unknown__brand_upgrade__samu_haber__fazer_aito.jpg", "credits": ["Brand Upgrade", "Samu Haber", "Fazer / Aito"], "display": "Fazer / Aito"}, {"photographer": "", "image": "unknown__halbautomatik__audi_a5.jpg", "credits": ["Halbautomatik", "Audi A5"], "display": "Audi A5"}, {"photographer": "", "image": "unknown__pop__01.jpg", "credits": ["POP"], "display": "POP"}, {"photographer": "", "image": "unknown__pop__02.jpg", "credits": ["POP"], "display": "POP"}];
+
+function bgUrl(image) {
+  return `url("images/${image}")`;
+}
+function setBg(el,image) {
+  el.classList.remove("broken");
+  el.style.backgroundImage = bgUrl(image);
+  const test = new Image();
+  test.onload = () => {};
+  test.onerror = () => {
+    el.style.backgroundImage = "none";
+    el.classList.add("broken");
+  };
+  test.src = "images/" + image;
+}
+function creditText(p) {
+  return [p.photographer, ...p.credits].filter(Boolean).join(" · ");
+}
+
+const choices=[...document.querySelectorAll(".choice")];
+const views=[...document.querySelectorAll(".view")];
+choices.forEach(btn=>btn.addEventListener("click",()=>{
+  choices.forEach(b=>b.classList.toggle("active",b===btn));
+  views.forEach(v=>v.classList.toggle("active",v.id===btn.dataset.view));
+}));
+
+/* CINEMATIC */
+const cineHero=document.getElementById("cineHero");
+const cineName=document.getElementById("cineName");
+const cineCredits=document.getElementById("cineCredits");
+const cineCounter=document.getElementById("cineCounter");
+const cineStrip=document.getElementById("cineStrip");
+const cineGallery=document.getElementById("cineGallery");
+
+function showCine(p,index) {
+  setBg(cineHero,p.image);
+  cineName.textContent=p.display;
+  cineCredits.textContent=creditText(p);
+  cineCounter.textContent="Selected Work / " + String(index+1).padStart(2,"0");
+  [...cineStrip.children].forEach((b,i)=>b.classList.toggle("active",i===index));
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+PROJECTS.slice(0,12).forEach((p,i)=>{
+  const b=document.createElement("button");
+  b.innerHTML=`<small>${String(i+1).padStart(2,"0")}</small><b>${p.display}</b>`;
+  b.addEventListener("click",()=>showCine(p,i));
+  cineStrip.appendChild(b);
+});
+
+PROJECTS.forEach((p,i)=>{
+  const card=document.createElement("div");
+  card.className="image cineThumb";
+  setBg(card,p.image);
+  card.innerHTML=`<div class="meta"><b>${p.display}</b><span>${creditText(p)}</span></div>`;
+  card.addEventListener("click",()=>showCine(p,i));
+  cineGallery.appendChild(card);
+});
+
+if(PROJECTS.length) showCine(PROJECTS[0],0);
+
+/* INDEX */
+const idxRows=document.getElementById("indexRows");
+const idxPreview=document.getElementById("indexPreview");
+const idxName=document.getElementById("indexName");
+const idxCredits=document.getElementById("indexCredits");
+
+function showIndex(p,btn) {
+  [...document.querySelectorAll(".indexRow")].forEach(x=>x.classList.remove("active"));
+  if(btn) btn.classList.add("active");
+  setBg(idxPreview,p.image);
+  idxName.textContent=p.display;
+  idxCredits.textContent=creditText(p);
+}
+
+PROJECTS.forEach((p,i)=>{
+  const b=document.createElement("button");
+  b.className="indexRow";
+  b.innerHTML=`<small>${String(i+1).padStart(2,"0")}</small><b>${p.display}</b>`;
+  b.addEventListener("click",()=>showIndex(p,b));
+  idxRows.appendChild(b);
+  if(i===0) showIndex(p,b);
+});
+
+/* EDITORIAL */
+const edGrid=document.getElementById("edGrid");
+const spans=["wide","narrow","medium","wide","medium","narrow"];
+const ratios=["cinema","tall","land","cinema","land","tall"];
+
+PROJECTS.forEach((p,i)=>{
+  const card=document.createElement("article");
+  card.className=`edCard ${spans[i%spans.length]} ${ratios[i%ratios.length]}`;
+  const image=document.createElement("div");
+  image.className="image";
+  setBg(image,p.image);
+  const cap=document.createElement("div");
+  cap.className="cap";
+  cap.innerHTML=`<strong>${p.display}</strong><br>${creditText(p)}`;
+  card.appendChild(image);
+  card.appendChild(cap);
+  edGrid.appendChild(card);
+});
+</script>
+</body>
+</html>
