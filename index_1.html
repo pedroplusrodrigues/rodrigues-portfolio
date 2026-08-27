@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pedro Rodrigues</title>
+<style>
+  @font-face { font-family: 'Reglisse'; src: url('Reglisse.otf') format('opentype'); }
+  @font-face { font-family: 'ReglisseBack'; src: url('Reglisse_Back.otf') format('opentype'); }
+  @font-face { font-family: 'ReglisseClean'; src: url('Reglisse_Clean.otf') format('opentype'); }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --y: #FFE600; --r: #FF1F1F; --b: #0040FF;
+    --g: #00C853; --p: #FF3DCC; --k: #111111; --w: #FFFEF0;
+  }
+  html { cursor: none; }
+  body { background: var(--k); font-family: 'ReglisseClean', cursive; overflow-x: hidden; }
+
+  #cursor { position: fixed; width: 16px; height: 16px; background: var(--r); border: 3px solid var(--w); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width .15s, height .15s; }
+  #cursor.big { width: 48px; height: 48px; background: var(--y); }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: var(--k); height: 52px; display: flex; justify-content: space-between; align-items: center; padding: 0 32px; border-bottom: 3px solid var(--y); }
+  .nav-logo { font-family: 'Reglisse', cursive; font-size: 20px; color: var(--y); text-decoration: none; }
+  .nav-links { display: flex; list-style: none; }
+  .nav-links a { display: block; padding: 0 20px; height: 52px; line-height: 52px; font-family: 'ReglisseClean', cursive; font-size: 15px; color: rgba(255,254,240,0.5); text-decoration: none; transition: color .15s; }
+  .nav-links a:hover { color: var(--y); }
+
+  /* HERO — fullscreen */
+  .hero { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+
+  /* Halftone */
+  .hero::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(255,230,0,0.08) 1.5px, transparent 1.5px); background-size: 22px 22px; pointer-events: none; z-index: 4; }
+
+  /* Slideshow */
+  .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1s ease; z-index: 1; }
+  .slide.active { opacity: 1; z-index: 2; }
+  .slide img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* Overlay — dark left, transparent right */
+  .hero-overlay { position: absolute; inset: 0; z-index: 3; background: linear-gradient(to right, rgba(17,17,17,0.92) 0%, rgba(17,17,17,0.7) 40%, rgba(17,17,17,0.15) 100%); }
+
+  /* Content */
+  .hero-content { position: absolute; inset: 0; z-index: 5; padding-top: 52px; display: flex; flex-direction: column; justify-content: center; padding-left: 56px; padding-bottom: 70px; }
+
+  .eyebrow { display: inline-block; background: var(--y); color: var(--k); font-family: 'ReglisseClean', cursive; font-size: 12px; letter-spacing: .1em; padding: 6px 16px; margin-bottom: 24px; width: fit-content; transform: rotate(-1deg); border: 3px solid var(--y); box-shadow: 3px 3px 0 rgba(0,0,0,0.4); }
+
+  .hero-name { font-family: 'ReglisseBack', cursive; font-size: clamp(80px, 12vw, 148px); line-height: 0.88; margin-bottom: 20px; }
+  .name-pedro { display: block; color: var(--w); }
+  .name-rodrigues { display: block; color: var(--r); }
+
+  .hero-sub { font-family: 'ReglisseClean', cursive; font-size: 16px; letter-spacing: .08em; color: rgba(255,254,240,0.45); margin-bottom: 36px; }
+
+  .hero-btns { display: flex; gap: 14px; }
+  .btn { display: inline-block; font-family: 'ReglisseClean', cursive; font-size: 15px; padding: 13px 32px; border: 3px solid var(--k); text-decoration: none; box-shadow: 4px 4px 0 var(--k); transition: transform .1s, box-shadow .1s; cursor: none; }
+  .btn:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--k); }
+  .btn-red { background: var(--r); color: var(--w); border-color: var(--r); box-shadow: 4px 4px 0 rgba(0,0,0,0.5); }
+  .btn-red:hover { box-shadow: 6px 6px 0 rgba(0,0,0,0.5); }
+  .btn-outline { background: transparent; color: var(--w); border-color: var(--w); box-shadow: 4px 4px 0 rgba(255,255,255,0.2); }
+  .btn-outline:hover { box-shadow: 6px 6px 0 rgba(255,255,255,0.2); }
+
+  /* Bottom bar */
+  .hero-bottom { position: absolute; bottom: 0; left: 0; right: 0; z-index: 5; background: var(--y); border-top: 3px solid var(--k); padding: 11px 56px; display: flex; justify-content: space-between; align-items: center; }
+  .available-tag { display: flex; align-items: center; gap: 8px; font-family: 'ReglisseClean', cursive; font-size: 13px; color: var(--k); }
+  .green-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--g); border: 2px solid var(--k); animation: blink 2s ease-in-out infinite; flex-shrink: 0; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+  .slide-label { font-family: 'ReglisseClean', cursive; font-size: 13px; color: var(--k); }
+  .dots { display: flex; gap: 8px; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; border: 2.5px solid var(--k); background: transparent; cursor: none; transition: background .2s; }
+  .dot.active { background: var(--k); }
+
+  /* TICKER */
+  .ticker { background: var(--r); border-top: 3px solid var(--k); border-bottom: 3px solid var(--k); overflow: hidden; white-space: nowrap; padding: 9px 0; }
+  .ticker-inner { display: inline-block; animation: tick 20s linear infinite; font-family: 'ReglisseClean', cursive; font-size: 16px; color: var(--w); }
+  .ticker-inner .sep { margin: 0 24px; color: var(--y); }
+  @keyframes tick { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+  /* ABOUT */
+  .about { display: grid; grid-template-columns: 1fr 1fr; }
+  .about-left { padding: 64px 56px; background: var(--b); border-right: 3px solid var(--k); }
+  .about-big { font-family: 'Reglisse', cursive; font-size: clamp(44px,5.5vw,72px); color: var(--w); line-height: 1.0; margin-bottom: 28px; }
+  .about-text { font-family: 'ReglisseClean', cursive; font-size: 15px; line-height: 1.85; color: rgba(255,254,240,0.8); max-width: 400px; }
+  .about-right { padding: 64px 56px; background: var(--w); }
+  .srv-title { font-family: 'Reglisse', cursive; font-size: 28px; color: var(--k); margin-bottom: 20px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 40px; }
+  .tag { display: inline-block; font-family: 'ReglisseClean', cursive; font-size: 13px; padding: 7px 16px; border: 2.5px solid var(--k); box-shadow: 3px 3px 0 var(--k); transition: transform .1s; cursor: default; }
+  .tag:hover { transform: translate(-2px,-2px); }
+  .t-r{background:var(--r);color:var(--w)} .t-y{background:var(--y);color:var(--k)} .t-b{background:var(--b);color:var(--w)} .t-g{background:var(--g);color:var(--k)} .t-p{background:var(--p);color:var(--w)} .t-k{background:var(--k);color:var(--w)}
+  .stats { display: flex; border: 3px solid var(--k); box-shadow: 5px 5px 0 var(--k); }
+  .stat-box { flex: 1; padding: 20px 16px; text-align: center; border-right: 3px solid var(--k); }
+  .stat-box:last-child { border-right: none; }
+  .stat-box:nth-child(1){background:var(--y)} .stat-box:nth-child(2){background:var(--r)} .stat-box:nth-child(3){background:var(--w)}
+  .stat-n { font-family: 'ReglisseBack', cursive; font-size: 44px; color: var(--k); line-height: 1; display: block; }
+  .stat-box:nth-child(2) .stat-n { color: var(--w); }
+  .stat-l { font-family: 'ReglisseClean', cursive; font-size: 12px; color: var(--k); opacity: .5; margin-top: 4px; display: block; }
+  .stat-box:nth-child(2) .stat-l { color: rgba(255,254,240,.6); }
+
+  /* CONTACT */
+  .contact { background: var(--k); padding: 80px 56px; display: flex; justify-content: space-between; align-items: center; gap: 40px; border-top: 3px solid var(--y); position: relative; overflow: hidden; }
+  .contact::before { content: '★'; position: absolute; right: -40px; bottom: -80px; font-family: 'Reglisse', cursive; font-size: 400px; color: rgba(255,230,0,0.04); pointer-events: none; line-height: 1; }
+  .contact-h2 { font-family: 'Reglisse', cursive; font-size: clamp(56px,8vw,100px); line-height: 0.9; color: var(--y); }
+  .contact-email { display: inline-block; margin-top: 16px; font-family: 'ReglisseClean', cursive; font-size: 18px; color: var(--w); text-decoration: none; border-bottom: 2px solid var(--r); padding-bottom: 2px; transition: color .2s; }
+  .contact-email:hover { color: var(--y); }
+  .contact-detail { font-family: 'ReglisseClean', cursive; font-size: 14px; color: rgba(255,254,240,0.35); line-height: 2.2; text-align: right; }
+
+  footer { background: var(--y); border-top: 3px solid var(--k); padding: 12px 56px; display: flex; justify-content: space-between; font-family: 'ReglisseClean', cursive; font-size: 13px; color: var(--k); }
+
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s, transform .65s; }
+  .reveal.visible { opacity: 1; transform: none; }
+  .rd1 { transition-delay: .12s; }
+</style>
+</head>
+<body>
+<div id="cursor"></div>
+
+<nav>
+  <a href="#" class="nav-logo">Pedro Rodrigues</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="work">
+  <div class="slide active" data-title="Porsche Macan — Compositing"><img src="M33_inside_tattoo_studio_single_static_wf09_RGB.jpg" alt=""></div>
+  <div class="slide" data-title="VW ID. — Interior Retouch"><img src="IC1045_wf03_lay.jpg" alt=""></div>
+  <div class="slide" data-title="VW Golf GTI — Lifestyle Campaign"><img src="GL6234_Freestyle_0242_wf03_lay.jpg" alt=""></div>
+  <div class="slide" data-title="VW Purpose — Editorial"><img src="WV_Purpose_T1M3_0472.jpg" alt=""></div>
+  <div class="slide" data-title="VW Golf — People &amp; Lifestyle"><img src="GL6270_People_0530_wf04_lay.jpg" alt=""></div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <div class="eyebrow">★ Hamburg, Germany ★</div>
+    <h1 class="hero-name">
+      <span class="name-pedro">Pedro</span>
+      <span class="name-rodrigues">Rodrigues</span>
+    </h1>
+    <p class="hero-sub">Retouch Artist &amp; Photoshop Artist</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn btn-red">Let's Work!</a>
+      <a href="#about" class="btn btn-outline">About Me</a>
+    </div>
+  </div>
+
+  <div class="hero-bottom">
+    <div class="available-tag"><div class="green-dot"></div>Available Now</div>
+    <span class="slide-label" id="slide-label">Porsche Macan — Compositing</span>
+    <div class="dots">
+      <div class="dot active" data-i="0"></div>
+      <div class="dot" data-i="1"></div>
+      <div class="dot" data-i="2"></div>
+      <div class="dot" data-i="3"></div>
+      <div class="dot" data-i="4"></div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker">
+  <div class="ticker-inner">
+    Image Retouching <span class="sep">★</span> Photoshop Artist <span class="sep">★</span> Automotive CGI <span class="sep">★</span> Compositing <span class="sep">★</span> Color Grading <span class="sep">★</span> Look Development <span class="sep">★</span> Hamburg <span class="sep">★</span> Available Now <span class="sep">★</span> Image Retouching <span class="sep">★</span> Photoshop Artist <span class="sep">★</span> Automotive CGI <span class="sep">★</span> Compositing <span class="sep">★</span> Color Grading <span class="sep">★</span> Look Development <span class="sep">★</span> Hamburg <span class="sep">★</span> Available Now <span class="sep">★</span>
+  </div>
+</div>
+
+<section class="about reveal" id="about">
+  <div class="about-left">
+    <div class="about-big">High-End<br>Retouch.<br>Done Right.</div>
+    <p class="about-text">Freelance Retouch Artist and Photoshop Artist based in Hamburg. Specialized in high-end image retouching and compositing for advertising agencies. From pre-production to final post — at the highest quality level.<br><br>Full portfolio available on request.</p>
+  </div>
+  <div class="about-right reveal rd1">
+    <div class="srv-title">What I Do</div>
+    <div class="tags">
+      <span class="tag t-r">Image Retouching</span>
+      <span class="tag t-y">Compositing</span>
+      <span class="tag t-b">Color Grading</span>
+      <span class="tag t-g">CGI Integration</span>
+      <span class="tag t-p">Look Development</span>
+      <span class="tag t-k">Automotive</span>
+      <span class="tag t-r">Lifestyle Campaigns</span>
+      <span class="tag t-y">Beauty Retouch</span>
+      <span class="tag t-b">People</span>
+    </div>
+    <div class="stats">
+      <div class="stat-box"><span class="stat-n">10+</span><span class="stat-l">Years</span></div>
+      <div class="stat-box"><span class="stat-n">400+</span><span class="stat-l">Projects</span></div>
+      <div class="stat-box"><span class="stat-n">HH</span><span class="stat-l">Hamburg</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact reveal" id="contact">
+  <div>
+    <div class="contact-h2">Let's<br>Work!</div>
+    <a href="mailto:pedro@rodrigues.de" class="contact-email">pedro@rodrigues.de</a>
+  </div>
+  <div class="contact-detail">Hamburg, Germany<br>DE / EN / PT<br>Available for Projects</div>
+</section>
+
+<footer>
+  <span>© 2026 Pedro Rodrigues</span>
+  <span>Retouch Artist · Photoshop Artist</span>
+  <span>rodrigues.de</span>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => { cursor.style.left=e.clientX+'px'; cursor.style.top=e.clientY+'px'; });
+  document.querySelectorAll('a,.dot').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('big'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
+  });
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
+  const labelEl = document.getElementById('slide-label');
+  let cur = 0, timer;
+  function goTo(n) {
+    slides[cur].classList.remove('active'); dots[cur].classList.remove('active');
+    cur = (n + slides.length) % slides.length;
+    slides[cur].classList.add('active'); dots[cur].classList.add('active');
+    labelEl.textContent = slides[cur].dataset.title;
+  }
+  dots.forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.i); restart(); }));
+  function restart() { clearInterval(timer); timer = setInterval(() => goTo(cur+1), 4500); }
+  restart();
+  document.querySelectorAll('.reveal').forEach(el =>
+    new IntersectionObserver(([e]) => { if(e.isIntersecting) el.classList.add('visible'); }, {threshold:.1}).observe(el)
+  );
+</script>
+</body>
+</html>
