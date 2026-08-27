@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pedro Rodrigues — Retouch &amp; Compositing</title>
+
+<!-- Preview fonts: Oswald stands in for Phosphate (headlines), Rokkitt for Rockwell (body).
+     When Phosphate.woff2 / Rockwell-Bold.woff2 land in /fonts, the @font-face blocks below take over. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rokkitt:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ---- real fonts drop in here once converted; harmless if the files don't exist yet ---- */
+@font-face{ font-family:"Phosphate"; src:url("fonts/Phosphate.woff2") format("woff2"); font-display:swap; }
+@font-face{ font-family:"Rockwell"; src:url("fonts/Rockwell-Bold.woff2") format("woff2"); font-weight:700; font-display:swap; }
+
+:root{
+  --bg:#0a0a0b;
+  --bg-2:#0f0f12;
+  --ink:#f3f1ec;
+  --ink-dim:rgba(243,241,236,.55);
+  --ink-faint:rgba(243,241,236,.32);
+  --line:rgba(243,241,236,.14);
+  --accent:#c9a15f;            /* used only on the highlighted credit + focus */
+  --display:"Phosphate","Oswald","Syne",system-ui,sans-serif;
+  --slab:"Rockwell","Rokkitt","IBM Plex Serif",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--slab); font-weight:400;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+img{display:block; max-width:100%}
+a{color:inherit}
+::selection{background:var(--accent); color:#0a0a0b}
+
+/* thin top bar with the only always-on nav */
+.topbar{
+  position:fixed; inset:0 0 auto 0; z-index:40;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:20px clamp(18px,4vw,44px);
+  mix-blend-mode:difference; /* stays legible over any image */
+}
+.wordmark-mini{
+  font-family:var(--display); letter-spacing:.14em; text-transform:uppercase;
+  font-size:13px; font-weight:600; color:#fff;
+}
+.info-btn{
+  font-family:var(--mono); font-size:12px; letter-spacing:.18em; text-transform:uppercase;
+  background:none; border:0; color:#fff; cursor:pointer; padding:6px 2px;
+  border-bottom:1px solid transparent;
+}
+.info-btn:hover,.info-btn:focus-visible{border-bottom-color:#fff; outline:none}
+
+/* ---------------- HERO ---------------- */
+.hero{
+  position:relative; height:100svh; min-height:560px;
+  display:flex; align-items:flex-end; overflow:hidden;
+}
+.hero-bg{
+  position:absolute; inset:0; background-size:cover; background-position:center;
+  transform:scale(1.06); animation:kenburns 26s ease-in-out infinite alternate;
+}
+@keyframes kenburns{
+  from{transform:scale(1.06) translate3d(0,0,0)}
+  to{transform:scale(1.16) translate3d(-1.5%,-1.5%,0)}
+}
+.hero::after{ /* cinematic scrim */
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:
+    linear-gradient(180deg, rgba(10,10,11,.55) 0%, rgba(10,10,11,0) 26%),
+    linear-gradient(0deg, rgba(10,10,11,.92) 0%, rgba(10,10,11,.30) 34%, rgba(10,10,11,0) 60%);
+}
+.hero-inner{position:relative; z-index:2; padding:0 clamp(18px,4vw,44px) clamp(40px,7vh,72px); width:100%}
+.hero-eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.28em; text-transform:uppercase;
+  color:var(--ink-dim); margin:0 0 18px;
+}
+.hero-name{
+  font-family:var(--display); text-transform:uppercase;
+  font-weight:700; line-height:.86; letter-spacing:.005em;
+  font-size:clamp(56px,15vw,190px); margin:0;
+}
+.hero-name span{display:block}
+.hero-sub{
+  margin:20px 0 0; max-width:42ch; font-family:var(--slab); font-weight:400;
+  font-size:clamp(15px,1.5vw,18px); color:var(--ink-dim); line-height:1.5;
+}
+.scrollcue{
+  position:absolute; left:50%; bottom:22px; transform:translateX(-50%); z-index:3;
+  font-family:var(--mono); font-size:20px; color:var(--ink-faint);
+  background:none; border:0; cursor:pointer; animation:bob 2.4s ease-in-out infinite;
+}
+@keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,7px)}}
+
+/* ---------------- WORK GRID ---------------- */
+.work{padding:clamp(56px,9vh,110px) clamp(18px,4vw,44px) clamp(70px,10vh,130px)}
+.work-head{
+  display:flex; align-items:baseline; justify-content:space-between;
+  gap:16px; border-bottom:1px solid var(--line); padding-bottom:16px; margin-bottom:34px;
+}
+.work-head h2{
+  font-family:var(--display); text-transform:uppercase; letter-spacing:.06em;
+  font-weight:600; font-size:clamp(20px,2.4vw,30px); margin:0;
+}
+.work-count{font-family:var(--mono); font-size:12px; letter-spacing:.16em; color:var(--ink-dim)}
+
+.grid{
+  display:grid; gap:clamp(10px,1.4vw,20px);
+  grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));
+}
+.tile{
+  position:relative; aspect-ratio:3/2; overflow:hidden; cursor:pointer;
+  background:var(--bg-2); border:0; padding:0; width:100%;
+}
+.tile .photo{
+  position:absolute; inset:0; background-size:cover; background-position:center;
+  transition:transform .9s cubic-bezier(.2,.7,.2,1), filter .5s ease;
+  filter:saturate(.92) brightness(.9);
+}
+.tile:hover .photo,.tile:focus-visible .photo{transform:scale(1.05); filter:saturate(1) brightness(1.02)}
+.tile:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.tile .slate{
+  position:absolute; left:0; right:0; bottom:0; z-index:2;
+  padding:44px 16px 14px; text-align:left;
+  background:linear-gradient(0deg, rgba(8,8,9,.9), rgba(8,8,9,0));
+  transform:translateY(8px); opacity:0; transition:opacity .4s ease, transform .4s ease;
+}
+.tile:hover .slate,.tile:focus-visible .slate{opacity:1; transform:none}
+.slate .who{
+  font-family:var(--display); text-transform:uppercase; letter-spacing:.08em;
+  font-size:13px; font-weight:600; color:#fff; margin:0 0 4px;
+}
+.slate .credits{font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--ink-dim); margin:0}
+.slate .credits b{color:var(--accent); font-weight:500}
+
+/* ---------------- LIGHTBOX ---------------- */
+.lb{
+  position:fixed; inset:0; z-index:60; display:none;
+  background:rgba(6,6,7,.97); backdrop-filter:blur(6px);
+}
+.lb.open{display:block}
+.lb-stage{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; padding:5vh 8vw}
+.lb-img{
+  position:absolute; inset:0; margin:auto; width:84vw; height:84svh;
+  background-size:contain; background-position:center; background-repeat:no-repeat;
+  cursor:pointer;
+}
+.lb-close{
+  position:absolute; top:18px; right:clamp(18px,4vw,40px); z-index:3;
+  font-family:var(--mono); font-size:20px; background:none; border:0; color:var(--ink); cursor:pointer;
+  width:44px; height:44px;
+}
+.lb-nav{
+  position:absolute; top:0; bottom:0; z-index:3; width:22vw; min-width:80px;
+  background:none; border:0; color:var(--ink); cursor:pointer;
+  font-family:var(--display); font-size:40px; opacity:.5; transition:opacity .3s;
+}
+.lb-nav:hover{opacity:1}
+.lb-prev{left:0} .lb-next{right:0}
+.lb-close:focus-visible,.lb-nav:focus-visible{outline:2px solid var(--accent); outline-offset:-6px; opacity:1}
+.lb-slate{
+  position:absolute; left:clamp(18px,4vw,40px); bottom:26px; z-index:3; max-width:70vw;
+}
+.lb-slate .who{font-family:var(--display); text-transform:uppercase; letter-spacing:.08em; font-size:15px; font-weight:600; margin:0 0 5px}
+.lb-slate .credits{font-family:var(--mono); font-size:12px; letter-spacing:.05em; color:var(--ink-dim); margin:0}
+.lb-slate .credits b{color:var(--accent); font-weight:500}
+.lb-count{
+  position:absolute; right:clamp(18px,4vw,40px); bottom:28px; z-index:3;
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em; color:var(--ink-faint);
+}
+
+/* ---------------- INFO OVERLAY ---------------- */
+.info{position:fixed; inset:0; z-index:70; display:none}
+.info.open{display:block}
+.info-scrim{position:absolute; inset:0; background:rgba(6,6,7,.75)}
+.info-panel{
+  position:absolute; top:0; right:0; height:100%; width:min(520px,92vw);
+  background:var(--bg-2); border-left:1px solid var(--line);
+  padding:clamp(28px,5vw,56px); overflow-y:auto;
+  transform:translateX(6px); animation:slidein .45s cubic-bezier(.2,.7,.2,1) forwards;
+}
+@keyframes slidein{to{transform:none}}
+.info-close{
+  position:absolute; top:18px; right:20px; font-family:var(--mono); font-size:18px;
+  background:none; border:0; color:var(--ink); cursor:pointer; width:40px; height:40px;
+}
+.info-panel h3{
+  font-family:var(--display); text-transform:uppercase; letter-spacing:.1em;
+  font-size:13px; font-weight:600; color:var(--ink-dim); margin:0 0 22px;
+}
+.info-about{font-family:var(--slab); font-size:clamp(17px,2vw,21px); line-height:1.5; margin:0 0 34px}
+.info-block{border-top:1px solid var(--line); padding-top:20px; margin-top:20px}
+.info-label{font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 12px}
+.agencies{display:flex; flex-wrap:wrap; gap:8px 18px; padding:0; margin:0; list-style:none}
+.agencies li{font-family:var(--display); text-transform:uppercase; letter-spacing:.06em; font-size:14px; color:var(--ink)}
+.contact a{font-family:var(--slab); font-size:18px; border-bottom:1px solid var(--line); text-decoration:none; padding-bottom:2px}
+.contact a:hover{border-bottom-color:var(--accent)}
+
+@media (max-width:560px){
+  .hero-name{font-size:clamp(48px,17vw,90px)}
+  .lb-nav{width:30vw}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important; transition:none!important; scroll-behavior:auto!important}
+  .hero-bg{transform:scale(1.08)}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wordmark-mini">Pedro Rodrigues</div>
+  <button class="info-btn" id="infoOpen">Info</button>
+</div>
+
+<header class="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Retouch &amp; Compositing — Hamburg</p>
+    <h1 class="hero-name"><span>Pedro</span><span>Rodrigues</span></h1>
+    <p class="hero-sub">High-end retouch, CGI integration and compositing for automotive and lifestyle campaigns. From pre-production to final master.</p>
+  </div>
+  <button class="scrollcue" id="scrollCue" aria-label="Scroll to work">⌄</button>
+</header>
+
+<main class="work" id="work">
+  <div class="work-head">
+    <h2>Selected Work</h2>
+    <span class="work-count" id="workCount"></span>
+  </div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" aria-hidden="true">
+  <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous">‹</button>
+  <button class="lb-nav lb-next" id="lbNext" aria-label="Next">›</button>
+  <div class="lb-stage"><div class="lb-img" id="lbImg"></div></div>
+  <div class="lb-slate">
+    <p class="who" id="lbWho"></p>
+    <p class="credits" id="lbCredits"></p>
+  </div>
+  <div class="lb-count" id="lbCount"></div>
+</div>
+
+<!-- INFO -->
+<div class="info" id="info" aria-hidden="true">
+  <div class="info-scrim" id="infoScrim"></div>
+  <aside class="info-panel" role="dialog" aria-label="About">
+    <button class="info-close" id="infoClose" aria-label="Close">✕</button>
+    <h3>About</h3>
+    <p class="info-about">Retouch &amp; compositing artist based in Hamburg. I work with photographers, CGI studios and agencies on automotive and lifestyle campaigns — colour, look development, clean-up and final compositing, from first layout to delivery master.</p>
+
+    <div class="info-block">
+      <p class="info-label">Selected agencies</p>
+      <ul class="agencies" id="agencies"></ul>
+    </div>
+
+    <div class="info-block contact">
+      <p class="info-label">Contact</p>
+      <a href="mailto:pedro@rodrigues.de">pedro@rodrigues.de</a>
+    </div>
+  </aside>
+</div>
+
+<script>
+/* ===================================================================
+   DEMO DATA — on the live site this comes from captions.json.
+   Filename schema: fotograf__credit__credit__…__nr
+   who   = first field  |  credits = middle fields (last one highlighted)
+   In this preview each "photo" is a dark studio gradient placeholder;
+   on the real site swap `.look` for background-image: url('images/<file>.jpg').
+=================================================================== */
+const LOOKS = [
+  "radial-gradient(120% 90% at 28% 18%,rgba(255,255,255,.10),transparent 46%),radial-gradient(90% 120% at 82% 92%,rgba(201,161,95,.16),transparent 52%),linear-gradient(158deg,#181a1f,#0b0c0e 72%)",
+  "radial-gradient(130% 100% at 70% 15%,rgba(120,160,220,.18),transparent 48%),linear-gradient(200deg,#12161c,#090a0c 70%)",
+  "radial-gradient(120% 90% at 20% 85%,rgba(190,70,60,.22),transparent 50%),radial-gradient(80% 70% at 85% 20%,rgba(255,255,255,.08),transparent 46%),linear-gradient(150deg,#16110f,#0a0809 74%)",
+  "radial-gradient(100% 120% at 50% 0%,rgba(255,255,255,.14),transparent 44%),linear-gradient(180deg,#1a1c1f,#0b0c0d 70%)",
+  "radial-gradient(120% 100% at 78% 80%,rgba(201,161,95,.20),transparent 52%),linear-gradient(210deg,#1b1712,#0a0a0b 72%)",
+  "radial-gradient(120% 90% at 30% 30%,rgba(140,150,170,.16),transparent 48%),linear-gradient(160deg,#141619,#08090a 72%)"
+];
+const RAW = [
+  "frithjof_ohm__dock2studios__ddb_berlin__vw_golf",
+  "fullcgi__recom__grabarz_partner__porsche_911",
+  "frithjof_ohm__dock2studios__ddb_berlin__vw_id_buzz",
+  "philipp_rathmer__severin_wendeler__jvm__porsche_taycan",
+  "unknown__hogarth__vw_group__tiguan_r_line",
+  "fullcgi__recom__scholz_friends__vw_amarok",
+  "frithjof_ohm__dock2studios__ddb__vw_touareg",
+  "jonas_lindstroem__markenfilm__grey__porsche_cayenne",
+  "unknown__hogarth__ddb_berlin__vw_arteon",
+  "fullcgi__recom__grabarz_partner__porsche_panamera",
+  "philipp_rathmer__jvm__vw_group__id_7",
+  "frithjof_ohm__dock2studios__ddb_berlin__vw_passat"
+];
+const AGENCIES = ["DDB","Grabarz &amp; Partner","Jung von Matt","Scholz &amp; Friends","Hogarth"];
+
+/* -------- parse schema into display fields -------- */
+const pretty = s => s.replace(/_/g," ").replace(/\b\w/g, c => c.toUpperCase());
+const ITEMS = RAW.map((raw,i)=>{
+  const f = raw.split("__");
+  const who = pretty(f[0].replace(/^unknown$/,"Uncredited").replace(/^fullcgi$/,"Full CGI"));
+  const mids = f.slice(1);                    // credit fields
+  return { look:LOOKS[i%LOOKS.length], who, mids };
+});
+
+/* -------- shuffle, keep a fixed hero up front -------- */
+const HERO = ITEMS[1];                          // fixed public-facing hero
+const shuffle = a => { const b=a.slice(); for(let i=b.length-1;i>0;i--){const j=Math.random()*(i+1)|0; [b[i],b[j]]=[b[j],b[i]];} return b; };
+const GALLERY = shuffle(ITEMS);
+
+document.getElementById("heroBg").style.backgroundImage = HERO.look;
+
+/* -------- credit line: middle fields joined by ·, last one bold -------- */
+function creditHTML(mids){
+  return mids.map((m,i)=>{
+    const t = pretty(m);
+    return i===mids.length-1 ? `<b>${t}</b>` : t;
+  }).join(" · ");
+}
+
+/* -------- build grid -------- */
+const grid = document.getElementById("grid");
+GALLERY.forEach((it,i)=>{
+  const b = document.createElement("button");
+  b.className="tile"; b.type="button"; b.dataset.i=i;
+  b.setAttribute("aria-label", it.who);
+  b.innerHTML = `<span class="photo" style="background-image:${it.look}"></span>
+    <span class="slate"><span class="who">${it.who}</span><span class="credits">${creditHTML(it.mids)}</span></span>`;
+  grid.appendChild(b);
+});
+document.getElementById("workCount").textContent = String(GALLERY.length).padStart(2,"0")+" frames";
+
+/* -------- agencies -------- */
+document.getElementById("agencies").innerHTML = AGENCIES.map(a=>`<li>${a}</li>`).join("");
+
+/* -------- lightbox -------- */
+const lb=document.getElementById("lb"), lbImg=document.getElementById("lbImg"),
+      lbWho=document.getElementById("lbWho"), lbCr=document.getElementById("lbCredits"),
+      lbCount=document.getElementById("lbCount");
+let idx=0;
+function show(i){
+  idx=(i+GALLERY.length)%GALLERY.length;
+  const it=GALLERY[idx];
+  lbImg.style.backgroundImage=it.look;
+  lbWho.textContent=it.who;
+  lbCr.innerHTML=creditHTML(it.mids);
+  lbCount.textContent=String(idx+1).padStart(2,"0")+" / "+String(GALLERY.length).padStart(2,"0");
+}
+function openLb(i){ show(i); lb.classList.add("open"); lb.setAttribute("aria-hidden","false"); document.body.style.overflow="hidden"; }
+function closeLb(){ lb.classList.remove("open"); lb.setAttribute("aria-hidden","true"); document.body.style.overflow=""; }
+grid.addEventListener("click",e=>{const t=e.target.closest(".tile"); if(t) openLb(+t.dataset.i);});
+document.getElementById("lbClose").onclick=closeLb;
+document.getElementById("lbNext").onclick=()=>show(idx+1);
+document.getElementById("lbPrev").onclick=()=>show(idx-1);
+lbImg.onclick=()=>show(idx+1);
+lb.addEventListener("click",e=>{ if(e.target===lb) closeLb(); });
+
+/* -------- info overlay -------- */
+const info=document.getElementById("info");
+const openInfo=()=>{info.classList.add("open"); info.setAttribute("aria-hidden","false");};
+const closeInfo=()=>{info.classList.remove("open"); info.setAttribute("aria-hidden","true");};
+document.getElementById("infoOpen").onclick=openInfo;
+document.getElementById("infoClose").onclick=closeInfo;
+document.getElementById("infoScrim").onclick=closeInfo;
+
+/* -------- keyboard -------- */
+document.addEventListener("keydown",e=>{
+  if(lb.classList.contains("open")){
+    if(e.key==="Escape") closeLb();
+    if(e.key==="ArrowRight") show(idx+1);
+    if(e.key==="ArrowLeft") show(idx-1);
+  } else if(info.classList.contains("open") && e.key==="Escape"){ closeInfo(); }
+});
+
+/* -------- scroll cue -------- */
+document.getElementById("scrollCue").onclick=()=>document.getElementById("work").scrollIntoView({behavior:"smooth"});
+</script>
+</body>
+</html>
