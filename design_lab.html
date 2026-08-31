@@ -219,6 +219,98 @@ button{font-family:var(--rock)}
  .v10 .hard .card,.v10 .hard .card:nth-child(n){grid-column:span 12;min-height:360px}
  .ovgrid{grid-template-columns:1fr}
 }
+
+/* DESIGN-SPECIFIC PROJECT VIEWERS */
+.overlay.view1{background:#ffd800;color:#111;padding:10px}
+.overlay.view1 .ovtop{background:#111;color:#fff;border:4px solid #111}
+.overlay.view1 .ovgrid{grid-template-columns:repeat(12,1fr);gap:10px;padding:10px 0}
+.overlay.view1 .ovgrid .media{grid-column:span 6;aspect-ratio:4/3;border:4px solid #111}
+.overlay.view1 .ovgrid .media:nth-child(3n+1){grid-column:span 8}
+.overlay.view1 .ovgrid .media:nth-child(3n+2){grid-column:span 4}
+.overlay.view1 .close{background:var(--cyan);color:#111;border:3px solid #111;border-radius:0;font-weight:700}
+
+.overlay.view2{background:#f4f0e7;color:#111}
+.overlay.view2 .ovtop{background:var(--pink);color:#111;border-bottom:4px solid #111}
+.overlay.view2 .ovgrid{display:block;padding:18px}
+.overlay.view2 .ovgrid .media{width:min(1100px,88vw);aspect-ratio:16/10;margin:0 0 18px auto;border:4px solid #111}
+.overlay.view2 .ovgrid .media:nth-child(even){margin-left:0;margin-right:auto;width:min(760px,72vw)}
+.overlay.view2 .close{background:#111;color:#fff;border:0;border-radius:0}
+
+.overlay.view3{background:#0c0c0d}
+.overlay.view3 .ovtop{background:var(--acid);color:#111;border-bottom:3px solid #111}
+.overlay.view3 .ovgrid{display:flex;flex-direction:column;gap:0;padding:0}
+.overlay.view3 .ovgrid .media{width:100%;aspect-ratio:21/9;border-bottom:3px solid #111}
+.overlay.view3 .ovgrid .media:nth-child(5n+2){background-color:var(--pink)}
+.overlay.view3 .close{background:#111;color:#fff;border:0;border-radius:0}
+
+.overlay.view5{background:var(--cream);color:#111;padding:12px}
+.overlay.view5 .ovtop{position:sticky;background:var(--orange);color:#111;border:4px solid #111}
+.overlay.view5 .ovgrid{grid-template-columns:repeat(2,1fr);gap:12px;padding:12px 0}
+.overlay.view5 .ovgrid .media{border:4px solid #111;box-shadow:10px 10px 0 #111}
+.overlay.view5 .ovgrid .media:nth-child(3n+1){grid-column:span 2;aspect-ratio:16/9}
+.overlay.view5 .close{background:#fff;color:#111;border:3px solid #111;border-radius:0}
+
+.overlay.view7{background:#1a1a1c;padding:18px}
+.overlay.view7 .ovtop{background:var(--cyan);color:#111;border:3px solid #111;box-shadow:9px 9px 0 #000}
+.overlay.view7 .ovgrid{grid-template-columns:repeat(2,1fr);gap:14px;padding:24px 0}
+.overlay.view7 .ovgrid .media{border:3px solid #111;box-shadow:9px 9px 0 #000}
+.overlay.view7 .close{background:#111;color:#fff;border:3px solid #111;border-radius:0}
+
+.overlay.view8{background:#fff;color:#111}
+.overlay.view8 .ovtop{background:#fff;color:#111;border-bottom:3px solid #111}
+.overlay.view8 .ovgrid{display:block;padding:22px}
+.overlay.view8 .ovgrid .media{width:min(1180px,94vw);aspect-ratio:auto;min-height:68vh;margin:0 auto 48px;background-size:contain;background-repeat:no-repeat}
+.overlay.view8 .ovgrid .media:nth-child(even){width:min(760px,80vw)}
+.overlay.view8 .close{background:#111;color:#fff;border:0;border-radius:0}
+
+.overlay.view10{background:#000}
+.overlay.view10 .ovtop{background:var(--red);color:#111;border-bottom:2px solid #000}
+.overlay.view10 .ovgrid{grid-template-columns:repeat(12,1fr);gap:2px;padding:2px}
+.overlay.view10 .ovgrid .media{grid-column:span 4;aspect-ratio:4/3}
+.overlay.view10 .ovgrid .media:nth-child(5n+1){grid-column:span 8;aspect-ratio:16/9}
+.overlay.view10 .close{background:#000;color:#fff;border:0;border-radius:0;font-size:18px}
+
+/* 06 SIDE INDEX — persistent navigation + inline project series */
+.v6{grid-template-columns:360px minmax(0,1fr);min-height:calc(100vh - 48px)}
+.v6 .index{top:48px;height:calc(100vh - 48px);z-index:5}
+.v6 .ix{transition:none}
+.v6 .ix.active{background:#111;color:var(--acid);margin:0 -20px;padding:11px 20px}
+.v6 .display{display:block;padding:12px;min-height:calc(100vh - 48px);background:#0a0a0b}
+.v6viewer{min-height:calc(100vh - 72px)}
+.v6viewer-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-end;padding:4px 2px 14px;border-bottom:1px solid #34343a;margin-bottom:12px}
+.v6viewer-title{font-size:clamp(28px,4vw,58px);line-height:.9}
+.v6viewer-meta{max-width:360px;text-align:right;color:#999}
+.v6series{display:grid;grid-template-columns:repeat(12,1fr);gap:8px}
+.v6series .media{grid-column:span 6;aspect-ratio:4/3}
+.v6series .media:first-child{grid-column:span 12;aspect-ratio:16/9}
+.v6series .media:nth-child(4n+2){grid-column:span 5}
+.v6series .media:nth-child(4n+3){grid-column:span 7}
+
+/* 04 Feature viewer stays in the same page */
+.v4series{grid-column:1/-1;background:#111;border:4px solid #111;padding:10px;color:#fff}
+.v4series-head{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:10px}
+.v4series-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:8px}
+.v4series-grid .media{grid-column:span 6;aspect-ratio:4/3}
+.v4series-grid .media:first-child{grid-column:span 12;aspect-ratio:16/9}
+.v4back{background:var(--cyan);color:#111;border:0;padding:9px 12px}
+
+/* 09 Micro -> Macro inline series */
+.v9series{margin-top:10px;border:4px solid #111;background:#111;padding:8px}
+.v9series-head{background:var(--cyan);color:#111;padding:12px;display:flex;justify-content:space-between;gap:18px}
+.v9series-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:8px;margin-top:8px}
+.v9series-grid .media{grid-column:span 6;aspect-ratio:4/3}
+.v9series-grid .media:first-child{grid-column:span 12;aspect-ratio:16/9}
+.v9back{background:#111;color:#fff;border:0;padding:8px 11px}
+
+@media(max-width:800px){
+  .v6{grid-template-columns:1fr}
+  .v6 .index{position:relative;top:0;height:auto}
+  .v6viewer-meta{text-align:left}
+  .v6series .media,.v6series .media:first-child,.v6series .media:nth-child(n){grid-column:span 12}
+  .overlay.view1 .ovgrid .media,.overlay.view1 .ovgrid .media:nth-child(n),
+  .overlay.view10 .ovgrid .media,.overlay.view10 .ovgrid .media:nth-child(n){grid-column:span 12}
+}
+
 </style>
 </head>
 <body>
@@ -246,14 +338,65 @@ function bg(el,img){el.style.backgroundImage=`url("images/${img}")`}
 function med(p,c=""){let d=document.createElement("div");d.className="media "+c;bg(d,p.images[0]);return d}
 function bind(el,p){el.classList.add("card");el.tabIndex=0;el.onclick=()=>openP(p);el.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openP(p)}}}
 const ov=document.getElementById("overlay"),ovg=document.getElementById("ovgrid");
+let ACTIVE=0;
+
+function fillSeries(container,p){
+  container.innerHTML="";
+  p.images.forEach(i=>{let d=document.createElement("div");d.className="media";bg(d,i);container.append(d)});
+}
+
+function openFeatureSeries(p){
+  const feature=document.querySelector(".v4 .feature");
+  if(!feature){return}
+  let existing=document.getElementById("v4series");
+  if(existing) existing.remove();
+  const box=document.createElement("section");
+  box.id="v4series"; box.className="v4series";
+  box.innerHTML=`<div class="v4series-head"><div><b>${p.project}</b><div class="meta">${meta(p)}</div></div><button class="v4back">BACK TO PROJECTS</button></div><div class="v4series-grid"></div>`;
+  fillSeries(box.querySelector(".v4series-grid"),p);
+  box.querySelector(".v4back").onclick=()=>box.remove();
+  feature.append(box);
+  box.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function openIndexSeries(p){
+  const host=document.getElementById("v6viewer");
+  if(!host){return}
+  document.querySelectorAll(".v6 .ix").forEach(x=>x.classList.toggle("active",x.dataset.project===p.project));
+  host.innerHTML=`<div class="v6viewer-head"><div class="v6viewer-title">${p.project}</div><div class="v6viewer-meta meta">${meta(p)}</div></div><div class="v6series"></div>`;
+  fillSeries(host.querySelector(".v6series"),p);
+  host.scrollTo?.(0,0);
+}
+
+function openMacroSeries(p){
+  let old=document.getElementById("v9series");
+  if(old) old.remove();
+  const host=document.querySelector(".v9");
+  if(!host){return}
+  const box=document.createElement("section");
+  box.id="v9series";box.className="v9series";
+  box.innerHTML=`<div class="v9series-head"><div><b>${p.project}</b><div class="meta">${meta(p)}</div></div><button class="v9back">BACK TO MICRO</button></div><div class="v9series-grid"></div>`;
+  fillSeries(box.querySelector(".v9series-grid"),p);
+  box.querySelector(".v9back").onclick=()=>box.remove();
+  host.append(box);
+  box.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
 function openP(p){
+  if(ACTIVE===3){openFeatureSeries(p);return}
+  if(ACTIVE===5){openIndexSeries(p);return}
+  if(ACTIVE===8){openMacroSeries(p);return}
+
+  const viewMap={0:"view1",1:"view2",2:"view3",4:"view5",6:"view7",7:"view8",9:"view10"};
+  const closeMap={0:"BACK",1:"← INDEX",2:"← WORK",4:"CLOSE POSTER",6:"[ X ]",7:"← SELECTED WORK",9:"×"};
+  ov.className="overlay open "+(viewMap[ACTIVE]||"");
+  document.getElementById("close").textContent=closeMap[ACTIVE]||"CLOSE";
   document.getElementById("opt").textContent=p.project;
   document.getElementById("opm").textContent=meta(p);
-  ovg.innerHTML="";
-  p.images.forEach(i=>{let d=document.createElement("div");d.className="media";bg(d,i);ovg.append(d)});
-  ov.classList.add("open")
+  fillSeries(ovg,p);
+  ov.scrollTo(0,0);
 }
-document.getElementById("close").onclick=()=>ov.classList.remove("open");
+document.getElementById("close").onclick=()=>{ov.className="overlay";};
 
 function heroHTML(){
  return `<div class="identity">PEDRO<br>RODRIGUES</div><div class="subline">RETOUCH · COMPOSITING · CGI · GENERATIVE IMAGING</div>`;
@@ -281,9 +424,17 @@ function r5(){
  let g=document.getElementById("g");P.forEach(p=>{let x=document.createElement("article");x.className="poster";x.append(med(p));x.insertAdjacentHTML("beforeend",`<h3>${p.project}</h3><div class="meta">${p.photographer||"Selected Work"} · ${count(p)}</div>`);bind(x,p);g.append(x)})
 }
 function r6(){
- stage.innerHTML=`<section class="v6"><aside class="index"><div class="identity">PEDRO<br>RODRIGUES</div><div class="subline" style="margin:12px 0 28px">RETOUCH · COMPOSITING · CGI · GENERATIVE IMAGING</div><div id="ix"></div></aside><div class="display" id="display"></div></section>`;
- let ix=document.getElementById("ix"),d=document.getElementById("display");
- P.forEach(p=>{let a=document.createElement("div");a.className="ix";a.textContent=p.project;a.onclick=()=>openP(p);ix.append(a);let c=document.createElement("article");c.append(med(p));c.insertAdjacentHTML("beforeend",`<div class="label"><b>${p.project}</b><div class="meta">${p.photographer||"Selected Work"} · ${count(p)}</div></div>`);bind(c,p);d.append(c)})
+ stage.innerHTML=`<section class="v6"><aside class="index"><div class="identity">PEDRO<br>RODRIGUES</div><div class="subline" style="margin:12px 0 28px">RETOUCH · COMPOSITING · CGI · GENERATIVE IMAGING</div><div id="ix"></div></aside><div class="display"><div id="v6viewer" class="v6viewer"></div></div></section>`;
+ let ix=document.getElementById("ix");
+ P.forEach((p,i)=>{
+   let a=document.createElement("div");
+   a.className="ix"+(i===0?" active":"");
+   a.dataset.project=p.project;
+   a.innerHTML=`<div>${p.project}</div><div class="meta">${p.photographer||"Selected Work"}</div>`;
+   a.onclick=()=>openIndexSeries(p);
+   ix.append(a);
+ });
+ if(P[0]) openIndexSeries(P[0]);
 }
 function r7(){
  stage.innerHTML=`<section class="v7"><div class="hero">${heroHTML()}</div><div class="windows" id="g"></div></section>`;
@@ -305,10 +456,10 @@ function r10(){
 }
 
 const rs=[r1,r2,r3,r4,r5,r6,r7,r8,r9,r10];
-const names=["01 Chroma Clean","02 Offset Grid","03 Color Bands","04 Feature + Rail","05 Poster Grid","06 Side Index","07 Color Windows","08 Editorial Blocks","09 Micro → Macro","10 Hard Cut"];
+const names=["01 Chroma Clean","02 Offset Grid","03 Color Bands","04 Feature + Rail","05 Poster Grid","06 Site Index","07 Color Windows","08 Editorial Blocks","09 Micro → Macro","10 Hard Cut"];
 names.forEach((n,i)=>{
  let b=document.createElement("button");b.className="switch"+(i?"":" active");b.textContent=n;
- b.onclick=()=>{[...sw.children].forEach(x=>x.classList.remove("active"));b.classList.add("active");rs[i]();scrollTo({top:0,behavior:"smooth"})};
+ b.onclick=()=>{ACTIVE=i;ov.className="overlay";[...sw.children].forEach(x=>x.classList.remove("active"));b.classList.add("active");rs[i]();scrollTo({top:0,behavior:"smooth"})};
  sw.append(b)
 });
 r1();
