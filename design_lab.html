@@ -502,6 +502,112 @@ button{font-family:var(--rock)}
   }
 }
 
+
+/* PORTRAIT-LOCKED PROJECTS
+   Used for images that must never be cropped (e.g. Fazer / Aito). */
+.media.portrait-media{
+  background-size:contain !important;
+  background-repeat:no-repeat !important;
+  background-position:center center !important;
+}
+.portrait-project .media{
+  background-size:contain !important;
+  background-repeat:no-repeat !important;
+  background-position:center center !important;
+}
+
+/* Give portrait-locked work actual portrait-shaped areas where the design allows it. */
+.v1 .tile.portrait-project{
+  grid-column:span 4 !important;
+}
+.v1 .tile.portrait-project .media{
+  aspect-ratio:3/4 !important;
+  background-color:var(--yellow);
+}
+
+.v2 .cell.portrait-project{
+  grid-column:span 2 !important;
+  grid-row:span 2 !important;
+}
+.v2 .cell.portrait-project .media{
+  background-color:var(--pink);
+}
+
+.v3 .band.portrait-project{
+  grid-template-columns:minmax(220px,34%) 1fr;
+  min-height:560px;
+}
+.v3 .band.portrait-project .media{
+  min-height:560px;
+  background-color:var(--cyan);
+}
+
+.v4 .small.portrait-project{
+  grid-template-columns:130px 1fr;
+  min-height:180px;
+}
+.v4 .small.portrait-project .media{
+  background-color:var(--blue);
+}
+
+.v5 .poster.portrait-project{
+  min-height:660px;
+}
+.v5 .poster.portrait-project .media{
+  aspect-ratio:3/4 !important;
+  background-color:var(--acid);
+}
+
+.v6series .media.portrait-media{
+  grid-column:span 5 !important;
+  aspect-ratio:3/4 !important;
+  min-height:620px;
+  background-color:var(--acid);
+}
+
+.v7 .win.portrait-project{
+  grid-column:span 4 !important;
+}
+.v7 .win.portrait-project .media{
+  aspect-ratio:3/4 !important;
+  background-color:var(--cyan);
+}
+
+.v8 article.portrait-project{
+  grid-column:9/13 !important;
+}
+.v8 article.portrait-project .media{
+  aspect-ratio:3/4 !important;
+  background-color:#f0ece3;
+}
+
+.v9 .thumb.portrait-project .media{
+  aspect-ratio:3/4 !important;
+  background-color:var(--yellow);
+}
+.v9 .macro .media.portrait-media{
+  background-color:var(--cyan);
+  min-height:720px;
+}
+
+.v10 .hard .card.portrait-project{
+  grid-column:span 4 !important;
+  min-height:620px !important;
+}
+.v10 .hard .card.portrait-project .media{
+  background-color:var(--red);
+}
+
+/* Project viewers must also preserve the full portrait. */
+.overlay .ovgrid .media.portrait-media,
+.v4series-grid .media.portrait-media,
+.v9series-grid .media.portrait-media{
+  aspect-ratio:3/4 !important;
+  background-size:contain !important;
+  background-repeat:no-repeat !important;
+  background-position:center !important;
+}
+
 </style>
 </head>
 <body>
@@ -525,15 +631,31 @@ function shuffle(a){
 const P=shuffle(RAW),stage=document.getElementById("stage"),sw=document.getElementById("switcher");
 function count(p){return p.images.length+" Image"+(p.images.length===1?"":"s")}
 function meta(p){return [p.photographer,...p.secondary,count(p)].filter(Boolean).join(" · ")}
-function bg(el,img){el.style.backgroundImage=`url("images/${img}")`}
-function med(p,c=""){let d=document.createElement("div");d.className="media "+c;bg(d,p.images[0]);return d}
-function bind(el,p){el.classList.add("card");el.tabIndex=0;el.onclick=()=>openP(p);el.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openP(p)}}}
+const PORTRAIT_LOCK=["Fazer / Aito"];
+function isPortraitProject(p){return PORTRAIT_LOCK.includes(p.project)}
+function bg(el,img,portrait=false){
+  el.style.backgroundImage=`url("images/${img}")`;
+  if(portrait) el.classList.add("portrait-media");
+}
+function med(p,c=""){
+  let d=document.createElement("div");
+  d.className="media "+c;
+  bg(d,p.images[0],isPortraitProject(p));
+  return d
+}
+function bind(el,p){
+  el.classList.add("card");
+  if(isPortraitProject(p)) el.classList.add("portrait-project");
+  el.tabIndex=0;
+  el.onclick=()=>openP(p);
+  el.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openP(p)}}
+}
 const ov=document.getElementById("overlay"),ovg=document.getElementById("ovgrid");
 let ACTIVE=0;
 
 function fillSeries(container,p){
   container.innerHTML="";
-  p.images.forEach(i=>{let d=document.createElement("div");d.className="media";bg(d,i);container.append(d)});
+  p.images.forEach(i=>{let d=document.createElement("div");d.className="media";bg(d,i,isPortraitProject(p));container.append(d)});
 }
 
 function openFeatureSeries(p){
@@ -624,7 +746,7 @@ function r3(){
 function r4(){
  stage.innerHTML=`<section class="v4"><div class="hero">${heroHTML()}</div><div class="feature"><div class="media bigimg" id="big"></div><div class="rail" id="rail"></div></div></section>`;
  let big=document.getElementById("big"),rail=document.getElementById("rail");
- function show(p){bg(big,p.images[0]);big.onclick=()=>openP(p)}
+ function show(p){big.classList.toggle("portrait-media",isPortraitProject(p));bg(big,p.images[0],isPortraitProject(p));big.onclick=()=>openP(p)}
  P.slice(0,6).forEach((p,i)=>{let s=document.createElement("article");s.className="small";s.append(med(p));s.insertAdjacentHTML("beforeend",`<div class="smalltxt"><b>${p.project}</b><div class="meta">${p.photographer||"Selected Work"}</div></div>`);s.onclick=()=>show(p);rail.append(s);if(i===0)show(p)})
 }
 function r5(){
@@ -671,7 +793,7 @@ function r8(){
 function r9(){
  stage.innerHTML=`<section class="v9"><div class="hero">${heroHTML()}</div><div class="micro" id="micro"></div><div class="macro"><div class="media" id="macroimg"></div><div class="macrotext"><b id="macrot"></b><div class="meta" id="macrom"></div></div></div></section>`;
  let m=document.getElementById("micro"),img=document.getElementById("macroimg"),t=document.getElementById("macrot"),mm=document.getElementById("macrom");
- function show(p){bg(img,p.images[0]);t.textContent=p.project;mm.textContent=meta(p);img.onclick=()=>openP(p)}
+ function show(p){img.classList.toggle("portrait-media",isPortraitProject(p));bg(img,p.images[0],isPortraitProject(p));t.textContent=p.project;mm.textContent=meta(p);img.onclick=()=>openP(p)}
  P.forEach((p,i)=>{let x=document.createElement("article");x.className="thumb";x.append(med(p));x.insertAdjacentHTML("beforeend",`<div class="meta">${p.project}</div>`);x.onclick=()=>show(p);m.append(x);if(i===0)show(p)})
 }
 function r10(){
