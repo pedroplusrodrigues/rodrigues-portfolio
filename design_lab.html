@@ -6,13 +6,14 @@
 <title>Pedro Rodrigues — Blocks 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 @font-face{font-family:Phosphate;src:url("fonts/Phosphate.woff2") format("woff2"),url("fonts/Phosphate.woff") format("woff"),url("fonts/Phosphate.otf") format("opentype");font-display:swap}
+@font-face{font-family:RockwellBold;src:url("fonts/Rockwell-Bold.woff2") format("woff2"),url("fonts/Rockwell-Bold.woff") format("woff"),url("fonts/Rockwell-Bold.otf") format("opentype"),url("fonts/Rockwell-Bold.ttf") format("truetype"),url("fonts/Rockwell.ttc") format("collection");font-weight:700;font-display:swap}
 :root{
  --black:#070708;--white:#f6f6f0;--acid:#dfff00;--pink:#ff38b8;--cyan:#00d8ff;--orange:#ff5a22;
  --yellow:#ffd900;--blue:#2846ff;--purple:#8b5cff;--mint:#56f0b2;--red:#ff3030;--cream:#efe9dd;
- --display:Phosphate,"Arial Black",sans-serif;--sans:Syne,Arial,sans-serif;
+ --display:Phosphate,"Arial Black",sans-serif;--sans:"Helvetica Neue",Helvetica,Arial,sans-serif;--sub:"RockwellBold","IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
 }
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--black);color:var(--white);font-family:var(--sans);overflow-x:hidden}
@@ -20,14 +21,14 @@ button{font:inherit}
 .topbar{position:sticky;top:0;z-index:300;background:rgba(7,7,8,.93);backdrop-filter:blur(18px);border-bottom:1px solid #242429;padding:12px 18px}
 .toprow{display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}
 .wordmark{font-family:var(--display);font-size:clamp(25px,3.4vw,46px);line-height:.9;letter-spacing:.01em}
-.sub{font:800 11px/1.2 var(--sans);text-transform:uppercase;letter-spacing:.08em;color:#b7b7bc;margin-top:6px}
+.sub{font-family:var(--sub);font-weight:700;font-size:11px;line-height:1.2;text-transform:uppercase;letter-spacing:.08em;color:#b7b7bc;margin-top:6px}
 .switcher{display:flex;gap:6px;overflow:auto;padding-top:10px}
 .switch{flex:0 0 auto;border:1px solid #313138;background:#141418;color:#eee;border-radius:999px;padding:8px 11px;font-size:10px;font-weight:800;cursor:pointer}
 .switch.active{background:#f4f4ee;color:#111}
 #stage{min-height:700px}
 .identity{font-family:var(--display);font-size:clamp(36px,5.2vw,76px);line-height:.84;letter-spacing:.01em}
-.kicker{font:800 11px/1.15 var(--sans);text-transform:uppercase;letter-spacing:.08em}
-.meta{font:700 9px/1.25 var(--sans);text-transform:uppercase;letter-spacing:.08em}
+.kicker{font-family:var(--sub);font-weight:700;font-size:11px;line-height:1.15;text-transform:uppercase;letter-spacing:.08em}
+.meta{font-family:var(--sub);font-weight:700;font-size:9px;line-height:1.25;text-transform:uppercase;letter-spacing:.08em}
 .media{position:relative;background:#131316 center/cover no-repeat;overflow:hidden}
 .media:after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.45),transparent 62%);pointer-events:none}
 .card{cursor:pointer}
@@ -36,7 +37,7 @@ button{font:inherit}
 .v1{background:var(--yellow);color:#111;padding:10px}
 .v1 .head{display:grid;grid-template-columns:1.1fr .9fr;gap:10px}
 .v1 .a{background:#111;color:#fff;padding:24px;min-height:220px;display:flex;flex-direction:column;justify-content:space-between}
-.v1 .b{background:var(--cyan);padding:24px;display:flex;align-items:flex-end;font-size:clamp(28px,4vw,56px);font-weight:800;line-height:.9}
+.v1 .b{background:var(--cyan);padding:24px;display:flex;align-items:flex-end;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:clamp(28px,4vw,56px);font-weight:800;letter-spacing:-.045em;line-height:.9}
 .v1 .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:10px;margin-top:10px}
 .v1 .tile{grid-column:span 4;border:4px solid #111;background:#fff;overflow:hidden;transition:transform .25s ease}
 .v1 .tile:nth-child(6n+1){grid-column:span 8;background:var(--pink)}
