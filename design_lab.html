@@ -3,163 +3,242 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Pedro Rodrigues — Blocks 2026</title>
+<title>Pedro Rodrigues — Chroma Lab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-@font-face{font-family:Phosphate;src:url("fonts/Phosphate.woff2") format("woff2"),url("fonts/Phosphate.woff") format("woff"),url("fonts/Phosphate.otf") format("opentype");font-display:swap}
-@font-face{font-family:RockwellBold;src:url("fonts/Rockwell-Bold.woff2") format("woff2"),url("fonts/Rockwell-Bold.woff") format("woff"),url("fonts/Rockwell-Bold.otf") format("opentype"),url("fonts/Rockwell-Bold.ttf") format("truetype"),url("fonts/Rockwell.ttc") format("collection");font-weight:700;font-display:swap}
+@font-face{
+  font-family:Phosphate;
+  src:url("fonts/Phosphate.woff2") format("woff2"),
+      url("fonts/Phosphate.woff") format("woff"),
+      url("fonts/Phosphate.otf") format("opentype"),
+      url("fonts/Phosphate.ttc") format("collection");
+  font-weight:400 800;
+  font-display:swap;
+}
+@font-face{
+  font-family:RockwellBold;
+  src:url("fonts/Rockwell-Bold.woff2") format("woff2"),
+      url("fonts/Rockwell-Bold.woff") format("woff"),
+      url("fonts/Rockwell-Bold.otf") format("opentype"),
+      url("fonts/Rockwell-Bold.ttf") format("truetype"),
+      url("fonts/Rockwell.ttc") format("collection");
+  font-weight:700;
+  font-display:swap;
+}
 :root{
- --black:#070708;--white:#f6f6f0;--acid:#dfff00;--pink:#ff38b8;--cyan:#00d8ff;--orange:#ff5a22;
- --yellow:#ffd900;--blue:#2846ff;--purple:#8b5cff;--mint:#56f0b2;--red:#ff3030;--cream:#efe9dd;
- --display:Phosphate,"Arial Black",sans-serif;--sans:"Helvetica Neue",Helvetica,Arial,sans-serif;--sub:"RockwellBold","IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --black:#0a0a0b;--white:#f4f4ef;
+  --yellow:#ffd800;--cyan:#00c8f2;--pink:#ff4db8;--acid:#d8ff17;--orange:#ff6a31;
+  --blue:#3157ff;--purple:#9969ff;--mint:#67f0bd;--cream:#efe8db;--red:#ff413d;
+  --display:"Phosphate","Arial Black",sans-serif;
+  --rock:"RockwellBold","IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
 }
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--black);color:var(--white);font-family:var(--sans);overflow-x:hidden}
-button{font:inherit}
-.topbar{position:sticky;top:0;z-index:300;background:rgba(7,7,8,.93);backdrop-filter:blur(18px);border-bottom:1px solid #242429;padding:12px 18px}
-.toprow{display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}
-.wordmark{font-family:var(--display);font-size:clamp(25px,3.4vw,46px);line-height:.9;letter-spacing:.01em}
-.sub{font-family:var(--sub);font-weight:700;font-size:11px;line-height:1.2;text-transform:uppercase;letter-spacing:.08em;color:#b7b7bc;margin-top:6px}
-.switcher{display:flex;gap:6px;overflow:auto;padding-top:10px}
-.switch{flex:0 0 auto;border:1px solid #313138;background:#141418;color:#eee;border-radius:999px;padding:8px 11px;font-size:10px;font-weight:800;cursor:pointer}
-.switch.active{background:#f4f4ee;color:#111}
-#stage{min-height:700px}
-.identity{font-family:var(--display);font-size:clamp(36px,5.2vw,76px);line-height:.84;letter-spacing:.01em}
-.kicker{font-family:var(--sub);font-weight:700;font-size:11px;line-height:1.15;text-transform:uppercase;letter-spacing:.08em}
-.meta{font-family:var(--sub);font-weight:700;font-size:9px;line-height:1.25;text-transform:uppercase;letter-spacing:.08em}
-.media{position:relative;background:#131316 center/cover no-repeat;overflow:hidden}
-.media:after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.45),transparent 62%);pointer-events:none}
+html,body{margin:0;background:var(--black);color:var(--white);font-family:var(--rock);overflow-x:hidden}
+button{font-family:var(--rock)}
+.labnav{
+  position:sticky;top:0;z-index:400;
+  background:#09090a;border-bottom:1px solid #2c2c31;
+  padding:9px 18px 10px;
+}
+.switcher{display:flex;gap:6px;overflow:auto}
+.switch{
+  flex:0 0 auto;border:1px solid #35353c;background:#151519;color:#eee;
+  border-radius:999px;padding:7px 11px;font-size:10px;font-weight:700;cursor:pointer
+}
+.switch.active{background:#f5f5ef;color:#111}
+#stage{min-height:760px}
+.identity{
+  font-family:var(--display);
+  font-size:clamp(42px,5.8vw,86px);
+  line-height:.83;
+  letter-spacing:.005em;
+  text-transform:uppercase
+}
+.subline,.meta,.project-title,.label,.tag,.bigword{font-family:var(--rock)}
+.subline{font-size:11px;line-height:1.2;letter-spacing:.05em;text-transform:uppercase}
+.meta{font-size:9px;line-height:1.25;letter-spacing:.06em;text-transform:uppercase}
+.media{position:relative;background:#141416 center/cover no-repeat;overflow:hidden}
+.media:after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.38),transparent 62%);pointer-events:none}
 .card{cursor:pointer}
 
-/* 01 CHROMA GRID */
+/* 01 CLASSIC CHROMA / cleaned */
 .v1{background:var(--yellow);color:#111;padding:10px}
-.v1 .head{display:grid;grid-template-columns:1.1fr .9fr;gap:10px}
-.v1 .a{background:#111;color:#fff;padding:24px;min-height:220px;display:flex;flex-direction:column;justify-content:space-between}
-.v1 .b{background:var(--cyan);padding:24px;display:flex;align-items:flex-end;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:clamp(28px,4vw,56px);font-weight:800;letter-spacing:-.045em;line-height:.9}
+.v1 .hero{background:#111;color:#fff;padding:26px;min-height:220px;display:flex;flex-direction:column;justify-content:space-between}
 .v1 .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:10px;margin-top:10px}
-.v1 .tile{grid-column:span 4;border:4px solid #111;background:#fff;overflow:hidden;transition:transform .25s ease}
+.v1 .tile{grid-column:span 4;border:4px solid #111;background:#fff;overflow:hidden}
 .v1 .tile:nth-child(6n+1){grid-column:span 8;background:var(--pink)}
 .v1 .tile:nth-child(6n+2){background:var(--acid)}
 .v1 .tile:nth-child(6n+3){background:var(--orange)}
 .v1 .tile:nth-child(6n+4){background:var(--cyan)}
 .v1 .tile .media{aspect-ratio:4/3;border-bottom:4px solid #111}
-.v1 .tile:hover{transform:translate(-5px,-5px);box-shadow:8px 8px 0 #111}
-.v1 .tx{padding:12px}.v1 .tx b{font-size:20px;font-weight:800}.v1 .tx span{display:block;margin-top:5px}
+.v1 .tx{padding:13px}.v1 .tx b{font-size:20px}.v1 .tx span{display:block;margin-top:5px}
 
-/* 02 SLIDING BLOCKS */
-.v2{background:#0a0a0b;padding:18px 0 40px;overflow:hidden}
-.v2 .intro{padding:0 24px 18px}
-.v2 .lane{display:flex;width:max-content;gap:12px;padding:8px 0;animation:slide 34s linear infinite}
-.v2 .row:nth-child(even) .lane{animation-direction:reverse;animation-duration:42s}
-.v2 .row{overflow:hidden;border-top:1px solid #2a2a2f}
-.v2 .box{width:310px;flex:0 0 auto;border:1px solid #2d2d33;background:#151519}
-.v2 .box .media{aspect-ratio:16/10}
-.v2 .box .caption{padding:12px}.v2 .box b{font-size:18px;font-weight:800}.v2 .box span{display:block;color:#909096;margin-top:4px}
+/* 02 OFFSET GRID */
+.v2{background:#f4f0e7;color:#111;padding:12px}
+.v2 .hero{display:grid;grid-template-columns:2fr 1fr;gap:10px}
+.v2 .left{background:var(--pink);padding:28px;min-height:240px}
+.v2 .right{background:#111;color:white;padding:24px;display:flex;align-items:end}
+.v2 .grid{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:210px;gap:10px;margin-top:10px}
+.v2 .cell{border:4px solid #111;position:relative;overflow:hidden}
+.v2 .cell:nth-child(7n+1){grid-column:span 3;grid-row:span 2}
+.v2 .cell:nth-child(7n+2){grid-column:span 2}
+.v2 .cell:nth-child(7n+3){grid-column:span 1}
+.v2 .cell:nth-child(7n+4){grid-column:span 2}
+.v2 .cell:nth-child(7n+5){grid-column:span 2}
+.v2 .cell:nth-child(7n+6){grid-column:span 1}
+.v2 .cell:nth-child(7n){grid-column:span 3}
+.v2 .cell .media{position:absolute;inset:0}
+.v2 .cap{position:absolute;z-index:3;left:8px;right:8px;bottom:8px;background:#fff;color:#111;padding:8px;border:2px solid #111}
 
-/* 03 TILT BOARD */
-.v3{background:var(--cream);color:#111;padding:20px}
-.v3 .board{position:relative;height:1350px;margin-top:20px;border:3px solid #111;background:linear-gradient(#d8d1c4 1px,transparent 1px),linear-gradient(90deg,#d8d1c4 1px,transparent 1px);background-size:32px 32px}
-.v3 .note{position:absolute;width:255px;background:#fff;border:3px solid #111;padding:7px;box-shadow:7px 7px 0 #111;transform:rotate(var(--rot));transition:.25s}
-.v3 .note:hover{transform:rotate(0) scale(1.05);z-index:10}
-.v3 .note .media{aspect-ratio:4/3}
-.v3 .note b{display:block;font-size:18px;font-weight:800;margin:8px 2px 2px}.v3 .note span{display:block}
+/* 03 COLOR BANDS */
+.v3{background:#0c0c0d}
+.v3 .hero{padding:26px}
+.v3 .band{display:grid;grid-template-columns:260px 1fr;min-height:250px;border-top:3px solid #111}
+.v3 .band:nth-child(5n+1){background:var(--acid);color:#111}
+.v3 .band:nth-child(5n+2){background:var(--pink);color:#111}
+.v3 .band:nth-child(5n+3){background:var(--cyan);color:#111}
+.v3 .band:nth-child(5n+4){background:var(--orange);color:#111}
+.v3 .band:nth-child(5n){background:var(--purple);color:#111}
+.v3 .bandtext{padding:20px;display:flex;flex-direction:column;justify-content:space-between}
+.v3 .bandtext b{font-size:23px}
+.v3 .band .media{min-height:250px}
 
-/* 04 COLLISION */
-.v4{background:#111;min-height:100vh;padding:20px;overflow:hidden}
-.v4 .hero{position:relative;height:720px;border:1px solid #333;overflow:hidden;background:#0b0b0c}
-.v4 .hero .identity{position:absolute;z-index:3;left:24px;top:24px}
-.v4 .block{position:absolute;width:270px;border:3px solid #fff;background:#fff;color:#111;transition:transform .25s ease}
-.v4 .block .media{aspect-ratio:4/3;border-bottom:3px solid #111}
-.v4 .block .cap{padding:10px}.v4 .block b{font-size:17px;font-weight:800}.v4 .block:hover{z-index:20;transform:scale(1.06) rotate(0deg)!important}
-.v4 .block:nth-child(3n+1){background:var(--pink)}.v4 .block:nth-child(3n+2){background:var(--acid)}.v4 .block:nth-child(3n){background:var(--cyan)}
+/* 04 HUGE IMAGE / TINY BLOCKS */
+.v4{background:var(--blue);padding:10px}
+.v4 .hero{background:#111;padding:24px;margin-bottom:10px}
+.v4 .feature{display:grid;grid-template-columns:2.2fr .8fr;gap:10px}
+.v4 .feature .bigimg{min-height:650px;border:4px solid #111}
+.v4 .rail{display:grid;grid-template-columns:1fr;gap:10px}
+.v4 .small{border:4px solid #111;background:#fff;color:#111;display:grid;grid-template-columns:110px 1fr;min-height:120px}
+.v4 .small .media{height:100%}
+.v4 .smalltxt{padding:10px}.v4 .smalltxt b{font-size:16px}
 
-/* 05 SCROLL SNAP PANELS */
-.v5{background:#050506}
-.v5 .snap{height:calc(100vh - 110px);overflow-y:auto;scroll-snap-type:y mandatory}
-.v5 .panel{height:calc(100vh - 110px);scroll-snap-align:start;display:grid;grid-template-columns:1.1fr .9fr}
-.v5 .panel .media{height:100%}
-.v5 .copy{padding:30px;display:flex;flex-direction:column;justify-content:space-between}
-.v5 .panel:nth-child(4n+1) .copy{background:var(--pink);color:#111}
-.v5 .panel:nth-child(4n+2) .copy{background:var(--acid);color:#111}
-.v5 .panel:nth-child(4n+3) .copy{background:var(--cyan);color:#111}
-.v5 .panel:nth-child(4n) .copy{background:var(--orange);color:#111}
-.v5 .project-title{font-size:clamp(42px,6vw,86px);font-weight:800;line-height:.9}
+/* 05 POSTER GRID */
+.v5{background:var(--cream);color:#111;padding:12px}
+.v5 .hero{display:flex;justify-content:space-between;gap:20px;align-items:end;padding:18px 8px 26px}
+.v5 .posters{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.v5 .poster{border:4px solid #111;padding:8px;background:#fff;min-height:520px;display:flex;flex-direction:column}
+.v5 .poster:nth-child(4n+1){background:var(--pink)}
+.v5 .poster:nth-child(4n+2){background:var(--acid)}
+.v5 .poster:nth-child(4n+3){background:var(--cyan)}
+.v5 .poster:nth-child(4n){background:var(--orange)}
+.v5 .poster .media{aspect-ratio:4/3;border:3px solid #111}
+.v5 .poster h3{font-size:34px;line-height:.9;margin:18px 6px 10px}
+.v5 .poster .meta{margin:0 6px 8px}
 
-/* 06 MARQUEE + CUTOUT */
-.v6{background:var(--blue);padding-bottom:40px}
-.v6 .mast{background:#111;color:#fff;padding:22px}
-.v6 .ticker{overflow:hidden;border-top:3px solid #111;border-bottom:3px solid #111;background:var(--acid);color:#111}
-.v6 .ticker span{display:block;width:max-content;font-size:56px;font-weight:800;line-height:1;padding:10px 0;animation:slide 22s linear infinite}
-.v6 .cutgrid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px;padding:12px}
-.v6 .cut{grid-column:span 4;background:#fff;color:#111;clip-path:polygon(4% 0,100% 3%,97% 96%,0 100%);padding:8px}
-.v6 .cut:nth-child(4n+1){grid-column:span 7}.v6 .cut:nth-child(4n+2){grid-column:span 5}
-.v6 .cut .media{aspect-ratio:4/3}.v6 .cut b{display:block;font-size:20px;font-weight:800;padding:9px 3px 2px}.v6 .cut span{display:block;padding:0 3px 6px}
+/* 06 SIDE INDEX */
+.v6{background:#0a0a0b;display:grid;grid-template-columns:360px 1fr;min-height:900px}
+.v6 .index{background:var(--acid);color:#111;padding:20px;position:sticky;top:48px;height:calc(100vh - 48px);overflow:auto}
+.v6 .index .identity{font-size:52px}
+.v6 .ix{padding:11px 0;border-top:1px solid #111;font-size:14px;cursor:pointer}
+.v6 .display{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;padding:8px}
+.v6 .display .card{border:1px solid #28282e}
+.v6 .display .media{aspect-ratio:16/10}
+.v6 .display .label{padding:12px;background:#121216}
 
-/* 07 EXPANDING TILES */
-.v7{background:#f5f5ef;color:#111;padding:10px}
-.v7 .header{background:#111;color:#fff;padding:22px}
-.v7 .expgrid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:270px;gap:8px;margin-top:8px}
-.v7 .exp{position:relative;overflow:hidden;border:3px solid #111;background:#fff;transition:transform .35s ease}
-.v7 .exp:nth-child(5n+1){grid-column:span 2;grid-row:span 2}.v7 .exp:nth-child(5n+4){grid-column:span 2}
-.v7 .exp .media{position:absolute;inset:0}
-.v7 .label{position:absolute;z-index:3;left:10px;right:10px;bottom:10px;background:#fff;border:2px solid #111;padding:9px}
-.v7 .exp:hover{transform:scale(.98)}.v7 .exp:hover .label{background:var(--pink)}
+/* 07 COLOR WINDOWS */
+.v7{background:#1a1a1c;padding:16px}
+.v7 .hero{padding:8px 8px 24px}
+.v7 .windows{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
+.v7 .win{grid-column:span 4;border:3px solid #111;background:#fff;color:#111;box-shadow:10px 10px 0 #000}
+.v7 .win:nth-child(6n+1){grid-column:span 7;background:var(--pink)}
+.v7 .win:nth-child(6n+2){grid-column:span 5;background:var(--cyan)}
+.v7 .win:nth-child(6n+3){grid-column:span 4;background:var(--acid)}
+.v7 .win:nth-child(6n+4){grid-column:span 8;background:var(--orange)}
+.v7 .bar{height:24px;border-bottom:3px solid #111;display:flex;gap:5px;align-items:center;padding:0 7px}
+.v7 .dot{width:8px;height:8px;border-radius:50%;background:#111}
+.v7 .win .media{aspect-ratio:16/10}
+.v7 .wcap{padding:10px}.v7 .wcap b{font-size:18px}
 
-/* 08 3D CARDS */
-.v8{background:radial-gradient(circle at 50% 20%,#24242b,#08080a 55%);padding:24px;perspective:1200px}
-.v8 .stack{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}
-.v8 .card3{background:#111;border:1px solid #3c3c44;border-radius:18px;overflow:hidden;transform:rotateX(var(--rx)) rotateY(var(--ry));transition:.3s;box-shadow:0 25px 60px rgba(0,0,0,.35)}
-.v8 .card3:hover{transform:rotateX(0) rotateY(0) translateY(-8px)}
-.v8 .card3 .media{aspect-ratio:4/3}.v8 .c3{padding:14px}.v8 .c3 b{font-size:19px;font-weight:800}.v8 .c3 span{display:block;color:#999;margin-top:5px}
+/* 08 EDITORIAL BLOCKS */
+.v8{background:#fff;color:#111;padding:16px}
+.v8 .hero{display:grid;grid-template-columns:1.4fr .6fr;border-bottom:3px solid #111;padding-bottom:18px}
+.v8 .heroaside{display:flex;align-items:end;font-size:18px}
+.v8 .editorial{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-top:14px}
+.v8 article:nth-child(5n+1){grid-column:1/9}
+.v8 article:nth-child(5n+2){grid-column:9/13;margin-top:100px}
+.v8 article:nth-child(5n+3){grid-column:2/6;margin-top:30px}
+.v8 article:nth-child(5n+4){grid-column:6/13}
+.v8 article:nth-child(5n){grid-column:1/7;margin-top:70px}
+.v8 article .media{aspect-ratio:4/3}
+.v8 article:nth-child(5n+2) .media,.v8 article:nth-child(5n+3) .media{aspect-ratio:4/5}
+.v8 .ecap{border-top:2px solid #111;padding-top:7px;margin-top:7px}
 
-/* 09 LIQUID BLOCKS */
-.v9{background:#0a0a0b;padding:18px}
-.v9 .liquidhead{display:flex;justify-content:space-between;align-items:end;gap:20px}
-.v9 .liquid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px;margin-top:20px}
-.v9 .blob{grid-column:span 4;background:var(--purple);padding:8px;border-radius:36px 8px 36px 8px;overflow:hidden;animation:breathe 8s ease-in-out infinite}
-.v9 .blob:nth-child(4n+1){grid-column:span 7;background:var(--pink)}
-.v9 .blob:nth-child(4n+2){grid-column:span 5;background:var(--cyan)}
-.v9 .blob:nth-child(4n+3){background:var(--acid)}
-.v9 .blob .media{aspect-ratio:4/3;border-radius:28px 4px 28px 4px}
-.v9 .blob b{display:block;color:#111;font-size:20px;font-weight:800;padding:9px 5px 2px}.v9 .blob span{display:block;color:#111;padding:0 5px 6px}
+/* 09 MICRO TO MACRO */
+.v9{background:var(--yellow);color:#111;padding:10px}
+.v9 .hero{background:#111;color:#fff;padding:24px}
+.v9 .micro{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;margin-top:10px}
+.v9 .thumb{border:3px solid #111;background:#fff}
+.v9 .thumb .media{aspect-ratio:1}
+.v9 .thumb .meta{padding:7px}
+.v9 .macro{margin-top:10px;border:4px solid #111;display:grid;grid-template-columns:1.5fr .5fr;background:var(--cyan)}
+.v9 .macro .media{min-height:620px}
+.v9 .macrotext{padding:22px;display:flex;flex-direction:column;justify-content:end}
+.v9 .macrotext b{font-size:46px;line-height:.9}
 
-/* 10 GLITCH DECK */
-.v10{background:#000;padding:16px}
-.v10 .deckhead{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:end;border-bottom:1px solid #333;padding-bottom:14px}
-.v10 .deck{display:grid;grid-template-columns:repeat(12,1fr);gap:8px;margin-top:8px}
-.v10 .glitch{grid-column:span 4;position:relative;border:1px solid #444;overflow:hidden;background:#111}
-.v10 .glitch:nth-child(5n+1){grid-column:span 8}.v10 .glitch:nth-child(5n+2){grid-column:span 4}.v10 .glitch .media{aspect-ratio:16/10;transition:filter .2s,transform .2s}
-.v10 .glitch:hover .media{filter:contrast(1.18) saturate(1.2);transform:scale(1.025)}
-.v10 .gcap{padding:12px;position:relative}
-.v10 .gcap:before{content:"2026";position:absolute;right:8px;top:8px;color:var(--acid);font-size:9px;font-weight:800}
-.v10 .gcap b{font-size:18px;font-weight:800}.v10 .gcap span{display:block;color:#8f8f96;margin-top:4px}
+/* 10 HARD CUT */
+.v10{background:#000;padding:10px}
+.v10 .hero{background:var(--red);color:#111;padding:24px;min-height:210px}
+.v10 .hard{display:grid;grid-template-columns:repeat(12,1fr);gap:2px;margin-top:10px}
+.v10 .hard .card{grid-column:span 3;min-height:260px;position:relative}
+.v10 .hard .card:nth-child(7n+1){grid-column:span 6;min-height:520px}
+.v10 .hard .card:nth-child(7n+2){grid-column:span 3}
+.v10 .hard .card:nth-child(7n+3){grid-column:span 3}
+.v10 .hard .card:nth-child(7n+4){grid-column:span 4}
+.v10 .hard .card:nth-child(7n+5){grid-column:span 8}
+.v10 .hard .media{position:absolute;inset:0}
+.v10 .hardcap{position:absolute;z-index:3;left:10px;bottom:10px;right:10px;color:#fff;text-shadow:0 2px 8px #000}
+.v10 .hardcap b{font-size:18px}
 
-.overlay{position:fixed;inset:0;z-index:1000;background:rgba(4,4,5,.985);display:none;overflow:auto}.overlay.open{display:block}
-.ovtop{position:sticky;top:0;z-index:3;background:rgba(4,4,5,.94);backdrop-filter:blur(15px);padding:14px 18px;border-bottom:1px solid #29292e;display:flex;justify-content:space-between;gap:20px}
-.ovtitle b{font-size:22px;font-weight:800}.ovtitle span{display:block;color:#96969c;margin-top:4px}
+/* overlay */
+.overlay{position:fixed;inset:0;z-index:1000;background:rgba(4,4,5,.985);display:none;overflow:auto}
+.overlay.open{display:block}
+.ovtop{position:sticky;top:0;z-index:3;background:rgba(4,4,5,.95);padding:14px 18px;border-bottom:1px solid #29292e;display:flex;justify-content:space-between;gap:20px}
+.ovtitle b{font-size:22px}.ovtitle span{display:block;color:#96969c;margin-top:4px}
 .close{border:1px solid #444;background:#17171b;color:white;border-radius:999px;padding:9px 12px}
 .ovgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:3px;padding:3px}.ovgrid .media{aspect-ratio:4/3}
-@keyframes slide{to{transform:translateX(-50%)}}@keyframes breathe{50%{border-radius:8px 36px 8px 36px;transform:translateY(-5px)}}
-@media(max-width:900px){.v1 .head,.v5 .panel{grid-template-columns:1fr}.v1 .tile,.v1 .tile:nth-child(6n+1),.v6 .cut,.v6 .cut:nth-child(4n+1),.v6 .cut:nth-child(4n+2),.v9 .blob,.v9 .blob:nth-child(4n+1),.v9 .blob:nth-child(4n+2){grid-column:span 6}.v8 .stack{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:650px){.identity{font-size:44px}.v1 .tile,.v1 .tile:nth-child(6n+1),.v6 .cut,.v6 .cut:nth-child(4n+1),.v6 .cut:nth-child(4n+2),.v9 .blob,.v9 .blob:nth-child(4n+1),.v9 .blob:nth-child(4n+2),.v10 .glitch,.v10 .glitch:nth-child(5n+1),.v10 .glitch:nth-child(5n+2){grid-column:span 12}.v7 .expgrid{grid-template-columns:1fr}.v7 .exp,.v7 .exp:nth-child(5n+1),.v7 .exp:nth-child(5n+4){grid-column:span 1;grid-row:span 1}.v8 .stack{grid-template-columns:1fr}.ovgrid{grid-template-columns:1fr}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+
+@media(max-width:950px){
+ .v2 .hero,.v4 .feature,.v8 .hero,.v9 .macro{grid-template-columns:1fr}
+ .v5 .posters{grid-template-columns:repeat(2,1fr)}
+ .v6{grid-template-columns:1fr}.v6 .index{position:relative;top:0;height:auto}.v6 .display{grid-template-columns:1fr}
+ .v7 .win,.v7 .win:nth-child(6n+1),.v7 .win:nth-child(6n+2),.v7 .win:nth-child(6n+3),.v7 .win:nth-child(6n+4){grid-column:span 6}
+ .v9 .micro{grid-template-columns:repeat(4,1fr)}
+}
+@media(max-width:650px){
+ .identity{font-size:46px}
+ .v1 .tile,.v1 .tile:nth-child(6n+1){grid-column:span 12}
+ .v2 .grid{grid-template-columns:1fr}.v2 .cell,.v2 .cell:nth-child(n){grid-column:span 1;grid-row:span 1}
+ .v3 .band{grid-template-columns:1fr}.v3 .band .media{min-height:360px}
+ .v5 .posters{grid-template-columns:1fr}
+ .v7 .win,.v7 .win:nth-child(n){grid-column:span 12}
+ .v8 .editorial{display:block}.v8 article{margin:0 0 30px!important}
+ .v9 .micro{grid-template-columns:repeat(2,1fr)}
+ .v10 .hard .card,.v10 .hard .card:nth-child(n){grid-column:span 12;min-height:360px}
+ .ovgrid{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
-<div class="topbar">
-  <div class="toprow">
-    <div><div class="wordmark">PEDRO RODRIGUES</div><div class="sub">Retouch · Compositing · CGI · Generative Imaging / 2026</div></div>
-  </div>
-  <div class="switcher" id="switcher"></div>
-</div>
+<div class="labnav"><div class="switcher" id="switcher"></div></div>
 <main id="stage"></main>
-<div class="overlay" id="overlay"><div class="ovtop"><div class="ovtitle"><b id="opt"></b><span class="meta" id="opm"></span></div><button class="close" id="close">Close</button></div><div class="ovgrid" id="ovgrid"></div></div>
+
+<div class="overlay" id="overlay">
+  <div class="ovtop"><div class="ovtitle"><b id="opt"></b><span class="meta" id="opm"></span></div><button class="close" id="close">Close</button></div>
+  <div class="ovgrid" id="ovgrid"></div>
+</div>
 
 <script>
 const RAW=[{"photographer": "Agnieszka Doroszewicz", "project": "Opel Grandland", "secondary": ["Harvest"], "images": ["agnieszka_doroszewicz__harvest__opelgrandland__01.jpg", "agnieszka_doroszewicz__harvest__opelgrandland__02.jpg", "agnieszka_doroszewicz__harvest__opelgrandland__03.jpg"], "count": 3}, {"photographer": "Bam", "project": "This Is Not LA", "secondary": ["POP", "Aries"], "images": ["bam__pop__aries__thisisnotla__01.jpg", "bam__pop__aries__thisisnotla__02.jpg", "bam__pop__aries__thisisnotla__03.jpg", "bam__pop__aries__thisisnotla__04.jpg", "bam__pop__aries__thisisnotla__05.jpg", "bam__pop__aries__thisisnotla__06.jpg", "bam__pop__aries__thisisnotla__07.jpg", "bam__pop__aries__thisisnotla__08.jpg", "bam__pop__aries__thisisnotla__09.jpg", "bam__pop__aries__thisisnotla__10.jpg"], "count": 10}, {"photographer": "Bam", "project": "Hyundai Kona", "secondary": ["POP", "Innocean"], "images": ["bam__pop__innocean__hyndai_kona__01.jpg", "bam__pop__innocean__hyndai_kona__02.jpg", "bam__pop__innocean__hyndai_kona__03.jpg"], "count": 3}, {"photographer": "David Daub", "project": "VW ID.3", "secondary": ["POP"], "images": ["david_daub__pop__vw_id3__01.jpg", "david_daub__pop__vw_id3__02.jpg", "david_daub__pop__vw_id3__03.jpg", "david_daub__pop__vw_id3__04.jpg", "david_daub__pop__vw_id3__05.jpg", "david_daub__pop__vw_id3__06.jpg"], "count": 6}, {"photographer": "David Maurer", "project": "Porsche Macan", "secondary": ["Dock2 Studios"], "images": ["david_maurer__dock2studios__porsche_macan__01.jpg", "david_maurer__dock2studios__porsche_macan__02.jpg", "david_maurer__dock2studios__porsche_macan__03.jpg", "david_maurer__dock2studios__porsche_macan__04.jpg", "david_maurer__dock2studios__porsche_macan__05.jpg", "david_maurer__dock2studios__porsche_macan__06.jpg", "david_maurer__dock2studios__porsche_macan__07.jpg", "david_maurer__dock2studios__porsche_macan__08.jpg", "david_maurer__dock2studios__porsche_macan__09.jpg", "david_maurer__dock2studios__porsche_macan__10.jpg"], "count": 10}, {"photographer": "Florian Bison", "project": "Tipico", "secondary": ["POP"], "images": ["florian_bison__pop__tipico__01.jpg", "florian_bison__pop__tipico__02.jpg", "florian_bison__pop__tipico__03.jpg"], "count": 3}, {"photographer": "Frithjof Ohm", "project": "VW Golf", "secondary": ["Dock2 Studios", "DDB Berlin"], "images": ["frithjof_ohm__dock2studios__ddb_berlin__vw_golf__01.jpg", "frithjof_ohm__dock2studios__ddb_berlin__vw_golf__02.jpg", "frithjof_ohm__dock2studios__ddb_berlin__vw_golf__03.jpg", "frithjof_ohm__dock2studios__ddb_berlin__vw_golf__04.jpg", "frithjof_ohm__dock2studios__ddb_berlin__vw_golf__05.jpg", "frithjof_ohm__dock2studios__ddb_berlin__vw_golf__06.jpg", "frithjof_ohm__dock2studios__ddb_berlin__vw_golf__07.jpg"], "count": 7}, {"photographer": "Frithjof Ohm", "project": "VW Golf GTI", "secondary": ["Dock2 Studios", "DDB Berlin"], "images": ["frithjof_ohm__dock2studios__ddb_berlin__vw_golf_gti__01.jpg", "frithjof_ohm__dock2studios__ddb_berlin__vw_golf_gti__02.jpg", "frithjof_ohm__dock2studios__ddb_berlin__vw_golf_gti__03.jpg", "frithjof_ohm__dock2studios__ddb_berlin__vw_golf_gti__04.jpg", "frithjof_ohm__dock2studios__ddb_berlin__vw_golf_gti__05.jpg"], "count": 5}, {"photographer": "Frithjof Ohm", "project": "Audi RS e-tron GT", "secondary": ["Dock2 Studios", "thjnk"], "images": ["frithjof_ohm__dock2studios__thjnk__audi_rsegt__01.jpg", "frithjof_ohm__dock2studios__thjnk__audi_rsegt__02.jpg", "frithjof_ohm__dock2studios__thjnk__audi_rsegt__03.jpg", "frithjof_ohm__dock2studios__thjnk__audi_rsegt__04.jpg", "frithjof_ohm__dock2studios__thjnk__audi_rsegt__05.jpg", "frithjof_ohm__dock2studios__thjnk__audi_rsegt__06.jpg", "frithjof_ohm__dock2studios__thjnk__audi_rsegt__07.jpg", "frithjof_ohm__dock2studios__thjnk__audi_rsegt__08.jpg", "frithjof_ohm__dock2studios__thjnk__audi_rsegt__09.jpg", "frithjof_ohm__dock2studios__thjnk__audi_rsegt__10.jpg", "frithjof_ohm__dock2studios__thjnk__audi_rsegt__11.jpg", "frithjof_ohm__dock2studios__thjnk__audi_rsegt__12.jpg", "frithjof_ohm__dock2studios__thjnk__audi_rsegt__13.jpg", "frithjof_ohm__dock2studios__thjnk__audi_rsegt__14.jpg", "frithjof_ohm__dock2studios__thjnk__audi_rsegt__15.jpg", "frithjof_ohm__dock2studios__thjnk__audi_rsegt__16.jpg", "frithjof_ohm__dock2studios__thjnk__audi_rsegt__17.jpg", "frithjof_ohm__dock2studios__thjnk__audi_rsegt__18.jpg"], "count": 18}, {"photographer": "Frithjof Ohm", "project": "VW T-Roc", "secondary": ["Dock2 Studios", "thjnk"], "images": ["frithjof_ohm__dock2studios__thjnk__vw_troc__01.jpg", "frithjof_ohm__dock2studios__thjnk__vw_troc__02.jpg", "frithjof_ohm__dock2studios__thjnk__vw_troc__03.jpg", "frithjof_ohm__dock2studios__thjnk__vw_troc__04.jpg", "frithjof_ohm__dock2studios__thjnk__vw_troc__05.jpg", "frithjof_ohm__dock2studios__thjnk__vw_troc__06.jpg", "frithjof_ohm__dock2studios__thjnk__vw_troc__07.jpg"], "count": 7}, {"photographer": "CGI", "project": "Opel Grandland", "secondary": ["Flavor3D"], "images": ["fullcgi__flavor3d__opel_grandland__01.jpg", "fullcgi__flavor3d__opel_grandland__02.jpg"], "count": 2}, {"photographer": "James Law", "project": "Beats", "secondary": ["Travis Scott"], "images": ["james_law__travis_scott__beats__01.jpg", "james_law__travis_scott__beats__02.jpg", "james_law__travis_scott__beats__03.jpg", "james_law__travis_scott__beats__04.jpg"], "count": 4}, {"photographer": "Josselin", "project": "Coca-Cola", "secondary": ["WPP", "SF"], "images": ["josselin__wpp__sf__cocacola__01.jpg", "josselin__wpp__sf__cocacola__02.jpg", "josselin__wpp__sf__cocacola__03.jpg"], "count": 3}, {"photographer": "Kurt Iswarienko", "project": "Kirsten Dunst", "secondary": ["Gloss LA"], "images": ["kurt_Iswarienko__gloss_la__kirsten_dunst__01.jpg", "kurt_Iswarienko__gloss_la__kirsten_dunst__02.jpg", "kurt_Iswarienko__gloss_la__kirsten_dunst__03.jpg"], "count": 3}, {"photographer": "Marija Mihailova", "project": "o.b.", "secondary": ["WPP", "SF"], "images": ["marija_mihailova__wpp__sf__ob__01.jpg", "marija_mihailova__wpp__sf__ob__02.jpg", "marija_mihailova__wpp__sf__ob__03.jpg", "marija_mihailova__wpp__sf__ob__04.jpg"], "count": 4}, {"photographer": "Ole Westermann", "project": "Tesla", "secondary": ["POP"], "images": ["ole_westermann__pop__tesla__01.jpg", "ole_westermann__pop__tesla__02.jpg", "ole_westermann__pop__tesla__03.jpg"], "count": 3}, {"photographer": "Tobias Habermann", "project": "VW ID.7", "secondary": ["Dock2 Studios"], "images": ["tobias_habermann__dock2studios__vw_id7__01.jpg", "tobias_habermann__dock2studios__vw_id7__02.jpg", "tobias_habermann__dock2studios__vw_id7__03.jpg", "tobias_habermann__dock2studios__vw_id7__04.jpg"], "count": 4}, {"photographer": "", "project": "Fazer / Aito", "secondary": ["Brand Upgrade", "Samu Haber"], "images": ["unknown__brand_upgrade__samu_haber__fazer_aito.jpg"], "count": 1}, {"photographer": "", "project": "Audi A5", "secondary": ["Halbautomatik"], "images": ["unknown__halbautomatik__audi_a5.jpg"], "count": 1}, {"photographer": "", "project": "POP", "secondary": [], "images": ["unknown__pop__01.jpg", "unknown__pop__02.jpg"], "count": 2}];
-function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}let x=a.findIndex(p=>p.project.toLowerCase().includes("opel grandland"));if(x>=0&&x<6){let q=a.splice(x,1)[0];a.splice(Math.min(a.length,9),0,q)}return a}
+function shuffle(a){
+  a=a.slice();
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}
+  let x=a.findIndex(p=>p.project.toLowerCase().includes("opel grandland"));
+  if(x>=0&&x<6){let q=a.splice(x,1)[0];a.splice(Math.min(a.length,9),0,q)}
+  return a
+}
 const P=shuffle(RAW),stage=document.getElementById("stage"),sw=document.getElementById("switcher");
 function count(p){return p.images.length+" Image"+(p.images.length===1?"":"s")}
 function meta(p){return [p.photographer,...p.secondary,count(p)].filter(Boolean).join(" · ")}
@@ -167,20 +246,72 @@ function bg(el,img){el.style.backgroundImage=`url("images/${img}")`}
 function med(p,c=""){let d=document.createElement("div");d.className="media "+c;bg(d,p.images[0]);return d}
 function bind(el,p){el.classList.add("card");el.tabIndex=0;el.onclick=()=>openP(p);el.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openP(p)}}}
 const ov=document.getElementById("overlay"),ovg=document.getElementById("ovgrid");
-function openP(p){document.getElementById("opt").textContent=p.project;document.getElementById("opm").textContent=meta(p);ovg.innerHTML="";p.images.forEach(i=>{let d=document.createElement("div");d.className="media";bg(d,i);ovg.append(d)});ov.classList.add("open")}
+function openP(p){
+  document.getElementById("opt").textContent=p.project;
+  document.getElementById("opm").textContent=meta(p);
+  ovg.innerHTML="";
+  p.images.forEach(i=>{let d=document.createElement("div");d.className="media";bg(d,i);ovg.append(d)});
+  ov.classList.add("open")
+}
 document.getElementById("close").onclick=()=>ov.classList.remove("open");
 
-function r1(){stage.innerHTML=`<section class="v1"><div class="head"><div class="a"><div class="identity">PEDRO<br>RODRIGUES</div><div class="kicker">Retouch · Compositing · CGI · Generative Imaging</div></div><div class="b">BLOCKS<br>2026</div></div><div class="grid" id="g"></div></section>`;let g=document.getElementById("g");P.forEach(p=>{let t=document.createElement("article");t.className="tile";t.append(med(p));t.insertAdjacentHTML("beforeend",`<div class="tx"><b>${p.project}</b><span class="meta">${p.photographer||"Selected Work"} · ${count(p)}</span></div>`);bind(t,p);g.append(t)})}
-function r2(){stage.innerHTML=`<section class="v2"><div class="intro"><div class="identity">PEDRO RODRIGUES</div><div class="kicker">Moving blocks / 2026</div></div><div id="rows"></div></section>`;let rows=document.getElementById("rows");[P.slice(0,7),P.slice(7,14),P.slice(14)].forEach(gr=>{let r=document.createElement("div");r.className="row";let lane=document.createElement("div");lane.className="lane";[...gr,...gr].forEach(p=>{let b=document.createElement("div");b.className="box";b.append(med(p));b.insertAdjacentHTML("beforeend",`<div class="caption"><b>${p.project}</b><span class="meta">${p.photographer||"Selected Work"} · ${count(p)}</span></div>`);bind(b,p);lane.append(b)});r.append(lane);rows.append(r)})}
-function r3(){stage.innerHTML=`<section class="v3"><div class="identity">PEDRO RODRIGUES</div><div class="kicker">Tilt board / loose blocks / 2026</div><div class="board" id="board"></div></section>`;let board=document.getElementById("board");P.forEach((p,i)=>{let n=document.createElement("div");n.className="note";n.style.left=((i*29)%78)+"%";n.style.top=((i*131)%1180+35)+"px";n.style.setProperty("--rot",((i%7)-3)*1.5+"deg");n.append(med(p));n.insertAdjacentHTML("beforeend",`<b>${p.project}</b><span class="meta">${p.photographer||"Selected Work"} · ${count(p)}</span>`);bind(n,p);board.append(n)})}
-function r4(){stage.innerHTML=`<section class="v4"><div class="hero" id="hero"><div class="identity">PEDRO<br>RODRIGUES</div></div></section>`;let h=document.getElementById("hero");P.slice(0,12).forEach((p,i)=>{let b=document.createElement("div");b.className="block";b.style.left=((i*137)%78)+"%";b.style.top=((i*83)%560+90)+"px";b.style.transform=`rotate(${((i%5)-2)*2.2}deg)`;b.append(med(p));b.insertAdjacentHTML("beforeend",`<div class="cap"><b>${p.project}</b><div class="meta">${p.photographer||"Selected Work"}</div></div>`);bind(b,p);h.append(b)})}
-function r5(){stage.innerHTML=`<section class="v5"><div class="snap" id="snap"></div></section>`;let s=document.getElementById("snap");P.forEach((p,i)=>{let sec=document.createElement("article");sec.className="panel";let cp=document.createElement("div");cp.className="copy";cp.innerHTML=`<div class="meta">PEDRO RODRIGUES / ${String(i+1).padStart(2,"0")} / 2026</div><div class="project-title">${p.project}</div><div class="kicker">${p.photographer||"Selected Work"} · ${count(p)}</div>`;let m=med(p);bind(m,p);sec.append(m,cp);s.append(sec)})}
-function r6(){stage.innerHTML=`<section class="v6"><div class="mast"><div class="identity">PEDRO RODRIGUES</div><div class="kicker">Retouch · Compositing · CGI · Generative Imaging</div></div><div class="ticker"><span>PEDRO RODRIGUES — BLOCKS — RETOUCH — CGI — GENERATIVE — 2026 — PEDRO RODRIGUES — BLOCKS — RETOUCH — CGI — GENERATIVE — 2026 — </span></div><div class="cutgrid" id="g"></div></section>`;let g=document.getElementById("g");P.forEach(p=>{let c=document.createElement("article");c.className="cut";c.append(med(p));c.insertAdjacentHTML("beforeend",`<b>${p.project}</b><span class="meta">${p.photographer||"Selected Work"} · ${count(p)}</span>`);bind(c,p);g.append(c)})}
-function r7(){stage.innerHTML=`<section class="v7"><div class="header"><div class="identity">PEDRO RODRIGUES</div><div class="kicker">Expanding tiles / 2026</div></div><div class="expgrid" id="g"></div></section>`;let g=document.getElementById("g");P.forEach(p=>{let e=document.createElement("article");e.className="exp";e.append(med(p));e.insertAdjacentHTML("beforeend",`<div class="label"><b>${p.project}</b><span class="meta">${p.photographer||"Selected Work"} · ${count(p)}</span></div>`);bind(e,p);g.append(e)})}
-function r8(){stage.innerHTML=`<section class="v8"><div class="identity">PEDRO RODRIGUES</div><div class="kicker">Depth cards / 2026</div><div class="stack" id="g"></div></section>`;let g=document.getElementById("g");P.forEach((p,i)=>{let c=document.createElement("article");c.className="card3";c.style.setProperty("--rx",((i%3)-1)*2+"deg");c.style.setProperty("--ry",((i%5)-2)*2+"deg");c.append(med(p));c.insertAdjacentHTML("beforeend",`<div class="c3"><b>${p.project}</b><span class="meta">${p.photographer||"Selected Work"} · ${count(p)}</span></div>`);bind(c,p);g.append(c)})}
-function r9(){stage.innerHTML=`<section class="v9"><div class="liquidhead"><div><div class="identity">PEDRO RODRIGUES</div><div class="kicker">Liquid blocks / 2026</div></div><div class="meta">Traditional craft × generative imaging</div></div><div class="liquid" id="g"></div></section>`;let g=document.getElementById("g");P.forEach(p=>{let b=document.createElement("article");b.className="blob";b.append(med(p));b.insertAdjacentHTML("beforeend",`<b>${p.project}</b><span class="meta">${p.photographer||"Selected Work"} · ${count(p)}</span>`);bind(b,p);g.append(b)})}
-function r10(){stage.innerHTML=`<section class="v10"><div class="deckhead"><div><div class="identity">PEDRO RODRIGUES</div><div class="kicker">Glitch deck / 2026</div></div><div class="meta">Retouch · CGI · Generative Imaging</div></div><div class="deck" id="g"></div></section>`;let g=document.getElementById("g");P.forEach(p=>{let x=document.createElement("article");x.className="glitch";x.append(med(p));x.insertAdjacentHTML("beforeend",`<div class="gcap"><b>${p.project}</b><span class="meta">${p.photographer||"Selected Work"} · ${count(p)}</span></div>`);bind(x,p);g.append(x)})}
-const rs=[r1,r2,r3,r4,r5,r6,r7,r8,r9,r10],names=["01 Chroma Grid","02 Sliding Blocks","03 Tilt Board","04 Collision","05 Scroll Snap","06 Marquee Cutout","07 Expanding Tiles","08 Depth Cards","09 Liquid Blocks","10 Glitch Deck"];
-names.forEach((n,i)=>{let b=document.createElement("button");b.className="switch"+(i?"":" active");b.textContent=n;b.onclick=()=>{[...sw.children].forEach(x=>x.classList.remove("active"));b.classList.add("active");rs[i]();scrollTo({top:0,behavior:"smooth"})};sw.append(b)});r1();
+function heroHTML(){
+ return `<div class="identity">PEDRO<br>RODRIGUES</div><div class="subline">RETOUCH · COMPOSITING · CGI · GENERATIVE IMAGING</div>`;
+}
+function r1(){
+ stage.innerHTML=`<section class="v1"><div class="hero">${heroHTML()}</div><div class="grid" id="g"></div></section>`;
+ let g=document.getElementById("g");P.forEach(p=>{let t=document.createElement("article");t.className="tile";t.append(med(p));t.insertAdjacentHTML("beforeend",`<div class="tx"><b>${p.project}</b><span class="meta">${p.photographer||"Selected Work"} · ${count(p)}</span></div>`);bind(t,p);g.append(t)})
+}
+function r2(){
+ stage.innerHTML=`<section class="v2"><div class="hero"><div class="left">${heroHTML()}</div><div class="right"><div class="subline">SELECTED COMMERCIAL WORK</div></div></div><div class="grid" id="g"></div></section>`;
+ let g=document.getElementById("g");P.forEach(p=>{let c=document.createElement("article");c.className="cell";c.append(med(p));c.insertAdjacentHTML("beforeend",`<div class="cap"><b>${p.project}</b><div class="meta">${p.photographer||"Selected Work"} · ${count(p)}</div></div>`);bind(c,p);g.append(c)})
+}
+function r3(){
+ stage.innerHTML=`<section class="v3"><div class="hero">${heroHTML()}</div><div id="bands"></div></section>`;
+ let b=document.getElementById("bands");P.forEach(p=>{let x=document.createElement("article");x.className="band";x.innerHTML=`<div class="bandtext"><b>${p.project}</b><span class="meta">${p.photographer||"Selected Work"} · ${count(p)}</span></div>`;x.append(med(p));bind(x,p);b.append(x)})
+}
+function r4(){
+ stage.innerHTML=`<section class="v4"><div class="hero">${heroHTML()}</div><div class="feature"><div class="media bigimg" id="big"></div><div class="rail" id="rail"></div></div></section>`;
+ let big=document.getElementById("big"),rail=document.getElementById("rail");
+ function show(p){bg(big,p.images[0]);big.onclick=()=>openP(p)}
+ P.slice(0,6).forEach((p,i)=>{let s=document.createElement("article");s.className="small";s.append(med(p));s.insertAdjacentHTML("beforeend",`<div class="smalltxt"><b>${p.project}</b><div class="meta">${p.photographer||"Selected Work"}</div></div>`);s.onclick=()=>show(p);rail.append(s);if(i===0)show(p)})
+}
+function r5(){
+ stage.innerHTML=`<section class="v5"><div class="hero"><div>${heroHTML()}</div><div class="subline">CHROMA POSTER SYSTEM</div></div><div class="posters" id="g"></div></section>`;
+ let g=document.getElementById("g");P.forEach(p=>{let x=document.createElement("article");x.className="poster";x.append(med(p));x.insertAdjacentHTML("beforeend",`<h3>${p.project}</h3><div class="meta">${p.photographer||"Selected Work"} · ${count(p)}</div>`);bind(x,p);g.append(x)})
+}
+function r6(){
+ stage.innerHTML=`<section class="v6"><aside class="index"><div class="identity">PEDRO<br>RODRIGUES</div><div class="subline" style="margin:12px 0 28px">RETOUCH · COMPOSITING · CGI · GENERATIVE IMAGING</div><div id="ix"></div></aside><div class="display" id="display"></div></section>`;
+ let ix=document.getElementById("ix"),d=document.getElementById("display");
+ P.forEach(p=>{let a=document.createElement("div");a.className="ix";a.textContent=p.project;a.onclick=()=>openP(p);ix.append(a);let c=document.createElement("article");c.append(med(p));c.insertAdjacentHTML("beforeend",`<div class="label"><b>${p.project}</b><div class="meta">${p.photographer||"Selected Work"} · ${count(p)}</div></div>`);bind(c,p);d.append(c)})
+}
+function r7(){
+ stage.innerHTML=`<section class="v7"><div class="hero">${heroHTML()}</div><div class="windows" id="g"></div></section>`;
+ let g=document.getElementById("g");P.forEach(p=>{let w=document.createElement("article");w.className="win";w.innerHTML=`<div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>`;w.append(med(p));w.insertAdjacentHTML("beforeend",`<div class="wcap"><b>${p.project}</b><div class="meta">${p.photographer||"Selected Work"} · ${count(p)}</div></div>`);bind(w,p);g.append(w)})
+}
+function r8(){
+ stage.innerHTML=`<section class="v8"><div class="hero"><div>${heroHTML()}</div><div class="heroaside">SELECTED WORK / HAMBURG</div></div><div class="editorial" id="g"></div></section>`;
+ let g=document.getElementById("g");P.forEach(p=>{let a=document.createElement("article");a.append(med(p));a.insertAdjacentHTML("beforeend",`<div class="ecap"><b>${p.project}</b><div class="meta">${p.photographer||"Selected Work"} · ${count(p)}</div></div>`);bind(a,p);g.append(a)})
+}
+function r9(){
+ stage.innerHTML=`<section class="v9"><div class="hero">${heroHTML()}</div><div class="micro" id="micro"></div><div class="macro"><div class="media" id="macroimg"></div><div class="macrotext"><b id="macrot"></b><div class="meta" id="macrom"></div></div></div></section>`;
+ let m=document.getElementById("micro"),img=document.getElementById("macroimg"),t=document.getElementById("macrot"),mm=document.getElementById("macrom");
+ function show(p){bg(img,p.images[0]);t.textContent=p.project;mm.textContent=meta(p);img.onclick=()=>openP(p)}
+ P.forEach((p,i)=>{let x=document.createElement("article");x.className="thumb";x.append(med(p));x.insertAdjacentHTML("beforeend",`<div class="meta">${p.project}</div>`);x.onclick=()=>show(p);m.append(x);if(i===0)show(p)})
+}
+function r10(){
+ stage.innerHTML=`<section class="v10"><div class="hero">${heroHTML()}</div><div class="hard" id="g"></div></section>`;
+ let g=document.getElementById("g");P.forEach(p=>{let x=document.createElement("article");x.append(med(p));x.insertAdjacentHTML("beforeend",`<div class="hardcap"><b>${p.project}</b><div class="meta">${p.photographer||"Selected Work"} · ${count(p)}</div></div>`);bind(x,p);g.append(x)})
+}
+
+const rs=[r1,r2,r3,r4,r5,r6,r7,r8,r9,r10];
+const names=["01 Chroma Clean","02 Offset Grid","03 Color Bands","04 Feature + Rail","05 Poster Grid","06 Side Index","07 Color Windows","08 Editorial Blocks","09 Micro → Macro","10 Hard Cut"];
+names.forEach((n,i)=>{
+ let b=document.createElement("button");b.className="switch"+(i?"":" active");b.textContent=n;
+ b.onclick=()=>{[...sw.children].forEach(x=>x.classList.remove("active"));b.classList.add("active");rs[i]();scrollTo({top:0,behavior:"smooth"})};
+ sw.append(b)
+});
+r1();
 </script>
-</body></html>
+</body>
+</html>
