@@ -405,6 +405,103 @@ button{font-family:var(--rock)}
   .flowmark{width:52px;height:1px;min-height:1px}
 }
 
+
+/* DESIGN-SPECIFIC PROCESS DIVIDERS */
+.v1 .flowmark{
+  width:5px;
+  min-height:82px;
+  background:var(--yellow);
+  opacity:1;
+  box-shadow:2px 0 0 rgba(255,255,255,.08);
+}
+.v1 .sourceblock,.v1 .finishblock{color:#fff}
+
+.v2 .flowmark{
+  width:4px;
+  min-height:76px;
+  background:#111;
+  opacity:1;
+}
+.v2 .finishblock{background:var(--pink);padding:8px 10px}
+
+.v3 .flowmark{
+  width:8px;
+  min-height:76px;
+  background:var(--acid);
+  opacity:1;
+}
+.v3 .sourceblock{color:#fff}
+.v3 .finishblock{color:var(--acid)}
+
+.v4 .flowmark{
+  width:5px;
+  min-height:80px;
+  background:var(--cyan);
+  opacity:1;
+}
+.v4 .finishblock strong{color:var(--cyan)}
+
+.v5 .flowmark{
+  width:3px;
+  min-height:74px;
+  background:var(--orange);
+  opacity:1;
+}
+.v5 .sourceblock{padding-left:10px;border-left:3px solid #111}
+.v5 .finishblock{padding-right:10px;border-right:3px solid #111}
+
+.v6 .flowmark{
+  width:54px;
+  height:4px;
+  min-height:4px;
+  background:#111;
+  opacity:1;
+}
+.v6 .finishblock strong{background:#111;color:var(--acid);display:inline-block;padding:2px 5px;width:max-content}
+
+.v7 .flowmark{
+  width:6px;
+  min-height:78px;
+  background:var(--cyan);
+  opacity:1;
+  box-shadow:4px 4px 0 #000;
+}
+.v7 .sourceblock,.v7 .finishblock{color:#fff}
+
+.v8 .flowmark{
+  width:1px;
+  min-height:84px;
+  background:#111;
+  opacity:1;
+}
+.v8 .sourceblock{padding-left:10px;border-left:6px solid #111}
+.v8 .finishblock{padding-left:10px}
+
+.v9 .flowmark{
+  width:6px;
+  min-height:78px;
+  background:var(--yellow);
+  opacity:1;
+}
+.v9 .finishblock strong{color:var(--cyan)}
+
+.v10 .flowmark{
+  width:8px;
+  min-height:82px;
+  background:#111;
+  opacity:1;
+}
+.v10 .finishblock{background:#111;color:#fff;padding:8px 10px}
+
+@media(max-width:760px){
+  .v1 .flowmark,.v2 .flowmark,.v3 .flowmark,.v4 .flowmark,.v5 .flowmark,
+  .v7 .flowmark,.v8 .flowmark,.v9 .flowmark,.v10 .flowmark{
+    width:56px;
+    height:4px;
+    min-height:4px;
+  }
+}
+
 </style>
 </head>
 <body>
