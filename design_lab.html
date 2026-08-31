@@ -343,46 +343,66 @@ button{font-family:var(--rock)}
 
 
 .copyflow{
-  margin-top:16px;
+  margin-top:18px;
   display:grid;
-  grid-template-columns:minmax(180px,1fr) auto minmax(180px,1fr);
-  gap:10px;
-  align-items:stretch;
-  max-width:560px;
+  grid-template-columns:minmax(180px,.9fr) 1px minmax(180px,1.1fr);
+  gap:18px;
+  align-items:end;
+  max-width:620px;
 }
 .sourceblock,.finishblock{
-  border:2px solid currentColor;
-  padding:12px 13px;
+  padding:0;
+  border:0;
 }
 .sourceblock{
   display:grid;
-  gap:4px;
+  gap:2px;
   font-size:clamp(12px,1.15vw,15px);
-  line-height:1.25;
+  line-height:1.24;
 }
 .sourceblock span{display:block}
 .flowmark{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:0 2px;
-  font-size:18px;
-  font-weight:700;
+  width:1px;
+  min-height:72px;
+  background:currentColor;
+  opacity:.35;
+  font-size:0;
 }
 .finishblock{
   display:flex;
   flex-direction:column;
-  justify-content:center;
-  gap:4px;
+  justify-content:end;
+  gap:2px;
   font-size:clamp(12px,1.15vw,15px);
-  line-height:1.25;
+  line-height:1.24;
 }
 .finishblock strong{font-weight:700}
-.v6 .copyflow{grid-template-columns:1fr;max-width:285px}
-.v6 .flowmark{transform:rotate(90deg);min-height:18px}
+.v1 .hero{
+  display:grid!important;
+  grid-template-columns:minmax(0,1.15fr) minmax(320px,.85fr);
+  gap:34px;
+  align-items:end;
+  min-height:250px!important;
+}
+.v1 .hero .copyblock{margin-top:0;align-self:end}
+.v4 .hero,.v9 .hero,.v10 .hero{min-height:235px!important}
+.v6 .copyflow{
+  grid-template-columns:1fr;
+  gap:9px;
+  max-width:285px;
+}
+.v6 .flowmark{
+  width:52px;
+  height:1px;
+  min-height:1px;
+}
+@media(max-width:850px){
+  .v1 .hero{grid-template-columns:1fr}
+  .v1 .hero .copyblock{margin-top:16px}
+}
 @media(max-width:760px){
-  .copyflow{grid-template-columns:1fr}
-  .flowmark{transform:rotate(90deg);min-height:18px}
+  .copyflow{grid-template-columns:1fr;gap:9px}
+  .flowmark{width:52px;height:1px;min-height:1px}
 }
 
 </style>
@@ -473,16 +493,18 @@ function openP(p){
 document.getElementById("close").onclick=()=>{ov.className="overlay";};
 
 function heroHTML(){
- return `<div class="identity">PEDRO<br>RODRIGUES</div>
+ return `<div>
+   <div class="identity">PEDRO<br>RODRIGUES</div>
+   <div class="roleline" style="margin-top:12px">Freelance Retouch &amp; Compositing Artist — Hamburg</div>
+ </div>
  <div class="copyblock">
-   <div class="roleline">Freelance Retouch &amp; Compositing Artist — Hamburg</div>
    <div class="copyflow">
      <div class="sourceblock">
        <span>Photography.</span>
        <span>CGI.</span>
        <span>AI Image Creation.</span>
      </div>
-     <div class="flowmark">→</div>
+     <div class="flowmark"></div>
      <div class="finishblock">
        <strong>Brought together.</strong>
        <span>Refined in Photoshop.</span>
@@ -514,22 +536,22 @@ function r5(){
 }
 function r6(){
  stage.innerHTML=`<section class="v6"><aside class="index"><div class="identity">PEDRO<br>RODRIGUES</div>
+<div class="roleline" style="margin-top:12px">Freelance Retouch &amp; Compositing Artist — Hamburg</div>
 <div class="copyblock">
-  <div class="roleline">Freelance Retouch &amp; Compositing Artist — Hamburg</div>
   <div class="copyflow">
     <div class="sourceblock">
       <span>Photography.</span>
       <span>CGI.</span>
       <span>AI Image Creation.</span>
     </div>
-    <div class="flowmark">→</div>
+    <div class="flowmark"></div>
     <div class="finishblock">
       <strong>Brought together.</strong>
       <span>Refined in Photoshop.</span>
     </div>
   </div>
 </div>
-<div id="ix" style="margin-top:28px"></div></aside><div class="display"><div id="v6viewer" class="v6viewer"></div></div></section>`;
+<div id="ix" style="margin-top:30px"></div></aside><div class="display"><div id="v6viewer" class="v6viewer"></div></div></section>`;
  let ix=document.getElementById("ix");
  P.forEach((p,i)=>{
    let a=document.createElement("div");
