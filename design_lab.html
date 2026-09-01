@@ -976,6 +976,18 @@ button{font-family:var(--rock)}
 .copyline{line-height:1.48!important}
 .claimblock{display:block!important}
 
+
+/* Claim sits below the Working Across / Post-Production block */
+.claimblock{
+  display:grid!important;
+  gap:2px!important;
+  margin-top:42px!important;
+  padding-top:0!important;
+  font-size:clamp(12px,1.15vw,15px)!important;
+  line-height:1.24!important;
+}
+.claimblock strong{font-weight:700}
+
 </style>
 </head>
 <body>
@@ -1108,7 +1120,10 @@ function heroHTML(){
          <div class="copyline">High-End Retouch. Compositing. CGI. Generative Workflows.</div>
        </div>
      </div>
-     <div class="claimblock"><span><strong>Brought together.</strong> Refined in Photoshop.</span></div>
+     <div class="claimblock">
+       <strong>Brought together.</strong>
+       <span>Refined in Photoshop.</span>
+     </div>
    </div>
  </div>`;
 }
@@ -1151,7 +1166,10 @@ function r6(){
         <div class="copyline">High-End Retouch. Compositing. CGI. Generative Workflows.</div>
       </div>
     </div>
-    <div class="claimblock"><span><strong>Brought together.</strong> Refined in Photoshop.</span></div>
+    <div class="claimblock">
+       <strong>Brought together.</strong>
+       <span>Refined in Photoshop.</span>
+     </div>
   </div>
 </div>
 <div id="ix" style="margin-top:30px"></div></aside><div class="display"><div id="v6viewer" class="v6viewer"></div></div></section>`;
