@@ -280,6 +280,11 @@ button:hover{color:var(--white)}
   }
 }
 
+
+/* calmer scope/service copy */
+.copyline{line-height:1.48!important}
+.claimblock{display:block!important}
+
 </style>
 </head>
 <body>
@@ -295,18 +300,15 @@ button:hover{color:var(--white)}
       <div class="scope-services">
         <div class="scopeblock">
           <div class="copylabel">Working Across</div>
-          <div class="copyline">Automotive // People // Advertising // Food // Still Life // Beauty // AI</div>
+          <div class="copyline">Automotive. People. Advertising. Food. Still Life. Beauty. AI.</div>
         </div>
         <div class="flowmark" aria-hidden="true"></div>
         <div class="serviceblock">
           <div class="copylabel">Post-Production</div>
-          <div class="copyline">High-End Retouch // Compositing // CGI // Generative Workflows</div>
+          <div class="copyline">High-End Retouch. Compositing. CGI. Generative Workflows.</div>
         </div>
       </div>
-      <div class="claimblock">
-        <strong>Brought together.</strong>
-        <span>Refined in Photoshop.</span>
-      </div>
+      <div class="claimblock"><span><strong>Brought together.</strong> Refined in Photoshop.</span></div>
     </div>
   </header>
 
