@@ -87,8 +87,6 @@ body{
 }
 .identity{
   display:inline-block;
-  padding-bottom:12px;
-  border-bottom:4px solid var(--yellow);
   font-family:var(--display);
   font-size:clamp(39px,6.15vw,88px);
   line-height:.83;
@@ -121,7 +119,7 @@ body{
 .flowmark{
   width:5px;
   min-height:82px;
-  background:#4a4a4e;
+  background:var(--yellow);
   box-shadow:none;
 }
 .finishblock strong{font-weight:700}
@@ -133,7 +131,6 @@ body{
   padding:clamp(28px,5vw,58px) 26px;
   display:flex;
   align-items:center;
-  border:1px solid var(--line);
 }
 .panel{
   width:min(100%,760px);
@@ -163,25 +160,24 @@ h1{
 .field{
   display:grid;
   grid-template-columns:1fr auto;
-  border-top:2px solid var(--white);
-  border-bottom:2px solid var(--white);
+  gap:10px;
 }
 input{
   min-width:0;
   width:100%;
-  padding:17px 0;
+  padding:15px 16px;
   border:0;
   outline:0;
-  background:transparent;
+  background:#151518;
   color:var(--white);
   font:inherit;
   font-size:14px;
 }
 input::placeholder{color:#6d6d71}
 button{
-  padding:0 4px 0 24px;
+  padding:0 14px;
   border:0;
-  background:transparent;
+  background:#151518;
   color:var(--yellow);
   font:inherit;
   font-size:11px;
@@ -204,7 +200,6 @@ button:hover{color:var(--white)}
   align-items:flex-end;
   justify-content:space-between;
   gap:28px;
-  border-top:1px solid var(--line);
   font-size:9px;
   line-height:1.5;
   text-transform:uppercase;
@@ -216,7 +211,6 @@ button:hover{color:var(--white)}
 .accessmail{text-align:right}
 .accessmail a{
   color:var(--white);
-  border-bottom:1px solid #55555a;
 }
 
 @media(max-width:850px){
@@ -230,7 +224,7 @@ button:hover{color:var(--white)}
   .flowmark{width:52px;height:4px;min-height:4px}
   .access{padding:38px 22px}
   .field{grid-template-columns:1fr}
-  button{padding:0 0 14px;text-align:left}
+  button{padding:14px 16px;text-align:left}
   .bottom{padding:18px 22px;align-items:flex-start;flex-direction:column}
   .accessmail{text-align:left}
 }
