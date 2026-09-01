@@ -37,7 +37,7 @@ body{
   margin:0;
   background:var(--bg);
   color:var(--fg);
-  font-family:var(--text);
+  font-family:"RockwellBold",ui-monospace,"SF Mono",Menlo,Monaco,Consolas,"Courier New",monospace;
   -webkit-font-smoothing:antialiased;
 }
 a{color:inherit}
@@ -164,14 +164,16 @@ strong{color:var(--fg)}
 
 .back-main{
   display:inline-block;
-  margin-top:22px;
+  margin-top:26px;
   color:var(--accent);
-  font-size:12px;
+  font-family:"RockwellBold",ui-monospace,"SF Mono",Menlo,Monaco,Consolas,"Courier New",monospace;
+  font-size:clamp(16px,1.7vw,22px);
   line-height:1.1;
-  letter-spacing:.06em;
+  letter-spacing:.025em;
   text-transform:uppercase;
   text-decoration:none;
 }
+.back-main:hover{color:var(--fg)}
 .back-main:hover{color:var(--fg)}
 
 @media(max-width:800px){
