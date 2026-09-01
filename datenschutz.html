@@ -17,7 +17,9 @@
   font-family:"RockwellBold";
   src:url("fonts/Rockwell-Bold.woff2") format("woff2"),
       url("fonts/Rockwell-Bold.woff") format("woff"),
-      url("fonts/Rockwell-Bold.ttf") format("truetype");
+      url("fonts/Rockwell-Bold.otf") format("opentype"),
+      url("fonts/Rockwell-Bold.ttf") format("truetype"),
+      url("fonts/Rockwell.ttc") format("collection");
   font-weight:700;
   font-display:swap;
 }
@@ -165,7 +167,7 @@ strong{color:var(--fg)}
 .back-main{
   display:inline-block;
   margin-top:26px;
-  color:var(--accent);
+  color:var(--acid);
   font-family:"RockwellBold",ui-monospace,"SF Mono",Menlo,Monaco,Consolas,"Courier New",monospace;
   font-size:clamp(16px,1.7vw,22px);
   line-height:1.1;
@@ -173,7 +175,6 @@ strong{color:var(--fg)}
   text-transform:uppercase;
   text-decoration:none;
 }
-.back-main:hover{color:var(--fg)}
 .back-main:hover{color:var(--fg)}
 
 @media(max-width:800px){
