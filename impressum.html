@@ -39,7 +39,7 @@ body{
 }
 a{color:inherit}
 .top{
-  position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;
+  position:sticky;top:0;z-index:5;display:flex;justify-content:flex-start;align-items:center;
   gap:20px;padding:16px var(--pad);background:rgba(8,8,10,.94);
   backdrop-filter:blur(14px);border-bottom:1px solid var(--line)
 }
@@ -85,32 +85,19 @@ p{margin:0 0 12px;color:var(--dim);font-size:13px;line-height:1.7;max-width:68ch
   display:flex;justify-content:space-between;gap:20px;color:var(--dim);font-size:10px
 }
 
-.legalnav{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-end;
-  gap:7px;
+
+
+.back-main{
+  display:inline-block;
+  margin-top:22px;
+  color:var(--accent);
+  font-size:12px;
+  line-height:1.1;
+  letter-spacing:.06em;
   text-transform:uppercase;
-}
-.legalnav a{
-  color:inherit;
   text-decoration:none;
 }
-.legalnav .cross{
-  color:var(--dim);
-  font-size:9px;
-  letter-spacing:.08em;
-}
-.legalnav .cross:hover{color:var(--fg)}
-.legalnav .back{
-  font-size:13px;
-  line-height:1;
-  letter-spacing:.04em;
-}
-@media(max-width:600px){
-  .legalnav{gap:8px}
-  .legalnav .back{font-size:12px}
-}
+.back-main:hover{color:var(--fg)}
 
 @media(max-width:800px){
   .layout{grid-template-columns:1fr}
@@ -122,15 +109,12 @@ p{margin:0 0 12px;color:var(--dim);font-size:13px;line-height:1.7;max-width:68ch
 <body>
 <header class="top">
   <a class="wordmark" href="/">PEDRO RODRIGUES</a>
-  <nav class="legalnav" aria-label="Legal navigation">
-    <a class="cross" href="/datenschutz">Datenschutz</a>
-    <a class="back" href="/">← Portfolio</a>
-  </nav>
 </header>
 
 <main class="layout">
   <aside class="intro">
     <h1>IMPRES<br>SUM</h1>
+    <a class="back-main" href="/">← Zurück zum Portfolio</a>
     <div class="intro-note">Anbieterkennzeichnung und Kontaktinformationen.</div>
   </aside>
 
