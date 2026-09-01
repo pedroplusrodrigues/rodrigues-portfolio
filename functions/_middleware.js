@@ -294,6 +294,16 @@ button:hover{color:var(--white)}
 .panel-access a:hover{color:var(--yellow)}
 
 
+
+/* fixed two-line Post-Production rhythm */
+.service-lines{
+  display:grid;
+  gap:2px;
+}
+.service-lines span{
+  display:block;
+}
+
 </style>
 </head>
 <body>
@@ -314,7 +324,10 @@ button:hover{color:var(--white)}
         <div class="flowmark" aria-hidden="true"></div>
         <div class="serviceblock">
           <div class="copylabel">Post-Production</div>
-          <div class="copyline">High-End Retouch. Compositing. CGI. Generative Workflows.</div>
+          <div class="copyline service-lines">
+  <span>High-End Retouch. Compositing. CGI. 3D.</span>
+  <span>Generative Workflows.</span>
+</div>
         </div>
       </div>
     </div>
