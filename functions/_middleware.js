@@ -260,13 +260,6 @@ button:hover{color:var(--white)}
   min-height:86px;
   background:var(--yellow);
 }
-.claimblock{
-  display:grid;
-  gap:2px;
-  font-size:clamp(12px,1.15vw,15px);
-  line-height:1.24;
-}
-.claimblock strong{font-weight:700}
 @media(max-width:600px){
   .scope-services{grid-template-columns:1fr;gap:10px}
   .scope-services .flowmark{
@@ -301,15 +294,6 @@ button:hover{color:var(--white)}
 .panel-access a:hover{color:var(--yellow)}
 
 
-.claimbelow{
-  display:grid;
-  gap:2px;
-  margin-top:42px;
-  font-size:clamp(12px,1.15vw,15px);
-  line-height:1.24;
-}
-.claimbelow strong{font-weight:700}
-
 </style>
 </head>
 <body>
@@ -332,11 +316,6 @@ button:hover{color:var(--white)}
           <div class="copylabel">Post-Production</div>
           <div class="copyline">High-End Retouch. Compositing. CGI. Generative Workflows.</div>
         </div>
-      </div>
-
-      <div class="claimbelow">
-        <strong>Brought together.</strong>
-        <span>Refined in Photoshop.</span>
       </div>
     </div>
   </header>
