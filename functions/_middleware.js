@@ -58,7 +58,7 @@ function loginPage(showError) {
   --rock:"RockwellBold",ui-monospace,"SF Mono",Menlo,Monaco,Consolas,"Courier New",monospace;
 }
 *{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:var(--yellow)}
+html,body{margin:0;min-height:100%;background:var(--black)}
 body{
   min-height:100dvh;
   color:var(--white);
@@ -71,7 +71,7 @@ body{
   display:grid;
   grid-template-rows:auto 1fr auto;
   gap:10px;
-  background:var(--yellow);
+  background:var(--black);
 }
 
 /* same visual language as Chroma Clean */
@@ -86,6 +86,9 @@ body{
   align-items:end;
 }
 .identity{
+  display:inline-block;
+  padding-bottom:12px;
+  border-bottom:4px solid var(--yellow);
   font-family:var(--display);
   font-size:clamp(39px,6.15vw,88px);
   line-height:.83;
@@ -118,8 +121,8 @@ body{
 .flowmark{
   width:5px;
   min-height:82px;
-  background:var(--yellow);
-  box-shadow:2px 0 0 rgba(255,255,255,.08);
+  background:#4a4a4e;
+  box-shadow:none;
 }
 .finishblock strong{font-weight:700}
 
@@ -130,6 +133,7 @@ body{
   padding:clamp(28px,5vw,58px) 26px;
   display:flex;
   align-items:center;
+  border:1px solid var(--line);
 }
 .panel{
   width:min(100%,760px);
@@ -238,7 +242,7 @@ button:hover{color:var(--white)}
   <header class="hero">
     <div>
       <div class="identity">PEDRO<br>RODRIGUES</div>
-      <div class="roleline">Freelance Retouch &amp; Compositing Artist — Hamburg</div>
+      <div class="roleline">Freelance Retouch &amp; Compositing Artist</div>
     </div>
 
     <div class="copyflow">
