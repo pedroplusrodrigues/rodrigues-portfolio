@@ -10,6 +10,7 @@ const HARDCODED_PASSWORD = "";
 
 // Diese Pfade sind IMMER ohne Passwort erreichbar (Impressum/Datenschutz müssen öffentlich sein).
 const PUBLIC_PATHS = ["/impressum", "/impressum.html", "/datenschutz", "/datenschutz.html"];
+const PUBLIC_PREFIXES = ["/fonts/"];
 
 const COOKIE = "site_auth";
 const MAX_AGE = 60 * 60 * 24 * 30; // 30 Tage eingeloggt bleiben
@@ -29,6 +30,13 @@ function loginPage(showError) {
 <meta name="robots" content="noindex,nofollow">
 <title>Private Portfolio — Pedro Rodrigues</title>
 <style>
+@font-face{
+  font-family:"Phosphate";
+  src:url("/fonts/Phosphate.woff2") format("woff2"),
+      url("/fonts/Phosphate.woff") format("woff"),
+      url("/fonts/Phosphate.otf") format("opentype");
+  font-display:swap;
+}
 :root{
   color-scheme:dark;
   --bg:#08080a;
@@ -59,11 +67,11 @@ body{
 }
 .name{
   margin:0;
-  font-family:"Arial Black","Helvetica Neue",Arial,sans-serif;
-  font-size:clamp(25px,4.2vw,58px);
-  font-weight:900;
-  line-height:.82;
-  letter-spacing:-.055em;
+  font-family:"Phosphate","Arial Black","Helvetica Neue",Arial,sans-serif;
+  font-size:clamp(28px,4.6vw,62px);
+  font-weight:400;
+  line-height:.86;
+  letter-spacing:-.015em;
   text-transform:uppercase;
 }
 .mark{
@@ -79,7 +87,7 @@ body{
   padding:clamp(42px,8vh,90px) 0;
 }
 .panel{
-  width:min(100%,470px);
+  width:min(100%,720px);
 }
 .kicker{
   margin:0 0 12px;
@@ -92,15 +100,16 @@ body{
 h1{
   margin:0;
   font-family:"Helvetica Neue",Arial,sans-serif;
-  font-size:clamp(36px,6vw,68px);
+  font-size:clamp(25px,3.2vw,42px);
   font-weight:800;
   line-height:.92;
   letter-spacing:-.045em;
   text-transform:uppercase;
 }
 .copy{
-  max-width:42ch;
-  margin:18px 0 34px;
+  max-width:none;
+  margin:16px 0 34px;
+  white-space:nowrap;
   color:var(--dim);
   font-size:12px;
   line-height:1.55;
@@ -176,6 +185,7 @@ button:hover{color:var(--fg)}
 .access a:hover{border-color:var(--fg)}
 @media(max-width:600px){
   .page{padding:18px}
+  .copy{white-space:normal}
   .center{align-items:center;padding:54px 0}
   .field{grid-template-columns:1fr}
   button{
@@ -202,7 +212,7 @@ button:hover{color:var(--fg)}
   <main class="center">
     <section class="panel">
       <div class="kicker">Private access</div>
-      <h1>Private<br>Portfolio</h1>
+      <h1>Private Portfolio</h1>
       <p class="copy">Selected commercial work is password protected.</p>
 
       <form method="POST" autocomplete="off">
@@ -242,7 +252,7 @@ export async function onRequest(context) {
   const url = new URL(request.url);
 
   // Impressum/Datenschutz immer öffentlich
-  if (PUBLIC_PATHS.includes(url.pathname)) return next();
+  if (PUBLIC_PATHS.includes(url.pathname) || PUBLIC_PREFIXES.some(prefix => url.pathname.startsWith(prefix))) return next();
 
   const PASSWORD = (env && env.SITE_PASSWORD) || HARDCODED_PASSWORD;
 
