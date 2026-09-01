@@ -42,7 +42,8 @@ function loginPage(showError) {
   src:url("/fonts/Rockwell-Bold.woff2") format("woff2"),
       url("/fonts/Rockwell-Bold.woff") format("woff"),
       url("/fonts/Rockwell-Bold.otf") format("opentype"),
-      url("/fonts/Rockwell-Bold.ttf") format("truetype");
+      url("/fonts/Rockwell-Bold.ttf") format("truetype"),
+      url("/fonts/Rockwell.ttc") format("collection");
   font-weight:700;
   font-display:swap;
 }
@@ -92,6 +93,8 @@ body{
   text-transform:uppercase;
 }
 .roleline{
+  font-family:var(--rock);
+  font-weight:700;
   margin-top:12px;
   font-size:clamp(12px,1.15vw,15px);
   line-height:1.28;
@@ -105,6 +108,8 @@ body{
 }
 .sourceblock,
 .finishblock{
+  font-family:var(--rock);
+  font-weight:700;
   display:grid;
   gap:2px;
   font-size:clamp(12px,1.15vw,15px);
