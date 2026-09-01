@@ -198,7 +198,7 @@ button:hover{color:var(--white)}
   padding:18px 26px 20px;
   display:flex;
   align-items:flex-end;
-  justify-content:space-between;
+  justify-content:flex-start;
   gap:28px;
   font-size:9px;
   line-height:1.5;
@@ -208,10 +208,6 @@ button:hover{color:var(--white)}
 .links{display:flex;gap:10px 16px;flex-wrap:wrap}
 .bottom a{color:inherit;text-decoration:none}
 .bottom a:hover{color:var(--white)}
-.accessmail{text-align:right}
-.accessmail a{
-  color:var(--white);
-}
 
 @media(max-width:850px){
   .hero{grid-template-columns:1fr}
@@ -285,6 +281,35 @@ button:hover{color:var(--white)}
 .copyline{line-height:1.48!important}
 .claimblock{display:block!important}
 
+
+.service-claim{
+  display:grid;
+  gap:2px;
+  margin-top:26px;
+  font-size:clamp(12px,1.15vw,15px);
+  line-height:1.24;
+}
+.service-claim strong{font-weight:700}
+
+
+.panel-access{
+  margin-top:34px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px 10px;
+  align-items:baseline;
+  color:var(--dim);
+  font-size:9px;
+  line-height:1.5;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+}
+.panel-access a{
+  color:var(--white);
+  text-decoration:none;
+}
+.panel-access a:hover{color:var(--yellow)}
+
 </style>
 </head>
 <body>
@@ -306,9 +331,12 @@ button:hover{color:var(--white)}
         <div class="serviceblock">
           <div class="copylabel">Post-Production</div>
           <div class="copyline">High-End Retouch. Compositing. CGI. Generative Workflows.</div>
+          <div class="service-claim">
+            <strong>Brought together.</strong>
+            <span>Refined in Photoshop.</span>
+          </div>
         </div>
       </div>
-      <div class="claimblock"><span><strong>Brought together.</strong> Refined in Photoshop.</span></div>
     </div>
   </header>
 
@@ -331,6 +359,11 @@ button:hover{color:var(--white)}
         </div>
         <div class="err" role="status">${showError ? "Incorrect password." : ""}</div>
       </form>
+
+      <div class="panel-access">
+        <span>For portfolio access:</span>
+        <a href="mailto:pedro@rodrigues.de">pedro@rodrigues.de</a>
+      </div>
     </section>
   </main>
 
@@ -340,10 +373,6 @@ button:hover{color:var(--white)}
       <a href="/datenschutz">Datenschutz</a>
       <a href="mailto:pedro@rodrigues.de">Contact</a>
     </nav>
-    <div class="accessmail">
-      For portfolio access:
-      <a href="mailto:pedro@rodrigues.de">pedro@rodrigues.de</a>
-    </div>
   </footer>
 
 </div>
