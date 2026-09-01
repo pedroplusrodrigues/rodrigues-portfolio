@@ -606,369 +606,225 @@ button{font-family:var(--rock)}
 }
 
 
-/* =========================================================
-   COMPLETE SITE INFO / NAVIGATION
-   ========================================================= */
-.sitenav{
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px 14px;
-  margin-bottom:clamp(28px,5vw,64px);
-  font-family:var(--rock);
-  font-size:9px;
-  line-height:1;
-  letter-spacing:.08em;
-  text-transform:uppercase;
+/* ==========================================================
+   INFO LAYER — appended without changing the working designs
+   ========================================================== */
+.siteinfo{margin-top:10px;font-family:var(--rock)}
+.infoHero{
+  display:flex;justify-content:space-between;align-items:end;gap:24px;
+  padding:clamp(24px,4vw,48px);
 }
-.sitenav a{
-  color:inherit;
-  text-decoration:none;
-  opacity:.66;
-}
-.sitenav a:hover{opacity:1}
-
-.infozone{
-  margin-top:10px;
-  font-family:var(--rock);
-}
-.infohead{
-  display:flex;
-  justify-content:space-between;
-  align-items:end;
-  gap:24px;
-  padding:26px;
-}
-.infohead .info-big{
+.infoHeroTitle{
   font-family:var(--display);
-  font-size:clamp(48px,8vw,116px);
-  line-height:.8;
-  text-transform:uppercase;
+  font-size:clamp(52px,8vw,118px);
+  line-height:.8;text-transform:uppercase;
 }
-.infohead .info-mini{
-  max-width:280px;
-  text-align:right;
-  font-size:9px;
-  line-height:1.45;
-  letter-spacing:.05em;
-  text-transform:uppercase;
+.infoHeroMeta{
+  max-width:300px;text-align:right;
+  font-size:9px;line-height:1.5;letter-spacing:.06em;text-transform:uppercase;
 }
-.infogrid{
-  display:grid;
-  grid-template-columns:repeat(12,1fr);
-  gap:10px;
-  margin-top:10px;
+.infoGrid{
+  display:grid;grid-template-columns:repeat(12,1fr);gap:10px;margin-top:10px;
 }
-.infocard{
+.infoCard{
   grid-column:span 6;
   padding:clamp(20px,3vw,34px);
   min-height:220px;
 }
-.infocard.aboutcard{grid-column:span 7}
-.infocard.cvcard{grid-column:span 5}
-.infocard.agencycard{grid-column:span 5}
-.infocard.brandcard{grid-column:span 7}
-.infocard.contactcard{grid-column:span 12;min-height:170px}
-
-.infoeyebrow{
-  margin-bottom:22px;
-  font-size:9px;
-  line-height:1;
-  letter-spacing:.1em;
-  text-transform:uppercase;
+.infoCard.about{grid-column:span 7}
+.infoCard.cv{grid-column:span 5}
+.infoCard.agencies{grid-column:span 5}
+.infoCard.brands{grid-column:span 7}
+.infoCard.contact{grid-column:span 12;min-height:170px}
+.infoLabel{
+  margin-bottom:22px;font-size:9px;line-height:1;
+  letter-spacing:.1em;text-transform:uppercase;
 }
-.infocard h3{
-  margin:0 0 20px;
-  font-size:clamp(23px,3vw,40px);
-  line-height:.94;
+.infoCard h3{
+  margin:0 0 20px;font-size:clamp(23px,3vw,40px);line-height:.95;
 }
-.infocard p{
-  margin:0 0 14px;
-  max-width:72ch;
-  font-size:12px;
-  line-height:1.62;
+.infoCard p{
+  margin:0 0 14px;max-width:72ch;font-size:12px;line-height:1.62;
 }
-.infomantra{
+.infoMantra{
   margin-top:30px!important;
   font-size:clamp(25px,3.6vw,48px)!important;
   line-height:.95!important;
 }
-.cvrow{
-  display:grid;
-  grid-template-columns:1fr 1.22fr;
-  gap:16px;
-  padding:11px 0;
-  border-top:2px solid currentColor;
-  font-size:10px;
-  line-height:1.4;
+.cvRow{
+  display:grid;grid-template-columns:1fr 1.2fr;gap:16px;
+  padding:11px 0;border-top:2px solid currentColor;
+  font-size:10px;line-height:1.4;
 }
-.cvrow:first-of-type{border-top:0}
-.cvrow b{font-size:12px}
-.namecloud{
-  font-size:clamp(16px,2vw,27px);
-  line-height:1.3;
+.cvRow:first-of-type{border-top:0}
+.cvRow b{font-size:12px}
+.nameCloud{font-size:clamp(16px,2vw,27px);line-height:1.3}
+.nameCloud span{opacity:.38}
+.infoContact{
+  display:grid;grid-template-columns:1fr auto;gap:26px;align-items:end;
 }
-.namecloud i{
-  font-style:normal;
-  opacity:.38;
-}
-.contactlayout{
-  display:grid;
-  grid-template-columns:1fr auto;
-  gap:26px;
-  align-items:end;
-}
-.contactmail{
-  color:inherit;
-  font-size:clamp(25px,4.7vw,66px);
-  line-height:.92;
-  text-decoration:none;
+.infoMail{
+  color:inherit;text-decoration:none;
+  font-size:clamp(25px,4.7vw,66px);line-height:.92;
   word-break:break-word;
 }
-.contactmeta{
-  text-align:right;
-  font-size:9px;
-  line-height:1.6;
-  text-transform:uppercase;
+.infoContactMeta{
+  font-size:9px;line-height:1.6;text-align:right;text-transform:uppercase;
 }
-.legalrow{
-  display:flex;
-  gap:14px;
-  flex-wrap:wrap;
-  margin-top:28px;
-  font-size:9px;
-  line-height:1;
-  text-transform:uppercase;
-  letter-spacing:.07em;
+.infoLegal{
+  display:flex;gap:14px;flex-wrap:wrap;margin-top:28px;
+  font-size:9px;text-transform:uppercase;letter-spacing:.07em;
 }
-.legalrow a{color:inherit;text-decoration:none}
+.infoLegal a{color:inherit;text-decoration:none}
 
 /* 01 Chroma Clean */
-.v1 .infohead{background:#111;color:#fff;border:4px solid #111}
-.v1 .infocard{border:4px solid #111;color:#111}
-.v1 .aboutcard{background:var(--acid)}
-.v1 .cvcard{background:var(--cyan)}
-.v1 .agencycard{background:var(--pink)}
-.v1 .brandcard{background:var(--orange)}
-.v1 .contactcard{background:var(--yellow)}
-.v1 .contactmail{border-bottom:5px solid #111}
+.v1 .infoHero{background:#111;color:#fff;border:4px solid #111}
+.v1 .infoCard{border:4px solid #111;color:#111}
+.v1 .infoCard.about{background:var(--acid)}
+.v1 .infoCard.cv{background:var(--cyan)}
+.v1 .infoCard.agencies{background:var(--pink)}
+.v1 .infoCard.brands{background:var(--orange)}
+.v1 .infoCard.contact{background:var(--yellow)}
+.v1 .infoMail{border-bottom:5px solid #111}
 
 /* 02 Offset Grid */
-.v2 .infozone{background:#111;padding:10px}
-.v2 .infohead{background:var(--pink);color:#111}
-.v2 .infocard{border:4px solid #111;color:#111;transform:translate(0)}
-.v2 .aboutcard{background:#f4f0e7;transform:translate(14px,0)}
-.v2 .cvcard{background:var(--yellow);transform:translate(-8px,20px)}
-.v2 .agencycard{background:var(--cyan);transform:translate(22px,8px)}
-.v2 .brandcard{background:#f4f0e7;transform:translate(-10px,26px)}
-.v2 .contactcard{background:var(--pink);margin-top:18px}
-.v2 .contactmail{border-bottom:4px solid #111}
+.v2 .siteinfo{background:#111;padding:10px}
+.v2 .infoHero{background:var(--pink);color:#111}
+.v2 .infoCard{border:4px solid #111;color:#111}
+.v2 .infoCard.about{background:#f4f0e7;transform:translate(12px,0)}
+.v2 .infoCard.cv{background:var(--yellow);transform:translate(-7px,15px)}
+.v2 .infoCard.agencies{background:var(--cyan);transform:translate(16px,6px)}
+.v2 .infoCard.brands{background:#f4f0e7;transform:translate(-8px,18px)}
+.v2 .infoCard.contact{background:var(--pink);margin-top:14px}
+.v2 .infoMail{border-bottom:4px solid #111}
 
 /* 03 Color Bands */
-.v3 .infozone{background:#111}
-.v3 .infohead{background:var(--acid);color:#111}
-.v3 .infogrid{display:block;margin-top:0}
-.v3 .infocard{
-  min-height:0;
-  border:0;
-  border-top:5px solid #111;
-  display:grid;
-  grid-template-columns:minmax(150px,.32fr) minmax(0,.68fr);
-  gap:24px;
+.v3 .infoHero{background:var(--acid);color:#111}
+.v3 .infoGrid{display:block;margin-top:0}
+.v3 .infoCard{
+  min-height:0;border-top:5px solid #111;color:#111;
+  display:grid;grid-template-columns:minmax(150px,.3fr) minmax(0,.7fr);gap:24px;
 }
-.v3 .infoeyebrow{margin:2px 0 0}
-.v3 .aboutcard{background:var(--pink)}
-.v3 .cvcard{background:var(--yellow)}
-.v3 .agencycard{background:var(--cyan)}
-.v3 .brandcard{background:var(--orange)}
-.v3 .contactcard{background:var(--acid)}
-.v3 .contactcard .contactlayout{grid-column:2}
-.v3 .aboutcard > :not(.infoeyebrow),
-.v3 .cvcard > :not(.infoeyebrow),
-.v3 .agencycard > :not(.infoeyebrow),
-.v3 .brandcard > :not(.infoeyebrow){grid-column:2}
+.v3 .infoLabel{margin-top:4px}
+.v3 .infoCard.about{background:var(--pink)}
+.v3 .infoCard.cv{background:var(--yellow)}
+.v3 .infoCard.agencies{background:var(--cyan)}
+.v3 .infoCard.brands{background:var(--orange)}
+.v3 .infoCard.contact{background:var(--acid)}
+.v3 .infoCard > :not(.infoLabel){grid-column:2}
 
 /* 04 Feature + Rail */
-.v4 .infohead{background:#111;color:#fff}
-.v4 .infogrid{
-  grid-template-columns:repeat(2,1fr);
-  gap:1px;
-  background:#111;
-  margin-top:1px;
-}
-.v4 .infocard{
-  grid-column:auto!important;
-  background:#f6f4eb;
-  color:#111;
-  min-height:260px;
-}
-.v4 .aboutcard{background:var(--cyan)}
-.v4 .contactcard{grid-column:1/-1!important;background:var(--yellow)}
-.v4 .contactmail{border-bottom:4px solid #111}
+.v4 .infoHero{background:#111;color:#fff}
+.v4 .infoGrid{grid-template-columns:repeat(2,1fr);gap:1px;background:#111;margin-top:1px}
+.v4 .infoCard{grid-column:auto!important;background:#f5f3eb;color:#111;min-height:260px}
+.v4 .infoCard.about{background:var(--cyan)}
+.v4 .infoCard.contact{grid-column:1/-1!important;background:var(--yellow)}
+.v4 .infoMail{border-bottom:4px solid #111}
 
 /* 05 Poster Grid */
-.v5 .infozone{padding:16px;background:#f4f0e7;color:#111}
-.v5 .infohead{
-  border:5px solid #111;
-  background:var(--orange);
-  min-height:220px;
-}
-.v5 .infocard{
-  border:5px solid #111;
-  box-shadow:8px 8px 0 #111;
-}
-.v5 .aboutcard{background:var(--yellow)}
-.v5 .cvcard{background:#fff}
-.v5 .agencycard{background:var(--pink)}
-.v5 .brandcard{background:var(--cyan)}
-.v5 .contactcard{background:var(--acid)}
+.v5 .siteinfo{padding:16px;background:#f4f0e7;color:#111}
+.v5 .infoHero{border:5px solid #111;background:var(--orange)}
+.v5 .infoCard{border:5px solid #111;box-shadow:7px 7px 0 #111}
+.v5 .infoCard.about{background:var(--yellow)}
+.v5 .infoCard.cv{background:#fff}
+.v5 .infoCard.agencies{background:var(--pink)}
+.v5 .infoCard.brands{background:var(--cyan)}
+.v5 .infoCard.contact{background:var(--acid)}
 
-/* 06 Site Index */
-.v6 .index-util{
-  margin:18px 0 22px;
-  padding:14px 0;
-  border-top:1px solid #cfcfc9;
-  border-bottom:1px solid #cfcfc9;
+/* 06 Site Index — info opens in the right-hand viewer */
+.v6Info{
+  padding:clamp(24px,4vw,52px);background:#f5f3eb;color:#111;min-height:100vh;
 }
-.v6 .ixutil{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  padding:7px 0;
-  cursor:pointer;
-  font-size:10px;
-  text-transform:uppercase;
+.v6InfoTitle{
+  font-family:var(--display);font-size:clamp(58px,8vw,118px);
+  line-height:.8;margin-bottom:44px;
 }
-.v6 .ixutil:hover,.v6 .ixutil.active{background:#111;color:#fff;padding-left:7px;padding-right:7px}
-.v6 .indexlegal{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px 12px;
-  margin-top:18px;
-  font-size:8px;
-  text-transform:uppercase;
-}
-.v6 .indexlegal a{color:inherit;text-decoration:none}
-.v6 .v6info{
-  padding:clamp(24px,4vw,50px);
-  min-height:100vh;
-  background:#f5f3eb;
-  color:#111;
-}
-.v6 .v6info-title{
-  font-family:var(--display);
-  font-size:clamp(56px,8vw,118px);
-  line-height:.8;
-  margin-bottom:42px;
-}
-.v6 .v6info-grid{
-  display:grid;
-  grid-template-columns:repeat(12,1fr);
-  gap:24px 18px;
-}
-.v6 .v6info-block{grid-column:span 6;border-top:3px solid #111;padding-top:12px}
-.v6 .v6info-block.wide{grid-column:span 12}
-.v6 .v6info-block h3{margin:0 0 16px;font-size:20px}
-.v6 .v6info-block p{font-size:11px;line-height:1.6;margin:0 0 12px}
-.v6 .v6info .namecloud{font-size:clamp(14px,1.7vw,22px)}
-.v6 .v6contact{
-  font-size:clamp(28px,4vw,56px);
+.v6InfoGrid{display:grid;grid-template-columns:repeat(12,1fr);gap:26px 18px}
+.v6InfoBlock{grid-column:span 6;border-top:3px solid #111;padding-top:12px}
+.v6InfoBlock.wide{grid-column:span 12}
+.v6InfoBlock h3{margin:0 0 16px;font-size:20px}
+.v6InfoBlock p{font-size:11px;line-height:1.6;margin:0 0 12px}
+.v6Info .nameCloud{font-size:clamp(14px,1.7vw,22px)}
+.v6InfoMail{
   color:#111;text-decoration:none;border-bottom:4px solid #111;
+  font-size:clamp(28px,4vw,56px);line-height:1;
 }
+.v6Utility{
+  margin:22px 0 20px;padding:12px 0;
+  border-top:1px solid #cfcfc9;border-bottom:1px solid #cfcfc9;
+}
+.v6UtilityRow{
+  display:flex;justify-content:space-between;gap:12px;padding:7px 0;
+  cursor:pointer;font-size:10px;text-transform:uppercase;
+}
+.v6UtilityRow:hover,.v6UtilityRow.active{
+  background:#111;color:#fff;padding-left:7px;padding-right:7px;
+}
+.v6Legal{
+  display:flex;gap:8px 12px;flex-wrap:wrap;margin-top:18px;
+  font-size:8px;text-transform:uppercase;
+}
+.v6Legal a{color:inherit;text-decoration:none}
 
 /* 07 Color Windows */
-.v7 .infozone{background:#2b2b31;padding:22px}
-.v7 .infohead{
-  background:#111;color:#fff;
-  border:2px solid #62626b;
-  box-shadow:8px 8px 0 var(--cyan);
-}
-.v7 .infocard{
-  position:relative;
-  background:#f6f6f2;color:#111;
-  border:2px solid #111;
-  box-shadow:7px 7px 0 #111;
-}
-.v7 .infocard:before{
-  content:"●  ●  ●";
-  display:block;
-  margin:-10px 0 18px;
-  font-size:8px;
-  letter-spacing:5px;
-}
-.v7 .aboutcard{background:var(--cyan)}
-.v7 .agencycard{background:var(--pink)}
-.v7 .contactcard{background:var(--yellow)}
+.v7 .siteinfo{background:#29292f;padding:22px}
+.v7 .infoHero{background:#111;color:#fff;border:2px solid #62626b;box-shadow:8px 8px 0 var(--cyan)}
+.v7 .infoCard{background:#f6f6f2;color:#111;border:2px solid #111;box-shadow:7px 7px 0 #111}
+.v7 .infoCard.about{background:var(--cyan)}
+.v7 .infoCard.agencies{background:var(--pink)}
+.v7 .infoCard.contact{background:var(--yellow)}
 
 /* 08 Editorial Blocks */
-.v8 .infozone{background:#f2eee3;color:#111;padding:clamp(28px,5vw,70px)}
-.v8 .infohead{padding:0 0 32px;border-bottom:1px solid #111}
-.v8 .infohead .info-big{font-family:var(--rock);font-size:clamp(40px,6vw,84px);letter-spacing:-.04em}
-.v8 .infogrid{gap:34px 24px}
-.v8 .infocard{
-  padding:18px 0;
-  min-height:0;
-  border-top:1px solid #111;
-}
-.v8 .aboutcard{grid-column:1/8}
-.v8 .cvcard{grid-column:9/13}
-.v8 .agencycard{grid-column:1/6}
-.v8 .brandcard{grid-column:7/13}
-.v8 .contactcard{grid-column:1/13;border-top:5px solid #111}
-.v8 .contactmail{border-bottom:1px solid #111}
+.v8 .siteinfo{background:#f2eee3;color:#111;padding:clamp(28px,5vw,70px)}
+.v8 .infoHero{padding:0 0 32px;border-bottom:1px solid #111}
+.v8 .infoHeroTitle{font-family:var(--rock);font-size:clamp(40px,6vw,84px);letter-spacing:-.04em}
+.v8 .infoGrid{gap:34px 24px}
+.v8 .infoCard{padding:18px 0;min-height:0;border-top:1px solid #111}
+.v8 .infoCard.about{grid-column:1/8}
+.v8 .infoCard.cv{grid-column:9/13}
+.v8 .infoCard.agencies{grid-column:1/6}
+.v8 .infoCard.brands{grid-column:7/13}
+.v8 .infoCard.contact{grid-column:1/13;border-top:5px solid #111}
+.v8 .infoMail{border-bottom:1px solid #111}
 
 /* 09 Micro → Macro */
-.v9 .infozone{background:#111;padding:10px}
-.v9 .infohead{background:var(--yellow);color:#111}
-.v9 .infocard{background:#f5f5ef;color:#111}
-.v9 .aboutcard{grid-column:span 8;background:var(--cyan)}
-.v9 .cvcard{grid-column:span 4}
-.v9 .agencycard{grid-column:span 4;background:var(--pink)}
-.v9 .brandcard{grid-column:span 8;background:var(--acid)}
-.v9 .contactcard{background:#fff}
-.v9 .namecloud{font-size:clamp(13px,1.5vw,20px)}
-.v9 .contactmail{border-bottom:5px solid #111}
+.v9 .siteinfo{background:#111;padding:10px}
+.v9 .infoHero{background:var(--yellow);color:#111}
+.v9 .infoCard{background:#f5f5ef;color:#111}
+.v9 .infoCard.about{grid-column:span 8;background:var(--cyan)}
+.v9 .infoCard.cv{grid-column:span 4}
+.v9 .infoCard.agencies{grid-column:span 4;background:var(--pink)}
+.v9 .infoCard.brands{grid-column:span 8;background:var(--acid)}
+.v9 .infoCard.contact{background:#fff}
+.v9 .nameCloud{font-size:clamp(13px,1.5vw,20px)}
+.v9 .infoMail{border-bottom:5px solid #111}
 
 /* 10 Hard Cut */
-.v10 .infozone{background:#fff;color:#111;padding:0}
-.v10 .infohead{
-  background:#111;color:#fff;
-  border-top:12px solid var(--yellow);
-  border-bottom:12px solid var(--yellow);
+.v10 .siteinfo{background:#fff;color:#111}
+.v10 .infoHero{
+  background:#111;color:#fff;border-top:12px solid var(--yellow);border-bottom:12px solid var(--yellow);
 }
-.v10 .infogrid{gap:0;margin-top:0}
-.v10 .infocard{
-  border:6px solid #111;
-  margin:-3px;
-  background:#fff;
-}
-.v10 .aboutcard{background:var(--yellow)}
-.v10 .cvcard{background:#fff}
-.v10 .agencycard{background:var(--cyan)}
-.v10 .brandcard{background:var(--pink)}
-.v10 .contactcard{background:#111;color:#fff}
-.v10 .contactmail{border-bottom:5px solid var(--yellow)}
+.v10 .infoGrid{gap:0;margin-top:0}
+.v10 .infoCard{border:6px solid #111;margin:-3px;background:#fff}
+.v10 .infoCard.about{background:var(--yellow)}
+.v10 .infoCard.agencies{background:var(--cyan)}
+.v10 .infoCard.brands{background:var(--pink)}
+.v10 .infoCard.contact{background:#111;color:#fff}
+.v10 .infoMail{border-bottom:5px solid var(--yellow)}
 
 @media(max-width:760px){
-  .infohead{align-items:start;flex-direction:column}
-  .infohead .info-mini{text-align:left}
-  .infocard,.infocard.aboutcard,.infocard.cvcard,.infocard.agencycard,.infocard.brandcard,.infocard.contactcard{
-    grid-column:span 12!important;
-  }
-  .contactlayout{grid-template-columns:1fr}
-  .contactmeta{text-align:left}
-  .cvrow{grid-template-columns:1fr}
-  .v2 .infocard{transform:none!important}
-  .v3 .infocard{grid-template-columns:1fr}
-  .v3 .aboutcard > :not(.infoeyebrow),
-  .v3 .cvcard > :not(.infoeyebrow),
-  .v3 .agencycard > :not(.infoeyebrow),
-  .v3 .brandcard > :not(.infoeyebrow),
-  .v3 .contactcard .contactlayout{grid-column:1}
-  .v4 .infogrid{grid-template-columns:1fr}
-  .v8 .aboutcard,.v8 .cvcard,.v8 .agencycard,.v8 .brandcard,.v8 .contactcard{
-    grid-column:1/-1!important;
-  }
-  .v6 .v6info-block,.v6 .v6info-block.wide{grid-column:span 12}
+  .infoHero{align-items:flex-start;flex-direction:column}
+  .infoHeroMeta{text-align:left}
+  .infoCard,.infoCard.about,.infoCard.cv,.infoCard.agencies,.infoCard.brands,.infoCard.contact{grid-column:span 12!important}
+  .infoContact{grid-template-columns:1fr}
+  .infoContactMeta{text-align:left}
+  .cvRow{grid-template-columns:1fr}
+  .v2 .infoCard{transform:none!important}
+  .v3 .infoCard{grid-template-columns:1fr}
+  .v3 .infoCard > :not(.infoLabel){grid-column:1}
+  .v4 .infoGrid{grid-template-columns:1fr}
+  .v8 .infoCard.about,.v8 .infoCard.cv,.v8 .infoCard.agencies,.v8 .infoCard.brands,.v8 .infoCard.contact{grid-column:1/-1!important}
+  .v6InfoBlock,.v6InfoBlock.wide{grid-column:span 12}
 }
 
 </style>
@@ -1038,7 +894,6 @@ function openFeatureSeries(p){
 function openIndexSeries(p){
   const host=document.getElementById("v6viewer");
   if(!host){return}
-  document.querySelectorAll(".v6 .ixutil").forEach(x=>x.classList.remove("active"));
   document.querySelectorAll(".v6 .ix").forEach(x=>x.classList.toggle("active",x.dataset.project===p.project));
   host.innerHTML=`<div class="v6viewer-head"><div class="v6viewer-title">${p.project}</div><div class="v6viewer-meta meta">${meta(p)}</div></div><div class="v6series"></div>`;
   fillSeries(host.querySelector(".v6series"),p);
@@ -1075,120 +930,8 @@ function openP(p){
 }
 document.getElementById("close").onclick=()=>{ov.className="overlay";};
 
-
-function siteNavHTML(){
-  return `<nav class="sitenav">
-    <a href="#work">Work</a>
-    <a href="#info">Info</a>
-    <a href="#contact">Contact</a>
-    <a href="/impressum">Impressum</a>
-    <a href="/datenschutz">Datenschutz</a>
-  </nav>`;
-}
-
-function infoHTML(){
-  return `<section class="infozone" id="info">
-    <div class="infohead">
-      <div class="info-big">INFO</div>
-      <div class="info-mini">Communication Design · Art Direction · Post-Production · Retouching · Hamburg</div>
-    </div>
-    <div class="infogrid">
-      <article class="infocard aboutcard">
-        <div class="infoeyebrow">About</div>
-        <h3>More than 20 years in retouching.</h3>
-        <p>Trained as a communication designer, I graduated from Dortmund University of Applied Sciences with a Diplom in Communication Design (Dipl.-Des. FH), complemented by a semester in Fine Art at Falmouth College of Arts in Cornwall.</p>
-        <p>I started my career as an Art Director at Jung von Matt, continued as a freelance Art Director and eventually shifted my focus towards post-production and high-end image retouching.</p>
-        <p>More than 20 years in retouching — across disciplines, brands and just about every kind of visual challenge.</p>
-        <p>Always curious, always looking for better tools, techniques and workflows. From classic retouching and CGI to new generative approaches. Detail-obsessed, perfectionist by nature, pragmatic in practice.</p>
-        <p class="infomantra"><strong>Make it look great.<br>Make it work.</strong></p>
-      </article>
-
-      <article class="infocard cvcard">
-        <div class="infoeyebrow">Education / Experience</div>
-        <div class="cvrow"><b>Dortmund University of Applied Sciences</b><span>Diplom Communication Design · Dipl.-Des. (FH)</span></div>
-        <div class="cvrow"><b>Falmouth College of Arts · Cornwall, UK</b><span>Fine Art · Study Abroad</span></div>
-        <div class="cvrow"><b>Jung von Matt</b><span>Art Director</span></div>
-        <div class="cvrow"><b>Freelance</b><span>Art Direction</span></div>
-        <div class="cvrow"><b>Freelance</b><span>Post-Production · Retouching</span></div>
-      </article>
-
-      <article class="infocard agencycard">
-        <div class="infoeyebrow">Selected Agencies / Studios</div>
-        <div class="namecloud">AKQA <i>·</i> Brand Upgrade <i>·</i> Dock2Studios <i>·</i> Flavor3D <i>·</i> Gloss / LA <i>·</i> Harvest <i>·</i> Halbautomatik+ <i>·</i> Hogarth <i>·</i> House of Foods <i>·</i> Jung von Matt <i>·</i> Kolle Rebbe <i>·</i> Leagas Delaney <i>·</i> Maground <i>·</i> Arendt <i>·</i> POP Postproduction <i>·</i> Stefan Lampe <i>·</i> WPP</div>
-      </article>
-
-      <article class="infocard brandcard">
-        <div class="infoeyebrow">Selected Brands</div>
-        <div class="namecloud">Audi <i>·</i> VW <i>·</i> Swatch <i>·</i> Porsche <i>·</i> Opel <i>·</i> Toyota <i>·</i> Vaillant <i>·</i> Volvo <i>·</i> Telekom <i>·</i> Lexus <i>·</i> Kühne <i>·</i> Mercedes-Benz <i>·</i> LBS <i>·</i> Dekra <i>·</i> Capital <i>·</i> Citroen <i>·</i> Kabel Deutschland <i>·</i> Hornbach <i>·</i> Spiegel <i>·</i> Kia <i>·</i> Vorwerk <i>·</i> Honda <i>·</i> Coca-Cola <i>·</i> McDonalds <i>·</i> o.b. <i>·</i> Vuse <i>·</i> Pall Mall</div>
-      </article>
-
-      <article class="infocard contactcard" id="contact">
-        <div class="infoeyebrow">Contact</div>
-        <div class="contactlayout">
-          <a class="contactmail" href="mailto:pedro@rodrigues.de">pedro@rodrigues.de</a>
-          <div class="contactmeta">Hamburg, Germany<br>Available for freelance projects</div>
-        </div>
-        <div class="legalrow">
-          <a href="/impressum">Impressum</a>
-          <a href="/datenschutz">Datenschutz</a>
-        </div>
-      </article>
-    </div>
-  </section>`;
-}
-
-function indexInfoHTML(mode="info"){
-  if(mode==="contact"){
-    return `<section class="v6info">
-      <div class="v6info-title">CONTACT</div>
-      <div class="v6info-grid">
-        <div class="v6info-block wide">
-          <h3>Freelance Retouch &amp; Compositing Artist — Hamburg</h3>
-          <a class="v6contact" href="mailto:pedro@rodrigues.de">pedro@rodrigues.de</a>
-          <div class="legalrow"><a href="/impressum">Impressum</a><a href="/datenschutz">Datenschutz</a></div>
-        </div>
-      </div>
-    </section>`;
-  }
-  return `<section class="v6info">
-    <div class="v6info-title">INFO</div>
-    <div class="v6info-grid">
-      <div class="v6info-block">
-        <h3>About</h3>
-        <p>Trained as a communication designer, I graduated from Dortmund University of Applied Sciences with a Diplom in Communication Design (Dipl.-Des. FH), complemented by a semester in Fine Art at Falmouth College of Arts in Cornwall.</p>
-        <p>I started my career as an Art Director at Jung von Matt, continued as a freelance Art Director and eventually shifted my focus towards post-production and high-end image retouching.</p>
-        <p>More than 20 years in retouching — across disciplines, brands and just about every kind of visual challenge.</p>
-        <p>Always curious, always looking for better tools, techniques and workflows. From classic retouching and CGI to new generative approaches. Detail-obsessed, perfectionist by nature, pragmatic in practice.</p>
-        <p><strong>Make it look great. Make it work.</strong></p>
-      </div>
-      <div class="v6info-block">
-        <h3>Education / Experience</h3>
-        <p><strong>Dortmund University of Applied Sciences</strong><br>Diplom Communication Design · Dipl.-Des. (FH)</p>
-        <p><strong>Falmouth College of Arts · Cornwall, UK</strong><br>Fine Art · Study Abroad</p>
-        <p><strong>Jung von Matt</strong><br>Art Director</p>
-        <p><strong>Freelance</strong><br>Art Direction</p>
-        <p><strong>Freelance</strong><br>Post-Production · Retouching</p>
-      </div>
-      <div class="v6info-block">
-        <h3>Selected Agencies / Studios</h3>
-        <div class="namecloud">AKQA <i>·</i> Brand Upgrade <i>·</i> Dock2Studios <i>·</i> Flavor3D <i>·</i> Gloss / LA <i>·</i> Harvest <i>·</i> Halbautomatik+ <i>·</i> Hogarth <i>·</i> House of Foods <i>·</i> Jung von Matt <i>·</i> Kolle Rebbe <i>·</i> Leagas Delaney <i>·</i> Maground <i>·</i> Arendt <i>·</i> POP Postproduction <i>·</i> Stefan Lampe <i>·</i> WPP</div>
-      </div>
-      <div class="v6info-block">
-        <h3>Selected Brands</h3>
-        <div class="namecloud">Audi <i>·</i> VW <i>·</i> Swatch <i>·</i> Porsche <i>·</i> Opel <i>·</i> Toyota <i>·</i> Vaillant <i>·</i> Volvo <i>·</i> Telekom <i>·</i> Lexus <i>·</i> Kühne <i>·</i> Mercedes-Benz <i>·</i> LBS <i>·</i> Dekra <i>·</i> Capital <i>·</i> Citroen <i>·</i> Kabel Deutschland <i>·</i> Hornbach <i>·</i> Spiegel <i>·</i> Kia <i>·</i> Vorwerk <i>·</i> Honda <i>·</i> Coca-Cola <i>·</i> McDonalds <i>·</i> o.b. <i>·</i> Vuse <i>·</i> Pall Mall</div>
-      </div>
-      <div class="v6info-block wide">
-        <h3>Contact</h3>
-        <a class="v6contact" href="mailto:pedro@rodrigues.de">pedro@rodrigues.de</a>
-        <div class="legalrow"><a href="/impressum">Impressum</a><a href="/datenschutz">Datenschutz</a></div>
-      </div>
-    </div>
-  </section>`;
-}
-
 function heroHTML(){
  return `<div>
-   ${siteNavHTML()}
    <div class="identity">PEDRO<br>RODRIGUES</div>
    <div class="roleline" style="margin-top:12px">Freelance Retouch &amp; Compositing Artist — Hamburg</div>
  </div>
@@ -1208,112 +951,230 @@ function heroHTML(){
  </div>`;
 }
 
+function completeInfoHTML(){
+  return `<section class="siteinfo" id="info">
+    <div class="infoHero">
+      <div class="infoHeroTitle">INFO</div>
+      <div class="infoHeroMeta">Communication Design · Art Direction · Post-Production · Retouching · Hamburg</div>
+    </div>
+    <div class="infoGrid">
+      <article class="infoCard about">
+        <div class="infoLabel">About</div>
+        <h3>More than 20 years in retouching.</h3>
+        <p>Trained as a communication designer, I graduated from Dortmund University of Applied Sciences with a Diplom in Communication Design (Dipl.-Des. FH), complemented by a semester in Fine Art at Falmouth College of Arts in Cornwall.</p>
+        <p>I started my career as an Art Director at Jung von Matt, continued as a freelance Art Director and eventually shifted my focus towards post-production and high-end image retouching.</p>
+        <p>More than 20 years in retouching — across disciplines, brands and just about every kind of visual challenge.</p>
+        <p>Always curious, always looking for better tools, techniques and workflows. From classic retouching and CGI to new generative approaches. Detail-obsessed, perfectionist by nature, pragmatic in practice.</p>
+        <p class="infoMantra"><strong>Make it look great.<br>Make it work.</strong></p>
+      </article>
+
+      <article class="infoCard cv">
+        <div class="infoLabel">Education / Experience</div>
+        <div class="cvRow"><b>Dortmund University of Applied Sciences</b><span>Diplom Communication Design · Dipl.-Des. (FH)</span></div>
+        <div class="cvRow"><b>Falmouth College of Arts · Cornwall, UK</b><span>Fine Art · Study Abroad</span></div>
+        <div class="cvRow"><b>Jung von Matt</b><span>Art Director</span></div>
+        <div class="cvRow"><b>Freelance</b><span>Art Direction</span></div>
+        <div class="cvRow"><b>Freelance</b><span>Post-Production · Retouching</span></div>
+      </article>
+
+      <article class="infoCard agencies">
+        <div class="infoLabel">Selected Agencies / Studios</div>
+        <div class="nameCloud">AKQA <span>·</span> Brand Upgrade <span>·</span> Dock2Studios <span>·</span> Flavor3D <span>·</span> Gloss/ LA <span>·</span> Harvest <span>·</span> Halbautomatik <span>·</span> Hogarth <span>·</span> House of Foods <span>·</span> Jung von Matt <span>·</span> Kolle Rebbe <span>·</span> Leagas Delaney <span>·</span> Maground <span>·</span> S&amp;F <span>·</span> POP Postproduction <span>·</span> Stefan Lampe <span>·</span> WPP <span>·</span> Serviceplan <span>·</span> Philip und Keuntje <span>·</span> thjnk</div>
+      </article>
+
+      <article class="infoCard brands">
+        <div class="infoLabel">Selected Brands</div>
+        <div class="nameCloud">Audi <span>·</span> VW <span>·</span> Swatch <span>·</span> Porsche <span>·</span> Opel <span>·</span> Toyota <span>·</span> Vaillant <span>·</span> Volvo <span>·</span> Telekom <span>·</span> Lexus <span>·</span> Kühne <span>·</span> Mercedes-Benz <span>·</span> LBS <span>·</span> Dekra <span>·</span> Capital <span>·</span> Citroen <span>·</span> Kabel Deutschland <span>·</span> Hornbach <span>·</span> Spiegel <span>·</span> Kia <span>·</span> Vorwerk <span>·</span> Honda <span>·</span> Coca-Cola <span>·</span> McDonalds <span>·</span> O.b. <span>·</span> Vuse <span>·</span> Pall Mall</div>
+      </article>
+
+      <article class="infoCard contact" id="contact">
+        <div class="infoLabel">Contact</div>
+        <div class="infoContact">
+          <a class="infoMail" href="mailto:pedro@rodrigues.de">pedro@rodrigues.de</a>
+          <div class="infoContactMeta">Hamburg, Germany<br>Available for freelance projects</div>
+        </div>
+        <div class="infoLegal"><a href="/impressum">Impressum</a><a href="/datenschutz">Datenschutz</a></div>
+      </article>
+    </div>
+  </section>`;
+}
+
+function siteIndexInfoHTML(mode="info"){
+  if(mode==="contact"){
+    return `<section class="v6Info">
+      <div class="v6InfoTitle">CONTACT</div>
+      <div class="v6InfoGrid">
+        <div class="v6InfoBlock wide">
+          <h3>Freelance Retouch &amp; Compositing Artist — Hamburg</h3>
+          <a class="v6InfoMail" href="mailto:pedro@rodrigues.de">pedro@rodrigues.de</a>
+          <div class="infoLegal"><a href="/impressum">Impressum</a><a href="/datenschutz">Datenschutz</a></div>
+        </div>
+      </div>
+    </section>`;
+  }
+  return `<section class="v6Info">
+    <div class="v6InfoTitle">INFO</div>
+    <div class="v6InfoGrid">
+      <div class="v6InfoBlock">
+        <h3>About</h3>
+        <p>Trained as a communication designer, I graduated from Dortmund University of Applied Sciences with a Diplom in Communication Design (Dipl.-Des. FH), complemented by a semester in Fine Art at Falmouth College of Arts in Cornwall.</p>
+        <p>I started my career as an Art Director at Jung von Matt, continued as a freelance Art Director and eventually shifted my focus towards post-production and high-end image retouching.</p>
+        <p>More than 20 years in retouching — across disciplines, brands and just about every kind of visual challenge.</p>
+        <p>Always curious, always looking for better tools, techniques and workflows. From classic retouching and CGI to new generative approaches. Detail-obsessed, perfectionist by nature, pragmatic in practice.</p>
+        <p><strong>Make it look great. Make it work.</strong></p>
+      </div>
+      <div class="v6InfoBlock">
+        <h3>Education / Experience</h3>
+        <p><strong>Dortmund University of Applied Sciences</strong><br>Diplom Communication Design · Dipl.-Des. (FH)</p>
+        <p><strong>Falmouth College of Arts · Cornwall, UK</strong><br>Fine Art · Study Abroad</p>
+        <p><strong>Jung von Matt</strong><br>Art Director</p>
+        <p><strong>Freelance</strong><br>Art Direction</p>
+        <p><strong>Freelance</strong><br>Post-Production · Retouching</p>
+      </div>
+      <div class="v6InfoBlock">
+        <h3>Selected Agencies / Studios</h3>
+        <div class="nameCloud">AKQA <span>·</span> Brand Upgrade <span>·</span> Dock2Studios <span>·</span> Flavor3D <span>·</span> Gloss/ LA <span>·</span> Harvest <span>·</span> Halbautomatik <span>·</span> Hogarth <span>·</span> House of Foods <span>·</span> Jung von Matt <span>·</span> Kolle Rebbe <span>·</span> Leagas Delaney <span>·</span> Maground <span>·</span> S&amp;F <span>·</span> POP Postproduction <span>·</span> Stefan Lampe <span>·</span> WPP <span>·</span> Serviceplan <span>·</span> Philip und Keuntje <span>·</span> thjnk</div>
+      </div>
+      <div class="v6InfoBlock">
+        <h3>Selected Brands</h3>
+        <div class="nameCloud">Audi <span>·</span> VW <span>·</span> Swatch <span>·</span> Porsche <span>·</span> Opel <span>·</span> Toyota <span>·</span> Vaillant <span>·</span> Volvo <span>·</span> Telekom <span>·</span> Lexus <span>·</span> Kühne <span>·</span> Mercedes-Benz <span>·</span> LBS <span>·</span> Dekra <span>·</span> Capital <span>·</span> Citroen <span>·</span> Kabel Deutschland <span>·</span> Hornbach <span>·</span> Spiegel <span>·</span> Kia <span>·</span> Vorwerk <span>·</span> Honda <span>·</span> Coca-Cola <span>·</span> McDonalds <span>·</span> O.b. <span>·</span> Vuse <span>·</span> Pall Mall</div>
+      </div>
+      <div class="v6InfoBlock wide">
+        <h3>Contact</h3>
+        <a class="v6InfoMail" href="mailto:pedro@rodrigues.de">pedro@rodrigues.de</a>
+        <div class="infoLegal"><a href="/impressum">Impressum</a><a href="/datenschutz">Datenschutz</a></div>
+      </div>
+    </div>
+  </section>`;
+}
+
+function enhanceVariant(n){
+  const root=stage.querySelector(".v"+n);
+  if(!root)return;
+
+  if(n===6){
+    const index=root.querySelector(".index");
+    const viewer=root.querySelector("#v6viewer");
+    const ix=root.querySelector("#ix");
+    if(!index||!viewer||!ix)return;
+
+    const util=document.createElement("div");
+    util.className="v6Utility";
+    util.innerHTML=`<div class="v6UtilityRow" data-mode="info"><span>Info / About</span><span>→</span></div>
+                    <div class="v6UtilityRow" data-mode="contact"><span>Contact</span><span>→</span></div>`;
+    ix.parentNode.insertBefore(util,ix);
+
+    const legal=document.createElement("div");
+    legal.className="v6Legal";
+    legal.innerHTML=`<a href="/impressum">Impressum</a><a href="/datenschutz">Datenschutz</a>`;
+    index.append(legal);
+
+    const clearAll=()=>{
+      root.querySelectorAll(".ix").forEach(x=>x.classList.remove("active"));
+      root.querySelectorAll(".v6UtilityRow").forEach(x=>x.classList.remove("active"));
+    };
+
+    root.querySelectorAll(".v6UtilityRow").forEach(row=>{
+      row.onclick=()=>{
+        clearAll();
+        row.classList.add("active");
+        viewer.innerHTML=siteIndexInfoHTML(row.dataset.mode);
+        viewer.scrollTo?.(0,0);
+      };
+    });
+
+    root.querySelectorAll(".ix").forEach(row=>{
+      const old=row.onclick;
+      row.onclick=()=>{
+        root.querySelectorAll(".v6UtilityRow").forEach(x=>x.classList.remove("active"));
+        old?.();
+      };
+    });
+    return;
+  }
+
+  root.insertAdjacentHTML("beforeend",completeInfoHTML());
+}
+
 function r1(){
- stage.innerHTML=`<section class="v1"><div class="hero">${heroHTML()}</div><div class="grid" id="g"></div>${infoHTML()}</section>`;
- let g=document.getElementById("g");g.id="work";P.forEach(p=>{let t=document.createElement("article");t.className="tile";t.append(med(p));t.insertAdjacentHTML("beforeend",`<div class="tx"><b>${p.project}</b><span class="meta">${p.photographer||"Selected Work"} · ${count(p)}</span></div>`);bind(t,p);g.append(t)})
+ stage.innerHTML=`<section class="v1"><div class="hero">${heroHTML()}</div><div class="grid" id="g"></div></section>`;
+ let g=document.getElementById("g");P.forEach(p=>{let t=document.createElement("article");t.className="tile";t.append(med(p));t.insertAdjacentHTML("beforeend",`<div class="tx"><b>${p.project}</b><span class="meta">${p.photographer||"Selected Work"} · ${count(p)}</span></div>`);bind(t,p);g.append(t)})
 }
-
 function r2(){
- stage.innerHTML=`<section class="v2"><div class="hero"><div class="left">${heroHTML()}</div><div class="right"><div class="subline">SELECTED COMMERCIAL WORK</div></div></div><div class="grid" id="g"></div>${infoHTML()}</section>`;
- let g=document.getElementById("g");g.id="work";P.forEach(p=>{let c=document.createElement("article");c.className="cell";c.append(med(p));c.insertAdjacentHTML("beforeend",`<div class="cap"><b>${p.project}</b><div class="meta">${p.photographer||"Selected Work"} · ${count(p)}</div></div>`);bind(c,p);g.append(c)})
+ stage.innerHTML=`<section class="v2"><div class="hero"><div class="left">${heroHTML()}</div><div class="right"><div class="subline">SELECTED COMMERCIAL WORK</div></div></div><div class="grid" id="g"></div></section>`;
+ let g=document.getElementById("g");P.forEach(p=>{let c=document.createElement("article");c.className="cell";c.append(med(p));c.insertAdjacentHTML("beforeend",`<div class="cap"><b>${p.project}</b><div class="meta">${p.photographer||"Selected Work"} · ${count(p)}</div></div>`);bind(c,p);g.append(c)})
 }
-
 function r3(){
- stage.innerHTML=`<section class="v3"><div class="hero">${heroHTML()}</div><div id="bands"></div>${infoHTML()}</section>`;
- let b=document.getElementById("bands");b.id="work";P.forEach(p=>{let x=document.createElement("article");x.className="band";x.innerHTML=`<div class="bandtext"><b>${p.project}</b><span class="meta">${p.photographer||"Selected Work"} · ${count(p)}</span></div>`;x.append(med(p));bind(x,p);b.append(x)})
+ stage.innerHTML=`<section class="v3"><div class="hero">${heroHTML()}</div><div id="bands"></div></section>`;
+ let b=document.getElementById("bands");P.forEach(p=>{let x=document.createElement("article");x.className="band";x.innerHTML=`<div class="bandtext"><b>${p.project}</b><span class="meta">${p.photographer||"Selected Work"} · ${count(p)}</span></div>`;x.append(med(p));bind(x,p);b.append(x)})
 }
-
 function r4(){
- stage.innerHTML=`<section class="v4"><div class="hero">${heroHTML()}</div><div class="feature" id="work"><div class="media bigimg" id="big"></div><div class="rail" id="rail"></div></div>${infoHTML()}</section>`;
+ stage.innerHTML=`<section class="v4"><div class="hero">${heroHTML()}</div><div class="feature"><div class="media bigimg" id="big"></div><div class="rail" id="rail"></div></div></section>`;
  let big=document.getElementById("big"),rail=document.getElementById("rail");
  function show(p){big.classList.toggle("portrait-media",isPortraitProject(p));bg(big,p.images[0],isPortraitProject(p));big.onclick=()=>openP(p)}
  P.slice(0,6).forEach((p,i)=>{let s=document.createElement("article");s.className="small";s.append(med(p));s.insertAdjacentHTML("beforeend",`<div class="smalltxt"><b>${p.project}</b><div class="meta">${p.photographer||"Selected Work"}</div></div>`);s.onclick=()=>show(p);rail.append(s);if(i===0)show(p)})
 }
-
 function r5(){
- stage.innerHTML=`<section class="v5"><div class="hero"><div>${heroHTML()}</div><div class="subline">CHROMA POSTER SYSTEM</div></div><div class="posters" id="work"></div>${infoHTML()}</section>`;
- let g=document.getElementById("work");P.forEach(p=>{let x=document.createElement("article");x.className="poster";x.append(med(p));x.insertAdjacentHTML("beforeend",`<h3>${p.project}</h3><div class="meta">${p.photographer||"Selected Work"} · ${count(p)}</div>`);bind(x,p);g.append(x)})
+ stage.innerHTML=`<section class="v5"><div class="hero"><div>${heroHTML()}</div><div class="subline">CHROMA POSTER SYSTEM</div></div><div class="posters" id="g"></div></section>`;
+ let g=document.getElementById("g");P.forEach(p=>{let x=document.createElement("article");x.className="poster";x.append(med(p));x.insertAdjacentHTML("beforeend",`<h3>${p.project}</h3><div class="meta">${p.photographer||"Selected Work"} · ${count(p)}</div>`);bind(x,p);g.append(x)})
 }
-
 function r6(){
- stage.innerHTML=`<section class="v6"><aside class="index">
- ${siteNavHTML()}
- <div class="identity">PEDRO<br>RODRIGUES</div>
- <div class="roleline" style="margin-top:12px">Freelance Retouch &amp; Compositing Artist — Hamburg</div>
- <div class="copyblock">
-   <div class="copyflow">
-     <div class="sourceblock"><span>Photography.</span><span>CGI.</span><span>AI Image Creation.</span></div>
-     <div class="flowmark"></div>
-     <div class="finishblock"><strong>Brought together.</strong><span>Refined in Photoshop.</span></div>
-   </div>
- </div>
-
- <div class="index-util">
-   <div class="ixutil" id="ixinfo"><span>Info / About</span><span>→</span></div>
-   <div class="ixutil" id="ixcontact"><span>Contact</span><span>→</span></div>
- </div>
-
- <div class="meta" style="margin-bottom:9px">Selected Commercial Work</div>
- <div id="ix"></div>
- <div class="indexlegal"><a href="/impressum">Impressum</a><a href="/datenschutz">Datenschutz</a></div>
- </aside>
- <div class="display" id="work"><div id="v6viewer" class="v6viewer"></div></div></section>`;
-
+ stage.innerHTML=`<section class="v6"><aside class="index"><div class="identity">PEDRO<br>RODRIGUES</div>
+<div class="roleline" style="margin-top:12px">Freelance Retouch &amp; Compositing Artist — Hamburg</div>
+<div class="copyblock">
+  <div class="copyflow">
+    <div class="sourceblock">
+      <span>Photography.</span>
+      <span>CGI.</span>
+      <span>AI Image Creation.</span>
+    </div>
+    <div class="flowmark"></div>
+    <div class="finishblock">
+      <strong>Brought together.</strong>
+      <span>Refined in Photoshop.</span>
+    </div>
+  </div>
+</div>
+<div id="ix" style="margin-top:30px"></div></aside><div class="display"><div id="v6viewer" class="v6viewer"></div></div></section>`;
  let ix=document.getElementById("ix");
- const clearUtility=()=>document.querySelectorAll(".v6 .ixutil").forEach(x=>x.classList.remove("active"));
-
- document.getElementById("ixinfo").onclick=()=>{
-   document.querySelectorAll(".v6 .ix").forEach(x=>x.classList.remove("active"));
-   clearUtility();document.getElementById("ixinfo").classList.add("active");
-   document.getElementById("v6viewer").innerHTML=indexInfoHTML("info");
- };
- document.getElementById("ixcontact").onclick=()=>{
-   document.querySelectorAll(".v6 .ix").forEach(x=>x.classList.remove("active"));
-   clearUtility();document.getElementById("ixcontact").classList.add("active");
-   document.getElementById("v6viewer").innerHTML=indexInfoHTML("contact");
- };
-
  P.forEach((p,i)=>{
    let a=document.createElement("div");
    a.className="ix"+(i===0?" active":"");
    a.dataset.project=p.project;
    a.innerHTML=`<div>${p.project}</div><div class="meta">${p.photographer||"Selected Work"}</div>`;
-   a.onclick=()=>{clearUtility();openIndexSeries(p)};
+   a.onclick=()=>openIndexSeries(p);
    ix.append(a);
  });
  if(P[0]) openIndexSeries(P[0]);
 }
-
 function r7(){
- stage.innerHTML=`<section class="v7"><div class="hero">${heroHTML()}</div><div class="windows" id="work"></div>${infoHTML()}</section>`;
- let g=document.getElementById("work");P.forEach(p=>{let w=document.createElement("article");w.className="win";w.innerHTML=`<div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>`;w.append(med(p));w.insertAdjacentHTML("beforeend",`<div class="wcap"><b>${p.project}</b><div class="meta">${p.photographer||"Selected Work"} · ${count(p)}</div></div>`);bind(w,p);g.append(w)})
+ stage.innerHTML=`<section class="v7"><div class="hero">${heroHTML()}</div><div class="windows" id="g"></div></section>`;
+ let g=document.getElementById("g");P.forEach(p=>{let w=document.createElement("article");w.className="win";w.innerHTML=`<div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>`;w.append(med(p));w.insertAdjacentHTML("beforeend",`<div class="wcap"><b>${p.project}</b><div class="meta">${p.photographer||"Selected Work"} · ${count(p)}</div></div>`);bind(w,p);g.append(w)})
 }
-
 function r8(){
- stage.innerHTML=`<section class="v8"><div class="hero"><div>${heroHTML()}</div><div class="heroaside">SELECTED WORK / HAMBURG</div></div><div class="editorial" id="work"></div>${infoHTML()}</section>`;
- let g=document.getElementById("work");P.forEach(p=>{let a=document.createElement("article");a.append(med(p));a.insertAdjacentHTML("beforeend",`<div class="ecap"><b>${p.project}</b><div class="meta">${p.photographer||"Selected Work"} · ${count(p)}</div></div>`);bind(a,p);g.append(a)})
+ stage.innerHTML=`<section class="v8"><div class="hero"><div>${heroHTML()}</div><div class="heroaside">SELECTED WORK / HAMBURG</div></div><div class="editorial" id="g"></div></section>`;
+ let g=document.getElementById("g");P.forEach(p=>{let a=document.createElement("article");a.append(med(p));a.insertAdjacentHTML("beforeend",`<div class="ecap"><b>${p.project}</b><div class="meta">${p.photographer||"Selected Work"} · ${count(p)}</div></div>`);bind(a,p);g.append(a)})
 }
-
 function r9(){
- stage.innerHTML=`<section class="v9"><div class="hero">${heroHTML()}</div><div class="micro" id="work"></div><div class="macro"><div class="media" id="macroimg"></div><div class="macrotext"><b id="macrot"></b><div class="meta" id="macrom"></div></div></div>${infoHTML()}</section>`;
- let m=document.getElementById("work"),img=document.getElementById("macroimg"),t=document.getElementById("macrot"),mm=document.getElementById("macrom");
+ stage.innerHTML=`<section class="v9"><div class="hero">${heroHTML()}</div><div class="micro" id="micro"></div><div class="macro"><div class="media" id="macroimg"></div><div class="macrotext"><b id="macrot"></b><div class="meta" id="macrom"></div></div></div></section>`;
+ let m=document.getElementById("micro"),img=document.getElementById("macroimg"),t=document.getElementById("macrot"),mm=document.getElementById("macrom");
  function show(p){img.classList.toggle("portrait-media",isPortraitProject(p));bg(img,p.images[0],isPortraitProject(p));t.textContent=p.project;mm.textContent=meta(p);img.onclick=()=>openP(p)}
  P.forEach((p,i)=>{let x=document.createElement("article");x.className="thumb";x.append(med(p));x.insertAdjacentHTML("beforeend",`<div class="meta">${p.project}</div>`);x.onclick=()=>show(p);m.append(x);if(i===0)show(p)})
 }
-
 function r10(){
- stage.innerHTML=`<section class="v10"><div class="hero">${heroHTML()}</div><div class="hard" id="work"></div>${infoHTML()}</section>`;
- let g=document.getElementById("work");P.forEach(p=>{let x=document.createElement("article");x.append(med(p));x.insertAdjacentHTML("beforeend",`<div class="hardcap"><b>${p.project}</b><div class="meta">${p.photographer||"Selected Work"} · ${count(p)}</div></div>`);bind(x,p);g.append(x)})
+ stage.innerHTML=`<section class="v10"><div class="hero">${heroHTML()}</div><div class="hard" id="g"></div></section>`;
+ let g=document.getElementById("g");P.forEach(p=>{let x=document.createElement("article");x.append(med(p));x.insertAdjacentHTML("beforeend",`<div class="hardcap"><b>${p.project}</b><div class="meta">${p.photographer||"Selected Work"} · ${count(p)}</div></div>`);bind(x,p);g.append(x)})
 }
 
-const rs=[r1,r2,r3,r4,r5,r6,r7,r8,r9,r10];
+const baseRs=[r1,r2,r3,r4,r5,r6,r7,r8,r9,r10];
+const rs=baseRs.map((fn,i)=>()=>{fn();enhanceVariant(i+1)});
 const names=["01 Chroma Clean","02 Offset Grid","03 Color Bands","04 Feature + Rail","05 Poster Grid","06 Site Index","07 Color Windows","08 Editorial Blocks","09 Micro → Macro","10 Hard Cut"];
 names.forEach((n,i)=>{
  let b=document.createElement("button");b.className="switch"+(i?"":" active");b.textContent=n;
  b.onclick=()=>{ACTIVE=i;ov.className="overlay";[...sw.children].forEach(x=>x.classList.remove("active"));b.classList.add("active");rs[i]();scrollTo({top:0,behavior:"smooth"})};
  sw.append(b)
 });
-r1();
+rs[0]();
 </script>
 </body>
 </html>
