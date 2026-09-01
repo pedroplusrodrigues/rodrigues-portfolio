@@ -304,6 +304,17 @@ button:hover{color:var(--white)}
   display:block;
 }
 
+
+/* identical two-line Post-Production layout on main site and portfolio access page */
+.service-lines{
+  display:grid!important;
+  gap:2px!important;
+  line-height:1.42!important;
+}
+.service-lines span{
+  display:block!important;
+}
+
 </style>
 </head>
 <body>
@@ -325,7 +336,7 @@ button:hover{color:var(--white)}
         <div class="serviceblock">
           <div class="copylabel">Post-Production</div>
           <div class="copyline service-lines">
-  <span>High-End Retouch. Compositing. CGI. 3D.</span>
+  <span>High-End Retouch. Compositing. CGI.</span>
   <span>Generative Workflows.</span>
 </div>
         </div>
