@@ -3,24 +3,26 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preload" href="/fonts/Phosphate.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/Rockwell-Bold.woff2" as="font" type="font/woff2" crossorigin>
 <title>Pedro Rodrigues — Retouch &amp; Compositing</title>
 <style>
 @font-face{
   font-family:Phosphate;
-  src:url("fonts/Phosphate.woff2") format("woff2"),
-      url("fonts/Phosphate.woff") format("woff"),
-      url("fonts/Phosphate.otf") format("opentype"),
-      url("fonts/Phosphate.ttc") format("collection");
-  font-weight:400 800;
+  src:url("/fonts/Phosphate.woff2") format("woff2"),
+      url("/fonts/Phosphate.woff") format("woff"),
+      url("/fonts/Phosphate.otf") format("opentype");
+  font-weight:400;
+  font-style:normal;
   font-display:swap;
 }
 @font-face{
   font-family:RockwellBold;
-  src:url("fonts/Rockwell-Bold.woff2") format("woff2"),
-      url("fonts/Rockwell-Bold.woff") format("woff"),
-      url("fonts/Rockwell-Bold.otf") format("opentype"),
-      url("fonts/Rockwell-Bold.ttf") format("truetype"),
-      url("fonts/Rockwell.ttc") format("collection");
+  src:url("/fonts/Rockwell-Bold.woff2") format("woff2"),
+      url("/fonts/Rockwell-Bold.woff") format("woff"),
+      url("/fonts/Rockwell-Bold.otf") format("opentype"),
+      url("/fonts/Rockwell-Bold.ttf") format("truetype"),
+      url("/fonts/Rockwell.ttc") format("collection");
   font-weight:700;
   font-display:swap;
 }
@@ -28,7 +30,7 @@
   --black:#0a0a0b;--white:#f4f4ef;
   --yellow:#ffd800;--cyan:#00c8f2;--pink:#ff4db8;--acid:#d8ff17;--orange:#ff6a31;
   --blue:#3157ff;--purple:#9969ff;--mint:#67f0bd;--cream:#efe8db;--red:#ff413d;
-  --display:"Phosphate","Arial Black",sans-serif;
+  --display:"Phosphate","RockwellBold","Arial Black",sans-serif;
   --rock:"RockwellBold",ui-monospace,"SF Mono",Menlo,Monaco,Consolas,"Courier New",monospace;
 }
 *{box-sizing:border-box}
@@ -38,6 +40,8 @@ button{font-family:var(--rock)}
 #stage{min-height:760px}
 .identity{
   font-family:var(--display);
+  font-weight:400;
+  font-synthesis:none;
   font-size:clamp(42px,5.8vw,86px);
   line-height:.83;
   letter-spacing:.005em;
@@ -1086,6 +1090,40 @@ button{font-family:var(--rock)}
   margin-bottom:18px;
 }
 
+
+/* Real image elements: more reliable than CSS background-images on iOS Safari */
+.media{
+  position:relative;
+  background:#141416;
+  overflow:hidden;
+  isolation:isolate;
+}
+.media > img.media-img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  object-position:center center;
+  transform:translateZ(0);
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+}
+.media.portrait-media > img.media-img,
+.portrait-project .media > img.media-img{
+  object-fit:contain;
+  object-position:center center;
+}
+
+
+@media(max-width:760px){
+  /* The single portrait Fazer/Aito tile is intentionally omitted on phones. */
+  .v1 .tile.portrait-project{
+    display:none!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1111,8 +1149,22 @@ function meta(p){return [p.photographer,...p.secondary,count(p)].filter(Boolean)
 const PORTRAIT_LOCK=["Fazer / Aito"];
 function isPortraitProject(p){return PORTRAIT_LOCK.includes(p.project)}
 function bg(el,img,portrait=false){
-  el.style.backgroundImage=`url("images/${img}")`;
+  el.style.backgroundImage="none";
   if(portrait) el.classList.add("portrait-media");
+  else el.classList.remove("portrait-media");
+
+  let node=el.querySelector(":scope > img.media-img");
+  if(!node){
+    node=document.createElement("img");
+    node.className="media-img";
+    node.alt="";
+    node.decoding="async";
+    node.loading="lazy";
+    node.draggable=false;
+    el.prepend(node);
+  }
+  const next=`images/${img}`;
+  if(node.getAttribute("src")!==next) node.src=next;
 }
 function coverImage(p){
   if(!p || !Array.isArray(p.images) || !p.images.length) return "";
