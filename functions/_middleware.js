@@ -76,18 +76,36 @@ body{
 }
 
 .role{
-  margin-top:14px;
+  margin-top:16px;
   color:var(--fg);
-  font-size:10px;
+  font-size:clamp(12px,1.05vw,15px);
   line-height:1.35;
-  letter-spacing:.055em;
+  letter-spacing:.015em;
 }
-.sources{
-  margin-top:8px;
-  color:var(--dim);
-  font-size:9px;
-  line-height:1.45;
-  letter-spacing:.055em;
+.workflow{
+  margin-top:22px;
+  display:grid;
+  grid-template-columns:minmax(150px,.9fr) 4px minmax(170px,1.1fr);
+  gap:16px;
+  align-items:end;
+  max-width:520px;
+}
+.workflow-source,
+.workflow-finish{
+  display:grid;
+  gap:3px;
+  font-size:clamp(12px,1.05vw,15px);
+  line-height:1.28;
+}
+.workflow-divider{
+  width:4px;
+  min-height:78px;
+  background:var(--accent);
+}
+.workflow-finish strong{font-weight:700}
+@media(max-width:560px){
+  .workflow{grid-template-columns:1fr;gap:9px}
+  .workflow-divider{width:54px;height:4px;min-height:4px}
 }
 .mark{
   width:clamp(46px,7vw,88px);
@@ -221,7 +239,19 @@ button:hover{color:var(--fg)}
     <div>
       <div class="name">PEDRO<br>RODRIGUES</div>
       <div class="role">Freelance Retouch &amp; Compositing Artist — Hamburg</div>
-      <div class="sources">Photography. &nbsp; CGI. &nbsp; AI Image Creation.</div>
+
+      <div class="workflow">
+        <div class="workflow-source">
+          <span>Photography.</span>
+          <span>CGI.</span>
+          <span>AI Image Creation.</span>
+        </div>
+        <div class="workflow-divider"></div>
+        <div class="workflow-finish">
+          <strong>Brought together.</strong>
+          <span>Refined in Photoshop.</span>
+        </div>
+      </div>
     </div>
     <div class="mark" aria-hidden="true"></div>
   </header>
