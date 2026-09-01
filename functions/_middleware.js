@@ -37,122 +37,125 @@ function loginPage(showError) {
       url("/fonts/Phosphate.otf") format("opentype");
   font-display:swap;
 }
+@font-face{
+  font-family:"RockwellBold";
+  src:url("/fonts/Rockwell-Bold.woff2") format("woff2"),
+      url("/fonts/Rockwell-Bold.woff") format("woff"),
+      url("/fonts/Rockwell-Bold.otf") format("opentype"),
+      url("/fonts/Rockwell-Bold.ttf") format("truetype");
+  font-weight:700;
+  font-display:swap;
+}
 :root{
   color-scheme:dark;
-  --bg:#08080a;
-  --fg:#f4f4f2;
-  --dim:#8f8f91;
-  --line:#2a2a2f;
-  --yellow:#e8ff00;
+  --black:#0a0a0b;
+  --white:#f4f4ef;
+  --yellow:#ffd800;
+  --line:#2b2b2f;
+  --dim:#a0a0a3;
+  --display:"Phosphate","Arial Black",sans-serif;
+  --rock:"RockwellBold",ui-monospace,"SF Mono",Menlo,Monaco,Consolas,"Courier New",monospace;
 }
 *{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:var(--bg)}
+html,body{margin:0;min-height:100%;background:var(--yellow)}
 body{
   min-height:100dvh;
-  color:var(--fg);
-  font-family:"Courier New",ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  color:var(--white);
+  font-family:var(--rock);
   -webkit-font-smoothing:antialiased;
 }
 .page{
   min-height:100dvh;
+  padding:10px;
   display:grid;
   grid-template-rows:auto 1fr auto;
-  padding:clamp(18px,3vw,38px);
-}
-.top{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:20px;
-}
-.name{
-  margin:0;
-  font-family:"Phosphate","Arial Black","Helvetica Neue",Arial,sans-serif;
-  font-size:clamp(28px,4.6vw,62px);
-  font-weight:400;
-  line-height:.86;
-  letter-spacing:-.015em;
-  text-transform:uppercase;
-}
-
-.role{
-  margin-top:16px;
-  color:var(--fg);
-  font-size:clamp(12px,1.05vw,15px);
-  line-height:1.35;
-  letter-spacing:.015em;
-}
-.workflow{
-  margin-top:22px;
-  display:grid;
-  grid-template-columns:minmax(150px,.9fr) 4px minmax(170px,1.1fr);
-  gap:16px;
-  align-items:end;
-  max-width:520px;
-}
-.workflow-source,
-.workflow-finish{
-  display:grid;
-  gap:3px;
-  font-size:clamp(12px,1.05vw,15px);
-  line-height:1.28;
-}
-.workflow-divider{
-  width:4px;
-  min-height:78px;
-  background:var(--accent);
-}
-.workflow-finish strong{font-weight:700}
-@media(max-width:560px){
-  .workflow{grid-template-columns:1fr;gap:9px}
-  .workflow-divider{width:54px;height:4px;min-height:4px}
-}
-.mark{
-  width:clamp(46px,7vw,88px);
-  height:7px;
-  margin-top:4px;
+  gap:10px;
   background:var(--yellow);
 }
-.center{
+
+/* same visual language as Chroma Clean */
+.hero{
+  min-height:250px;
+  padding:26px;
+  background:var(--black);
+  color:var(--white);
+  display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(320px,.85fr);
+  gap:34px;
+  align-items:end;
+}
+.identity{
+  font-family:var(--display);
+  font-size:clamp(39px,6.15vw,88px);
+  line-height:.83;
+  letter-spacing:.005em;
+  text-transform:uppercase;
+}
+.roleline{
+  margin-top:12px;
+  font-size:clamp(12px,1.15vw,15px);
+  line-height:1.28;
+}
+.copyflow{
+  display:grid;
+  grid-template-columns:minmax(180px,.9fr) 5px minmax(180px,1.1fr);
+  gap:18px;
+  align-items:end;
+  max-width:620px;
+}
+.sourceblock,
+.finishblock{
+  display:grid;
+  gap:2px;
+  font-size:clamp(12px,1.15vw,15px);
+  line-height:1.24;
+}
+.flowmark{
+  width:5px;
+  min-height:82px;
+  background:var(--yellow);
+  box-shadow:2px 0 0 rgba(255,255,255,.08);
+}
+.finishblock strong{font-weight:700}
+
+/* login block */
+.access{
+  background:var(--black);
+  color:var(--white);
+  padding:clamp(28px,5vw,58px) 26px;
   display:flex;
   align-items:center;
-  justify-content:center;
-  padding:clamp(42px,8vh,90px) 0;
 }
 .panel{
-  width:min(100%,720px);
+  width:min(100%,760px);
+  margin:0 auto;
 }
 .kicker{
-  margin:0 0 12px;
+  margin:0 0 10px;
   color:var(--yellow);
-  font-size:10px;
-  font-weight:700;
-  letter-spacing:.18em;
+  font-size:9px;
+  line-height:1;
+  letter-spacing:.1em;
   text-transform:uppercase;
 }
 h1{
   margin:0;
-  font-family:"Helvetica Neue",Arial,sans-serif;
-  font-size:clamp(25px,3.2vw,42px);
-  font-weight:800;
-  line-height:.92;
-  letter-spacing:-.045em;
+  font-size:clamp(24px,3vw,40px);
+  line-height:.95;
+  font-family:var(--rock);
   text-transform:uppercase;
 }
 .copy{
-  max-width:none;
-  margin:16px 0 34px;
-  white-space:nowrap;
+  margin:14px 0 30px;
   color:var(--dim);
   font-size:12px;
-  line-height:1.55;
+  line-height:1.5;
 }
-form{margin:0}
 .field{
   display:grid;
   grid-template-columns:1fr auto;
-  border-top:2px solid var(--fg);
-  border-bottom:2px solid var(--fg);
+  border-top:2px solid var(--white);
+  border-bottom:2px solid var(--white);
 }
 input{
   min-width:0;
@@ -161,102 +164,93 @@ input{
   border:0;
   outline:0;
   background:transparent;
-  color:var(--fg);
+  color:var(--white);
   font:inherit;
   font-size:14px;
-  letter-spacing:.04em;
 }
-input::placeholder{color:#66666a}
+input::placeholder{color:#6d6d71}
 button{
-  margin:0;
   padding:0 4px 0 24px;
   border:0;
   background:transparent;
   color:var(--yellow);
   font:inherit;
   font-size:11px;
-  font-weight:700;
-  letter-spacing:.1em;
   text-transform:uppercase;
   cursor:pointer;
   white-space:nowrap;
 }
-button:hover{color:var(--fg)}
+button:hover{color:var(--white)}
 .err{
   min-height:20px;
   padding-top:10px;
-  color:#ff6b6b;
+  color:#ff7474;
   font-size:10px;
-  letter-spacing:.04em;
 }
 .bottom{
+  background:var(--black);
+  color:var(--dim);
+  padding:18px 26px 20px;
   display:flex;
   align-items:flex-end;
   justify-content:space-between;
   gap:28px;
-  padding-top:20px;
   border-top:1px solid var(--line);
-  color:var(--dim);
-  font-size:10px;
+  font-size:9px;
   line-height:1.5;
+  text-transform:uppercase;
+  letter-spacing:.05em;
 }
-.links{
-  display:flex;
-  flex-wrap:wrap;
-  gap:9px 16px;
+.links{display:flex;gap:10px 16px;flex-wrap:wrap}
+.bottom a{color:inherit;text-decoration:none}
+.bottom a:hover{color:var(--white)}
+.accessmail{text-align:right}
+.accessmail a{
+  color:var(--white);
+  border-bottom:1px solid #55555a;
 }
-.bottom a{
-  color:var(--dim);
-  text-decoration:none;
+
+@media(max-width:850px){
+  .hero{grid-template-columns:1fr}
+  .copyflow{margin-top:16px}
 }
-.bottom a:hover{color:var(--fg)}
-.access{text-align:right}
-.access a{
-  color:var(--fg);
-  border-bottom:1px solid #45454a;
-}
-.access a:hover{border-color:var(--fg)}
 @media(max-width:600px){
-  .page{padding:18px}
-  .copy{white-space:normal}
-  .center{align-items:center;padding:54px 0}
+  .page{padding:7px;gap:7px}
+  .hero{padding:22px;min-height:0}
+  .copyflow{grid-template-columns:1fr;gap:9px}
+  .flowmark{width:52px;height:4px;min-height:4px}
+  .access{padding:38px 22px}
   .field{grid-template-columns:1fr}
-  button{
-    padding:0 0 14px;
-    text-align:left;
-  }
-  .bottom{
-    align-items:flex-start;
-    flex-direction:column;
-  }
-  .access{text-align:left}
+  button{padding:0 0 14px;text-align:left}
+  .bottom{padding:18px 22px;align-items:flex-start;flex-direction:column}
+  .accessmail{text-align:left}
 }
 </style>
 </head>
 <body>
 <div class="page">
-  <header class="top">
-    <div>
-      <div class="name">PEDRO<br>RODRIGUES</div>
-      <div class="role">Freelance Retouch &amp; Compositing Artist — Hamburg</div>
 
-      <div class="workflow">
-        <div class="workflow-source">
-          <span>Photography.</span>
-          <span>CGI.</span>
-          <span>AI Image Creation.</span>
-        </div>
-        <div class="workflow-divider"></div>
-        <div class="workflow-finish">
-          <strong>Brought together.</strong>
-          <span>Refined in Photoshop.</span>
-        </div>
+  <header class="hero">
+    <div>
+      <div class="identity">PEDRO<br>RODRIGUES</div>
+      <div class="roleline">Freelance Retouch &amp; Compositing Artist — Hamburg</div>
+    </div>
+
+    <div class="copyflow">
+      <div class="sourceblock">
+        <span>Photography.</span>
+        <span>CGI.</span>
+        <span>AI Image Creation.</span>
+      </div>
+      <div class="flowmark" aria-hidden="true"></div>
+      <div class="finishblock">
+        <strong>Brought together.</strong>
+        <span>Refined in Photoshop.</span>
       </div>
     </div>
-    <div class="mark" aria-hidden="true"></div>
   </header>
 
-  <main class="center">
+  <main class="access">
     <section class="panel">
       <div class="kicker">Private access</div>
       <h1>Portfolio</h1>
@@ -284,11 +278,12 @@ button:hover{color:var(--fg)}
       <a href="/datenschutz">Datenschutz</a>
       <a href="mailto:pedro@rodrigues.de">Contact</a>
     </nav>
-    <div class="access">
+    <div class="accessmail">
       For portfolio access:
       <a href="mailto:pedro@rodrigues.de">pedro@rodrigues.de</a>
     </div>
   </footer>
+
 </div>
 </body>
 </html>`;
