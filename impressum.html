@@ -1,39 +1,149 @@
-<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
 <title>Impressum — Pedro Rodrigues</title>
 <style>
-:root{--bg:#08080a;--fg:#f4f4f2;--dim:#9a9a98;--line:#1c1c20;--pad:clamp(20px,5vw,64px)}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;line-height:1.7;padding:var(--pad);max-width:760px;margin:0 auto}
-a{color:var(--fg)}
-.back{display:inline-block;margin-bottom:40px;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);text-decoration:none}
+@font-face{
+  font-family:"Phosphate";
+  src:url("fonts/Phosphate.woff2") format("woff2"),
+      url("fonts/Phosphate.woff") format("woff"),
+      url("fonts/Phosphate.otf") format("opentype");
+  font-display:swap;
+}
+@font-face{
+  font-family:"RockwellBold";
+  src:url("fonts/Rockwell-Bold.woff2") format("woff2"),
+      url("fonts/Rockwell-Bold.woff") format("woff"),
+      url("fonts/Rockwell-Bold.ttf") format("truetype");
+  font-weight:700;
+  font-display:swap;
+}
+:root{
+  --bg:#08080a;
+  --fg:#f4f4f2;
+  --dim:#a0a09d;
+  --line:#242429;
+  --acid:#dfff00;
+  --pad:clamp(18px,4vw,52px);
+  --display:"Phosphate","Arial Black",sans-serif;
+  --text:"RockwellBold","Courier New",monospace;
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{
+  margin:0;background:var(--bg);color:var(--fg);
+  font-family:var(--text);-webkit-font-smoothing:antialiased
+}
+a{color:inherit}
+.top{
+  position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;
+  gap:20px;padding:16px var(--pad);background:rgba(8,8,10,.94);
+  backdrop-filter:blur(14px);border-bottom:1px solid var(--line)
+}
+.wordmark{
+  font-family:var(--display);font-size:clamp(21px,3vw,36px);
+  line-height:.9;text-decoration:none
+}
+.back{
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--dim);text-decoration:none
+}
 .back:hover{color:var(--fg)}
-h1{font-size:clamp(26px,5vw,40px);font-weight:800;letter-spacing:-.01em;margin-bottom:28px}
-h2{font-size:18px;margin:30px 0 8px}
-p{color:var(--dim);margin-bottom:12px}
-.ph{color:#e0b84a}
-.note{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);font-size:12px;color:var(--dim)}
+.layout{
+  display:grid;grid-template-columns:minmax(260px,.62fr) minmax(0,1.38fr);
+  min-height:calc(100vh - 70px)
+}
+.intro{
+  padding:var(--pad);border-right:1px solid var(--line);
+  position:sticky;top:69px;height:calc(100vh - 69px);
+  display:flex;flex-direction:column;justify-content:space-between
+}
+h1{
+  font-family:var(--display);text-transform:uppercase;
+  font-size:clamp(46px,7vw,104px);line-height:.82;
+  letter-spacing:-.01em;margin:0
+}
+.intro-note{
+  max-width:32ch;color:var(--dim);font-size:11px;line-height:1.55
+}
+.content{padding:var(--pad);max-width:980px}
+.section{
+  display:grid;grid-template-columns:minmax(130px,.32fr) minmax(0,.68fr);
+  gap:clamp(18px,4vw,46px);padding:28px 0 34px;border-top:1px solid var(--line)
+}
+.section:first-child{border-top:0;padding-top:0}
+.num{color:var(--acid);font-size:10px;letter-spacing:.12em}
+h2{margin:0 0 12px;font-size:clamp(17px,2vw,24px);line-height:1.1}
+p{margin:0 0 12px;color:var(--dim);font-size:13px;line-height:1.7;max-width:68ch}
+.contact a{text-decoration:none;border-bottom:1px solid #4a4a4f}
+.contact a:hover{border-color:var(--fg)}
+.footer{
+  padding:30px var(--pad) 42px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;gap:20px;color:var(--dim);font-size:10px
+}
+@media(max-width:800px){
+  .layout{grid-template-columns:1fr}
+  .intro{position:relative;top:0;height:auto;min-height:330px;border-right:0;border-bottom:1px solid var(--line)}
+  .section{grid-template-columns:1fr}
+}
 </style>
-</head><body>
-<a class="back" href="/">&#8592; Zurück</a>
-<h1>Impressum</h1>
+</head>
+<body>
+<header class="top">
+  <a class="wordmark" href="/">PEDRO RODRIGUES</a>
+  <a class="back" href="/">← Portfolio</a>
+</header>
 
-<h2>Angaben gemäß § 5 DDG</h2>
-<p>Pedro Rodrigues<br>
-Steinbarg 1<br>
-21435 Stelle<br>
-Deutschland</p>
+<main class="layout">
+  <aside class="intro">
+    <h1>IMPRES<br>SUM</h1>
+    <div class="intro-note">Anbieterkennzeichnung und Kontaktinformationen.</div>
+  </aside>
 
-<h2>Kontakt</h2>
-<p>E-Mail: pedro@rodrigues.de<br>
-Telefon: +49 179 1134363</p>
+  <div class="content">
+    <section class="section">
+      <div class="num">01 / ANBIETER</div>
+      <div>
+        <h2>Angaben gemäß § 5 DDG</h2>
+        <p>Pedro Rodrigues<br>Steinbarg 1<br>21435 Stelle<br>Deutschland</p>
+      </div>
+    </section>
 
-<h2>Umsatzsteuer-ID</h2>
-<p>Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG:<br>
-DE186083621</p>
+    <section class="section">
+      <div class="num">02 / KONTAKT</div>
+      <div>
+        <h2>Kontakt</h2>
+        <p class="contact">
+          E-Mail: <a href="mailto:pedro@rodrigues.de">pedro@rodrigues.de</a><br>
+          Telefon: <a href="tel:+491791134363">+49 179 1134363</a>
+        </p>
+      </div>
+    </section>
 
-<h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
-<p>Pedro Rodrigues, Anschrift wie oben.</p>
+    <section class="section">
+      <div class="num">03 / UST-ID</div>
+      <div>
+        <h2>Umsatzsteuer-ID</h2>
+        <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG:<br>DE186083621</p>
+      </div>
+    </section>
 
-<p class="note">Dies ist eine Vorlage, keine Rechtsberatung — für einen rechtssicheren Text empfiehlt sich ein aktueller Impressum-Generator (z. B. eRecht24) oder anwaltliche Prüfung.</p>
-</body></html>
+    <section class="section">
+      <div class="num">04 / INHALT</div>
+      <div>
+        <h2>Verantwortlich für den Inhalt</h2>
+        <p>Verantwortlich nach § 18 Abs. 2 MStV:<br>Pedro Rodrigues, Anschrift wie oben.</p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="footer">
+  <span>© Pedro Rodrigues</span>
+  <span>Impressum</span>
+</footer>
+</body>
+</html>
