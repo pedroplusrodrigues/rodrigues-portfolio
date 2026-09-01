@@ -968,6 +968,16 @@ button{font-family:var(--rock)}
 .claimblock{display:block!important}
 
 
+
+/* fixed two-line Post-Production rhythm */
+.service-lines{
+  display:grid;
+  gap:2px;
+}
+.service-lines span{
+  display:block;
+}
+
 </style>
 </head>
 <body>
@@ -1097,7 +1107,10 @@ function heroHTML(){
        <div class="flowmark"></div>
        <div class="serviceblock">
          <div class="copylabel">Post-Production</div>
-         <div class="copyline">High-End Retouch. Compositing. CGI. Generative Workflows.</div>
+         <div class="copyline service-lines">
+  <span>High-End Retouch. Compositing. CGI. 3D.</span>
+  <span>Generative Workflows.</span>
+</div>
        </div>
      </div>
    </div>
@@ -1139,7 +1152,10 @@ function r6(){
       <div class="flowmark"></div>
       <div class="serviceblock">
         <div class="copylabel">Post-Production</div>
-        <div class="copyline">High-End Retouch. Compositing. CGI. Generative Workflows.</div>
+        <div class="copyline service-lines">
+  <span>High-End Retouch. Compositing. CGI. 3D.</span>
+  <span>Generative Workflows.</span>
+</div>
       </div>
     </div>
   </div>
