@@ -32,6 +32,7 @@
   --rock:"RockwellBold",ui-monospace,"SF Mono",Menlo,Monaco,Consolas,"Courier New",monospace;
 }
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 html,body{margin:0;background:var(--black);color:var(--white);font-family:var(--rock);overflow-x:hidden}
 button{font-family:var(--rock)}
 #stage{min-height:760px}
@@ -1065,6 +1066,20 @@ button{font-family:var(--rock)}
   max-width:700px!important;
 }
 
+
+/* exact two-line text rhythm, matching password page */
+.v1 .scope-lines,
+.v1 .service-lines{
+  display:grid!important;
+  gap:2px!important;
+  line-height:1.42!important;
+}
+.v1 .scope-lines span,
+.v1 .service-lines span{
+  display:block!important;
+  white-space:nowrap!important;
+}
+
 </style>
 </head>
 <body>
@@ -1093,10 +1108,15 @@ function bg(el,img,portrait=false){
   el.style.backgroundImage=`url("images/${img}")`;
   if(portrait) el.classList.add("portrait-media");
 }
-function med(p,c=""){
+function coverImage(p){
+  if(!p || !Array.isArray(p.images) || !p.images.length) return "";
+  return p.images[Math.floor(Math.random()*p.images.length)];
+}
+function med(p,c="",imgOverride=""){
   let d=document.createElement("div");
   d.className="media "+c;
-  bg(d,p.images[0],isPortraitProject(p));
+  const img=imgOverride || p.images[0];
+  bg(d,img,isPortraitProject(p));
   return d
 }
 function bind(el,p){
@@ -1177,6 +1197,54 @@ function webNavHTML(){
   </nav>`;
 }
 
+function completeInfoHTML(){
+  return `<section class="siteinfo" id="info">
+    <div class="infoHero">
+      <div class="infoHeroTitle">INFO</div>
+      <div class="infoHeroMeta">Communication Design · Art Direction · Post-Production · Retouching · Hamburg</div>
+    </div>
+    <div class="infoGrid">
+      <article class="infoCard about">
+        <div class="infoLabel">About</div>
+        <h3>More than 20 years in retouching.</h3>
+        <p>Trained as a communication designer, I graduated from Dortmund University of Applied Sciences with a Diplom in Communication Design (Dipl.-Des. FH), complemented by a semester in Fine Art at Falmouth College of Arts in Cornwall.</p>
+        <p>I started my career as an Art Director at Jung von Matt, continued as a freelance Art Director and eventually shifted my focus towards post-production and high-end image retouching.</p>
+        <p>More than 20 years in retouching — across disciplines, brands and just about every kind of visual challenge.</p>
+        <p>Always curious, always looking for better tools, techniques and workflows. From classic retouching and CGI to new generative approaches. Detail-obsessed, perfectionist by nature, pragmatic in practice.</p>
+        <p class="infoMantra"><strong>Make it look great.<br>Make it work.</strong></p>
+      </article>
+
+      <article class="infoCard cv">
+        <div class="infoLabel">Education / Experience</div>
+        <div class="cvRow"><b>Dortmund University of Applied Sciences</b><span>Diplom Communication Design · Dipl.-Des. (FH)</span></div>
+        <div class="cvRow"><b>Falmouth College of Arts · Cornwall, UK</b><span>Fine Art · Study Abroad</span></div>
+        <div class="cvRow"><b>Jung von Matt</b><span>Art Director</span></div>
+        <div class="cvRow"><b>Freelance</b><span>Art Direction</span></div>
+        <div class="cvRow"><b>Freelance</b><span>Post-Production · Retouching</span></div>
+      </article>
+
+      <article class="infoCard agencies">
+        <div class="infoLabel">Selected Agencies / Studios</div>
+        <div class="nameCloud">AKQA <span>·</span> Brand Upgrade <span>·</span> Dock2Studios <span>·</span> Flavor3D <span>·</span> Gloss/ LA <span>·</span> Harvest <span>·</span> Halbautomatik <span>·</span> Hogarth <span>·</span> House of Foods <span>·</span> Jung von Matt <span>·</span> Kolle Rebbe <span>·</span> Leagas Delaney <span>·</span> Maground <span>·</span> S&amp;F <span>·</span> POP Postproduction <span>·</span> Stefan Lampe <span>·</span> WPP <span>·</span> Serviceplan <span>·</span> Philip und Keuntje <span>·</span> thjnk</div>
+      </article>
+
+      <article class="infoCard brands">
+        <div class="infoLabel">Selected Brands</div>
+        <div class="nameCloud">Audi <span>·</span> VW <span>·</span> Swatch <span>·</span> Porsche <span>·</span> Opel <span>·</span> Toyota <span>·</span> Vaillant <span>·</span> Volvo <span>·</span> Telekom <span>·</span> Lexus <span>·</span> Kühne <span>·</span> Mercedes-Benz <span>·</span> LBS <span>·</span> Dekra <span>·</span> Capital <span>·</span> Citroen <span>·</span> Kabel Deutschland <span>·</span> Hornbach <span>·</span> Spiegel <span>·</span> Kia <span>·</span> Vorwerk <span>·</span> Honda <span>·</span> Coca-Cola <span>·</span> McDonalds <span>·</span> O.b. <span>·</span> Vuse <span>·</span> Pall Mall</div>
+      </article>
+
+      <article class="infoCard contact" id="contact">
+        <div class="infoLabel">Contact</div>
+        <div class="infoContact">
+          <a class="infoMail" href="mailto:pedro@rodrigues.de">pedro@rodrigues.de</a>
+          <div class="infoContactMeta">Hamburg, Germany<br>Available for freelance projects</div>
+        </div>
+        <div class="infoLegal"><a href="/impressum">Impressum</a><a href="/datenschutz">Datenschutz</a></div>
+      </article>
+    </div>
+  </section>`;
+}
+
 function heroHTML(){
  return `<div>
    ${webNavHTML()}
@@ -1188,7 +1256,10 @@ function heroHTML(){
      <div class="scope-services">
        <div class="scopeblock">
          <div class="copylabel">Working Across</div>
-         <div class="copyline">Automotive. People. Advertising. Food. Still Life. Beauty. AI.</div>
+         <div class="copyline scope-lines">
+  <span>Automotive. People. Advertising. Food.</span>
+  <span>Still Life. Beauty. AI.</span>
+</div>
        </div>
        <div class="flowmark"></div>
        <div class="serviceblock">
@@ -1204,8 +1275,16 @@ function heroHTML(){
 }
 
 function r1(){
- stage.innerHTML=`<section class="v1"><div class="hero">${heroHTML()}</div><div class="grid" id="g" data-work-root></div></section>`;
- let g=document.getElementById("g");P.forEach(p=>{let t=document.createElement("article");t.className="tile";t.append(med(p));t.insertAdjacentHTML("beforeend",`<div class="tx"><b>${p.project}</b><span class="meta">${p.photographer||"Selected Work"} · ${count(p)}</span></div>`);bind(t,p);g.append(t)})
+ stage.innerHTML=`<section class="v1"><div class="hero">${heroHTML()}</div><div class="grid" id="work" data-work-root></div>${completeInfoHTML()}</section>`;
+ let g=document.getElementById("work");P.forEach(p=>{
+   let t=document.createElement("article");
+   t.className="tile";
+   const cover=coverImage(p);
+   t.append(med(p,"",cover));
+   t.insertAdjacentHTML("beforeend",`<div class="tx"><b>${p.project}</b><span class="meta">${p.photographer||"Selected Work"} · ${count(p)}</span></div>`);
+   bind(t,p);
+   g.append(t)
+ })
 }
 function r2(){
  stage.innerHTML=`<section class="v2"><div class="hero"><div class="left">${heroHTML()}</div><div class="right"><div class="subline">SELECTED COMMERCIAL WORK</div></div></div><div class="grid" id="g" data-work-root></div></section>`;
@@ -1277,10 +1356,8 @@ function r10(){
  let g=document.getElementById("g");P.forEach(p=>{let x=document.createElement("article");x.append(med(p));x.insertAdjacentHTML("beforeend",`<div class="hardcap"><b>${p.project}</b><div class="meta">${p.photographer||"Selected Work"} · ${count(p)}</div></div>`);bind(x,p);g.append(x)})
 }
 
-const baseRs=[r1,r2,r3,r4,r5,r6,r7,r8,r9,r10];
-const rs=baseRs.map((fn,i)=>()=>{fn();enhanceVariant(i+1)});
 ACTIVE=0;
-rs[0]();
+r1();
 </script>
 </body>
 </html>
