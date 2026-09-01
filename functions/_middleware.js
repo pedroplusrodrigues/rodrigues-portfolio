@@ -282,16 +282,6 @@ button:hover{color:var(--white)}
 .claimblock{display:block!important}
 
 
-.service-claim{
-  display:grid;
-  gap:2px;
-  margin-top:26px;
-  font-size:clamp(12px,1.15vw,15px);
-  line-height:1.24;
-}
-.service-claim strong{font-weight:700}
-
-
 .panel-access{
   margin-top:34px;
   display:flex;
@@ -309,6 +299,16 @@ button:hover{color:var(--white)}
   text-decoration:none;
 }
 .panel-access a:hover{color:var(--yellow)}
+
+
+.claimbelow{
+  display:grid;
+  gap:2px;
+  margin-top:42px;
+  font-size:clamp(12px,1.15vw,15px);
+  line-height:1.24;
+}
+.claimbelow strong{font-weight:700}
 
 </style>
 </head>
@@ -331,11 +331,12 @@ button:hover{color:var(--white)}
         <div class="serviceblock">
           <div class="copylabel">Post-Production</div>
           <div class="copyline">High-End Retouch. Compositing. CGI. Generative Workflows.</div>
-          <div class="service-claim">
-            <strong>Brought together.</strong>
-            <span>Refined in Photoshop.</span>
-          </div>
         </div>
+      </div>
+
+      <div class="claimbelow">
+        <strong>Brought together.</strong>
+        <span>Refined in Photoshop.</span>
       </div>
     </div>
   </header>
