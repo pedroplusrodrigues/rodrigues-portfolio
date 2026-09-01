@@ -28,7 +28,7 @@ function loginPage(showError) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Private Portfolio — Pedro Rodrigues</title>
+<title>Portfolio — Pedro Rodrigues</title>
 <style>
 @font-face{
   font-family:"Phosphate";
@@ -73,6 +73,21 @@ body{
   line-height:.86;
   letter-spacing:-.015em;
   text-transform:uppercase;
+}
+
+.role{
+  margin-top:14px;
+  color:var(--fg);
+  font-size:10px;
+  line-height:1.35;
+  letter-spacing:.055em;
+}
+.sources{
+  margin-top:8px;
+  color:var(--dim);
+  font-size:9px;
+  line-height:1.45;
+  letter-spacing:.055em;
 }
 .mark{
   width:clamp(46px,7vw,88px);
@@ -205,6 +220,8 @@ button:hover{color:var(--fg)}
   <header class="top">
     <div>
       <div class="name">PEDRO<br>RODRIGUES</div>
+      <div class="role">Freelance Retouch &amp; Compositing Artist — Hamburg</div>
+      <div class="sources">Photography. &nbsp; CGI. &nbsp; AI Image Creation.</div>
     </div>
     <div class="mark" aria-hidden="true"></div>
   </header>
