@@ -31,10 +31,8 @@ function loginPage(showError) {
 <title>Portfolio — Pedro Rodrigues</title>
 <style>
 @font-face{
-  font-family:"PhosphateWeb";
-  src:local("Phosphate Solid"),
-      local("Phosphate-Solid"),
-      url("/fonts/Phosphate.woff2") format("woff2"),
+  font-family:Phosphate;
+  src:url("/fonts/Phosphate.woff2") format("woff2"),
       url("/fonts/Phosphate.woff") format("woff"),
       url("/fonts/Phosphate.otf") format("opentype");
   font-weight:400;
@@ -58,7 +56,7 @@ function loginPage(showError) {
   --yellow:#ffd800;
   --line:#2b2b2f;
   --dim:#a0a0a3;
-  --display:"Phosphate Solid","PhosphateWeb","Phosphate","Arial Black",sans-serif;
+  --display:"Phosphate","Arial Black",sans-serif;
   --rock:"RockwellBold",ui-monospace,"SF Mono",Menlo,Monaco,Consolas,"Courier New",monospace;
 }
 *{box-sizing:border-box}
