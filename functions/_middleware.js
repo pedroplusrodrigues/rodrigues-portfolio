@@ -212,7 +212,7 @@ button:hover{color:var(--fg)}
   <main class="center">
     <section class="panel">
       <div class="kicker">Private access</div>
-      <h1>Private Portfolio</h1>
+      <h1>Portfolio</h1>
       <p class="copy">Selected commercial work is password protected.</p>
 
       <form method="POST" autocomplete="off">
