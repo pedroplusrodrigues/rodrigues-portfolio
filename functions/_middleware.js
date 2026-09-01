@@ -228,6 +228,58 @@ button:hover{color:var(--white)}
   .bottom{padding:18px 22px;align-items:flex-start;flex-direction:column}
   .accessmail{text-align:left}
 }
+
+/* WORKING ACROSS / POST-PRODUCTION — same hierarchy as main site */
+.copyflow{
+  display:grid;
+  grid-template-columns:1fr!important;
+  gap:14px!important;
+  max-width:700px!important;
+}
+.scope-services{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 5px minmax(0,1fr);
+  gap:18px;
+  align-items:stretch;
+}
+.scopeblock,
+.serviceblock{
+  display:grid;
+  gap:7px;
+  align-content:end;
+}
+.copylabel{
+  font-size:9px;
+  line-height:1;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  opacity:.62;
+}
+.copyline{
+  font-size:clamp(12px,1.15vw,15px);
+  line-height:1.42;
+}
+.scope-services .flowmark{
+  width:5px;
+  min-height:86px;
+  background:var(--yellow);
+}
+.claimblock{
+  display:grid;
+  gap:2px;
+  font-size:clamp(12px,1.15vw,15px);
+  line-height:1.24;
+}
+.claimblock strong{font-weight:700}
+@media(max-width:600px){
+  .scope-services{grid-template-columns:1fr;gap:10px}
+  .scope-services .flowmark{
+    width:52px;
+    height:4px;
+    min-height:4px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -240,13 +292,18 @@ button:hover{color:var(--white)}
     </div>
 
     <div class="copyflow">
-      <div class="sourceblock">
-        <span>Photography.</span>
-        <span>CGI.</span>
-        <span>AI Image Creation.</span>
+      <div class="scope-services">
+        <div class="scopeblock">
+          <div class="copylabel">Working Across</div>
+          <div class="copyline">Automotive // People // Advertising // Food // Still Life // Beauty // AI</div>
+        </div>
+        <div class="flowmark" aria-hidden="true"></div>
+        <div class="serviceblock">
+          <div class="copylabel">Post-Production</div>
+          <div class="copyline">High-End Retouch // Compositing // CGI // Generative Workflows</div>
+        </div>
       </div>
-      <div class="flowmark" aria-hidden="true"></div>
-      <div class="finishblock">
+      <div class="claimblock">
         <strong>Brought together.</strong>
         <span>Refined in Photoshop.</span>
       </div>
