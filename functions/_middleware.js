@@ -390,6 +390,11 @@ export async function onRequest(context) {
   const { request, env, next } = context;
   const url = new URL(request.url);
 
+  // www immer auf die Hauptdomain umleiten.
+  if (url.hostname === "www.rodrigues.de") {
+    return Response.redirect(`https://rodrigues.de${url.pathname}${url.search}`, 301);
+  }
+
   // Impressum/Datenschutz immer öffentlich
   if (PUBLIC_PATHS.includes(url.pathname) || PUBLIC_PREFIXES.some(prefix => url.pathname.startsWith(prefix))) return next();
 
