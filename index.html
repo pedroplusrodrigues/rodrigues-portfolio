@@ -1340,7 +1340,7 @@ function r1(){
    t.className="tile";
    const cover=coverImage(p);
    t.append(med(p,"",cover));
-   t.insertAdjacentHTML("beforeend",`<div class="tx"><b>${p.project}</b><span class="meta">${p.photographer||"Selected Work"} · ${count(p)}</span></div>`);
+   t.insertAdjacentHTML("beforeend",`<div class="tx"><b>${p.project}</b><span class="meta">${p.photographer||"Selected Work"} · ${p.secondary?.[0] ? p.secondary[0] + " · " : ""}${count(p)}</span></div>`);
    bind(t,p);
    g.append(t)
  })
