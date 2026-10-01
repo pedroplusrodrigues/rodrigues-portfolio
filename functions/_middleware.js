@@ -10,7 +10,7 @@ const HARDCODED_PASSWORD = "";
 
 // Diese Pfade sind IMMER ohne Passwort erreichbar (Impressum/Datenschutz müssen öffentlich sein).
 const PUBLIC_PATHS = ["/impressum", "/impressum.html", "/datenschutz", "/datenschutz.html"];
-const PUBLIC_PREFIXES = ["/fonts/"];
+const PUBLIC_PREFIXES = ["/fonts/", "/files/"];
 
 const COOKIE = "site_auth";
 const MAX_AGE = 60 * 60 * 24 * 30; // 30 Tage eingeloggt bleiben
