@@ -125,13 +125,16 @@ body{
   display:inline-block;
   font-family:var(--display);
   font-weight:400;
+  font-synthesis:none;
   font-style:normal;
   font-size:clamp(39px,6.15vw,88px);
   line-height:.83;
   letter-spacing:.005em;
   text-transform:uppercase;
 }
-.identityMark{display:block;width:5.061em;max-width:100%;height:auto;fill:currentColor}
+/* PEDRO RODRIGUES uses the exact outlined mark from portfolio/index.html.
+   This SVG must remain separate from the category-heading display font. */
+.identityMark{display:block;width:5.061em;max-width:100%;height:auto;overflow:visible;fill:currentColor}
 
 .roleline{
   font-family:var(--rock);
@@ -471,20 +474,10 @@ button:hover,
     error.textContent = "";
     const code = getCode(input.value);
     if (!code) { error.textContent = "Invalid project code."; return; }
-    button.disabled = true;
-    try {
-      const res = await fetch("/files/" + encodeURIComponent(code) + "/?check=1", {cache:"no-store", credentials:"same-origin"});
-      const result = await res.json();
-      if (res.ok && result.valid === true) {
-        window.location.assign("/files/" + encodeURIComponent(code) + "/");
-        return;
-      }
-      error.textContent = res.status === 404 ? "Project code not found." :
-        res.status === 403 ? "This project still requires a password. Please contact me." :
-        "Unable to verify project code. Please try again.";
-    } catch (_) {
-      error.textContent = "Unable to verify project code. Please try again.";
-    } finally { button.disabled = false; }
+    // Direct customer access: Seafile's public share is the authority.
+    // The optional API preflight can require separate authentication and
+    // must never prevent an otherwise valid public download share.
+    window.location.assign("/files/" + encodeURIComponent(code) + "/");
   });
 })();
 </script>
@@ -552,12 +545,12 @@ export async function onRequest(context) {
 
     return new Response(loginPage(true), {
       status: 401,
-      headers: { "Content-Type": "text/html; charset=utf-8" }
+      headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" }
     });
   }
 
   return new Response(loginPage(false), {
     status: 401,
-    headers: { "Content-Type": "text/html; charset=utf-8" }
+    headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" }
   });
 }
