@@ -68,6 +68,8 @@ function loginPage(showError) {
   src:url("/fonts/Phosphate.woff2") format("woff2"),
       url("/fonts/Phosphate.woff") format("woff"),
       url("/fonts/Phosphate.otf") format("opentype");
+  font-weight:400;
+  font-style:normal;
   font-display:swap;
 }
 @font-face{
@@ -126,6 +128,8 @@ body{
 .identity{
   display:inline-block;
   font-family:var(--display);
+  font-weight:400;
+  font-style:normal;
   font-size:clamp(39px,6.15vw,88px);
   line-height:.83;
   letter-spacing:.005em;
