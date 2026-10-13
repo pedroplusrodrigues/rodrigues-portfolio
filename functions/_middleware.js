@@ -72,12 +72,16 @@ function loginPage(showError) {
 }
 @font-face{
   font-family:"RockwellBold";
-  src:url("/fonts/Rockwell-Bold.woff2") format("woff2"),
+  src:local("Rockwell Bold"),
+      local("Rockwell-Bold"),
+      local("Rockwell Std Bold"),
+      url("/fonts/Rockwell-Bold.woff2") format("woff2"),
       url("/fonts/Rockwell-Bold.woff") format("woff"),
       url("/fonts/Rockwell-Bold.otf") format("opentype"),
       url("/fonts/Rockwell-Bold.ttf") format("truetype"),
       url("/fonts/Rockwell.ttc") format("collection");
   font-weight:700;
+  font-style:normal;
   font-display:swap;
 }
 :root{
@@ -88,7 +92,7 @@ function loginPage(showError) {
   --line:#2b2b2f;
   --dim:#a0a0a3;
   --display:"Phosphate","Arial Black",sans-serif;
-  --rock:"RockwellBold",ui-monospace,"SF Mono",Menlo,Monaco,Consolas,"Courier New",monospace;
+  --rock:"RockwellBold","Rockwell","Rockwell Std",Georgia,"Times New Roman",serif;
 }
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;background:var(--black)}
@@ -96,6 +100,7 @@ body{
   min-height:100dvh;
   color:var(--white);
   font-family:var(--rock);
+  font-weight:700;
   -webkit-font-smoothing:antialiased;
 }
 .page{
@@ -130,7 +135,7 @@ body{
   font-family:var(--rock);
   font-weight:700;
   margin-top:12px;
-  font-size:clamp(12px,1.15vw,15px);
+  font-size:clamp(13px,1.2vw,16px);
   line-height:1.28;
 }
 .copyflow{
@@ -146,7 +151,7 @@ body{
   font-weight:700;
   display:grid;
   gap:2px;
-  font-size:clamp(12px,1.15vw,15px);
+  font-size:clamp(13px,1.2vw,16px);
   line-height:1.24;
 }
 .flowmark{
@@ -172,22 +177,25 @@ body{
 .kicker{
   margin:0 0 10px;
   color:var(--yellow);
-  font-size:9px;
+  font-size:10px;
+  font-weight:700;
   line-height:1;
   letter-spacing:.1em;
   text-transform:uppercase;
 }
 h1{
   margin:0;
-  font-size:clamp(24px,3vw,40px);
+  font-size:clamp(30px,3.25vw,44px);
   line-height:.95;
   font-family:var(--rock);
+  font-weight:700;
   text-transform:uppercase;
 }
 .copy{
   margin:14px 0 30px;
   color:var(--dim);
-  font-size:12px;
+  font-size:13px;
+  font-weight:700;
   line-height:1.5;
 }
 .field{
@@ -204,7 +212,8 @@ input{
   background:#151518;
   color:var(--white);
   font:inherit;
-  font-size:14px;
+  font-size:15px;
+  font-weight:700;
 }
 input::placeholder{color:#6d6d71}
 button{
@@ -213,7 +222,8 @@ button{
   background:#151518;
   color:var(--yellow);
   font:inherit;
-  font-size:11px;
+  font-size:12px;
+  font-weight:700;
   text-transform:uppercase;
   cursor:pointer;
   white-space:nowrap;
@@ -233,7 +243,8 @@ button:hover{color:var(--white)}
   align-items:flex-end;
   justify-content:flex-start;
   gap:28px;
-  font-size:9px;
+  font-size:10px;
+  font-weight:700;
   line-height:1.5;
   text-transform:uppercase;
   letter-spacing:.05em;
@@ -278,14 +289,16 @@ button:hover{color:var(--white)}
   align-content:end;
 }
 .copylabel{
-  font-size:9px;
+  font-size:10px;
+  font-weight:700;
   line-height:1;
   letter-spacing:.1em;
   text-transform:uppercase;
   opacity:.62;
 }
 .copyline{
-  font-size:clamp(12px,1.15vw,15px);
+  font-size:clamp(13px,1.2vw,16px);
+  font-weight:700;
   line-height:1.42;
 }
 .scope-services .flowmark{
@@ -296,7 +309,7 @@ button:hover{color:var(--white)}
 .claimblock{
   display:grid;
   gap:2px;
-  font-size:clamp(12px,1.15vw,15px);
+  font-size:clamp(13px,1.2vw,16px);
   line-height:1.24;
 }
 .claimblock strong{font-weight:700}
@@ -319,7 +332,7 @@ button:hover{color:var(--white)}
   display:grid;
   gap:2px;
   margin-top:26px;
-  font-size:clamp(12px,1.15vw,15px);
+  font-size:clamp(13px,1.2vw,16px);
   line-height:1.24;
 }
 .service-claim strong{font-weight:700}
@@ -332,7 +345,8 @@ button:hover{color:var(--white)}
   gap:6px 10px;
   align-items:baseline;
   color:var(--dim);
-  font-size:9px;
+  font-size:10px;
+  font-weight:700;
   line-height:1.5;
   text-transform:uppercase;
   letter-spacing:.05em;
