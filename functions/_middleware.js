@@ -10,8 +10,8 @@
 const HARDCODED_PASSWORD = "";
 
 // Diese Pfade sind IMMER ohne Passwort erreichbar (Impressum/Datenschutz müssen öffentlich sein).
-const PUBLIC_PATHS = ["/impressum", "/impressum.html", "/datenschutz", "/datenschutz.html"];
-const PUBLIC_PREFIXES = ["/fonts/"];
+const PUBLIC_PATHS = ["/impressum", "/impressum.html", "/datenschutz", "/datenschutz.html", "/lab"];
+const PUBLIC_PREFIXES = ["/fonts/", "/files/", "/lab/"];
 
 const COOKIE = "site_auth";
 const MAX_AGE = 60 * 60 * 24 * 30; // 30 Tage eingeloggt bleiben
@@ -61,7 +61,7 @@ function loginPage(showError) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Portfolio — Pedro Rodrigues</title>
+<title>Pedro Rodrigues — Access</title>
 <style>
 @font-face{
   font-family:"Phosphate";
@@ -86,16 +86,18 @@ function loginPage(showError) {
   font-style:normal;
   font-display:swap;
 }
+
 :root{
   color-scheme:dark;
   --black:#0a0a0b;
+  --surface:#151518;
   --white:#f4f4ef;
   --yellow:#ffd800;
-  --line:#2b2b2f;
   --dim:#a0a0a3;
   --display:"Phosphate","Arial Black",sans-serif;
   --rock:"RockwellBold","Rockwell","Rockwell Std",Georgia,"Times New Roman",serif;
 }
+
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;background:var(--black)}
 body{
@@ -105,6 +107,7 @@ body{
   font-weight:700;
   -webkit-font-smoothing:antialiased;
 }
+
 .page{
   min-height:100dvh;
   padding:10px;
@@ -114,7 +117,6 @@ body{
   background:var(--black);
 }
 
-/* same visual language as Chroma Clean */
 .hero{
   min-height:250px;
   padding:26px;
@@ -125,6 +127,7 @@ body{
   gap:34px;
   align-items:end;
 }
+
 .identity{
   display:inline-block;
   font-family:var(--display);
@@ -135,6 +138,7 @@ body{
   letter-spacing:.005em;
   text-transform:uppercase;
 }
+
 .roleline{
   font-family:var(--rock);
   font-weight:700;
@@ -142,103 +146,181 @@ body{
   font-size:clamp(13px,1.2vw,16px);
   line-height:1.28;
 }
+
 .copyflow{
+  width:100%;
+  max-width:700px;
+  min-width:0;
+}
+
+.scope-services{
   display:grid;
-  grid-template-columns:minmax(180px,.9fr) 5px minmax(180px,1.1fr);
+  grid-template-columns:minmax(0,1fr) 5px minmax(0,1fr);
   gap:18px;
-  align-items:end;
-  max-width:620px;
+  align-items:stretch;
+  width:100%;
+  min-width:0;
 }
-.sourceblock,
-.finishblock{
-  font-family:var(--rock);
-  font-weight:700;
+
+.scopeblock,
+.serviceblock{
+  min-width:0;
   display:grid;
-  gap:2px;
-  font-size:clamp(13px,1.2vw,16px);
-  line-height:1.24;
+  gap:7px;
+  align-content:end;
 }
+
+.copylabel{
+  padding-block:2px;
+  font-size:10px;
+  font-weight:700;
+  line-height:1.25;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  opacity:.62;
+  overflow:visible;
+}
+
+.copyline{
+  min-width:0;
+  max-width:100%;
+  font-size:clamp(13px,1.2vw,16px);
+  font-weight:700;
+  line-height:1.48;
+  white-space:normal;
+  overflow-wrap:break-word;
+}
+
 .flowmark{
   width:5px;
-  min-height:82px;
+  min-height:86px;
   background:var(--yellow);
-  box-shadow:none;
 }
-.finishblock strong{font-weight:700}
 
-/* login block */
 .access{
   background:var(--black);
   color:var(--white);
-  padding:clamp(28px,5vw,58px) 26px;
+  padding:clamp(28px,4vw,52px) 26px;
   display:flex;
   align-items:center;
 }
-.panel{
-  width:min(100%,760px);
-  margin:0 auto;
+
+.portal-grid{
+  width:100%;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
 }
+
+.portal-card{
+  min-width:0;
+  min-height:320px;
+  padding:24px;
+  background:#111114;
+  display:flex;
+  flex-direction:column;
+  border-top:4px solid var(--surface);
+}
+
+.portal-card.primary{border-top-color:var(--yellow)}
+
 .kicker{
-  margin:0 0 10px;
+  margin:0 0 12px;
   color:var(--yellow);
   font-size:10px;
   font-weight:700;
-  line-height:1;
+  line-height:1.2;
   letter-spacing:.1em;
   text-transform:uppercase;
 }
-h1{
+
+.portal-card h1,
+.portal-card h2{
   margin:0;
-  font-size:clamp(30px,3.25vw,44px);
-  line-height:.95;
   font-family:var(--rock);
+  font-size:clamp(26px,2.5vw,38px);
   font-weight:700;
+  line-height:.95;
   text-transform:uppercase;
 }
-.copy{
-  margin:14px 0 30px;
+
+.card-copy{
+  margin:14px 0 26px;
   color:var(--dim);
   font-size:13px;
   font-weight:700;
   line-height:1.5;
 }
-.field{
+
+.card-spacer{flex:1}
+
+.stack-form{
   display:grid;
-  grid-template-columns:1fr auto;
+  grid-template-columns:1fr;
   gap:10px;
 }
+
 input{
   min-width:0;
   width:100%;
   padding:15px 16px;
   border:0;
   outline:0;
-  background:#151518;
+  background:#1b1b1f;
   color:var(--white);
   font:inherit;
   font-size:15px;
   font-weight:700;
 }
+
 input::placeholder{color:#6d6d71}
-button{
-  padding:0 14px;
+
+button,
+.card-action{
+  min-height:48px;
+  padding:14px 16px;
   border:0;
-  background:#151518;
+  background:#1b1b1f;
   color:var(--yellow);
   font:inherit;
   font-size:12px;
   font-weight:700;
+  line-height:1.2;
   text-transform:uppercase;
+  text-decoration:none;
   cursor:pointer;
-  white-space:nowrap;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
 }
-button:hover{color:var(--white)}
+
+button:hover,
+.card-action:hover{color:var(--white)}
+
 .err{
   min-height:20px;
   padding-top:10px;
   color:#ff7474;
   font-size:10px;
 }
+
+.panel-access{
+  margin-top:18px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px 10px;
+  align-items:baseline;
+  color:var(--dim);
+  font-size:10px;
+  font-weight:700;
+  line-height:1.5;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+}
+
+.panel-access a{color:var(--white);text-decoration:none}
+.panel-access a:hover{color:var(--yellow)}
+
 .bottom{
   background:var(--black);
   color:var(--dim);
@@ -253,114 +335,32 @@ button:hover{color:var(--white)}
   text-transform:uppercase;
   letter-spacing:.05em;
 }
+
 .links{display:flex;gap:10px 16px;flex-wrap:wrap}
 .bottom a{color:inherit;text-decoration:none}
 .bottom a:hover{color:var(--white)}
 
-@media(max-width:850px){
+@media(max-width:1100px){
   .hero{grid-template-columns:1fr}
-  .copyflow{margin-top:16px}
+  .copyflow{margin-top:16px;max-width:760px}
+  .portal-grid{grid-template-columns:1fr 1fr}
+  .portal-card:last-child{grid-column:1/-1}
 }
+
+@media(max-width:760px){
+  .scope-services{grid-template-columns:1fr;gap:10px}
+  .scope-services .flowmark{width:52px;height:4px;min-height:4px}
+  .portal-grid{grid-template-columns:1fr}
+  .portal-card:last-child{grid-column:auto}
+}
+
 @media(max-width:600px){
   .page{padding:7px;gap:7px}
   .hero{padding:22px;min-height:0}
-  .copyflow{grid-template-columns:1fr;gap:9px}
-  .flowmark{width:52px;height:4px;min-height:4px}
-  .access{padding:38px 22px}
-  .field{grid-template-columns:1fr}
-  button{padding:14px 16px;text-align:left}
+  .access{padding:28px 14px}
+  .portal-card{min-height:0;padding:22px}
   .bottom{padding:18px 22px;align-items:flex-start;flex-direction:column}
-  .accessmail{text-align:left}
 }
-
-/* WORKING ACROSS / POST-PRODUCTION — same hierarchy as main site */
-.copyflow{
-  display:grid;
-  grid-template-columns:1fr!important;
-  gap:14px!important;
-  max-width:700px!important;
-}
-.scope-services{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) 5px minmax(0,1fr);
-  gap:18px;
-  align-items:stretch;
-}
-.scopeblock,
-.serviceblock{
-  display:grid;
-  gap:7px;
-  align-content:end;
-}
-.copylabel{
-  font-size:10px;
-  font-weight:700;
-  line-height:1;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-  opacity:.62;
-}
-.copyline{
-  font-size:clamp(13px,1.2vw,16px);
-  font-weight:700;
-  line-height:1.42;
-}
-.scope-services .flowmark{
-  width:5px;
-  min-height:86px;
-  background:var(--yellow);
-}
-.claimblock{
-  display:grid;
-  gap:2px;
-  font-size:clamp(13px,1.2vw,16px);
-  line-height:1.24;
-}
-.claimblock strong{font-weight:700}
-@media(max-width:600px){
-  .scope-services{grid-template-columns:1fr;gap:10px}
-  .scope-services .flowmark{
-    width:52px;
-    height:4px;
-    min-height:4px;
-  }
-}
-
-
-/* calmer scope/service copy */
-.copyline{line-height:1.48!important}
-.claimblock{display:block!important}
-
-
-.service-claim{
-  display:grid;
-  gap:2px;
-  margin-top:26px;
-  font-size:clamp(13px,1.2vw,16px);
-  line-height:1.24;
-}
-.service-claim strong{font-weight:700}
-
-
-.panel-access{
-  margin-top:34px;
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px 10px;
-  align-items:baseline;
-  color:var(--dim);
-  font-size:10px;
-  font-weight:700;
-  line-height:1.5;
-  text-transform:uppercase;
-  letter-spacing:.05em;
-}
-.panel-access a{
-  color:var(--white);
-  text-decoration:none;
-}
-.panel-access a:hover{color:var(--yellow)}
-
 </style>
 </head>
 <body>
@@ -382,19 +382,21 @@ button:hover{color:var(--white)}
         <div class="serviceblock">
           <div class="copylabel">Post-Production</div>
           <div class="copyline">High-End Retouch. Compositing. CGI. Generative Workflows.</div>
-</div>
+        </div>
       </div>
     </div>
   </header>
 
   <main class="access">
-    <section class="panel">
-      <div class="kicker">Private access</div>
-      <h1>Portfolio</h1>
-      <p class="copy">Selected commercial work is password protected.</p>
+    <div class="portal-grid">
 
-      <form method="POST" autocomplete="off">
-        <div class="field">
+      <section class="portal-card primary">
+        <div class="kicker">Private access</div>
+        <h1>Portfolio</h1>
+        <p class="card-copy">Selected commercial work is password protected.</p>
+        <div class="card-spacer"></div>
+
+        <form method="POST" autocomplete="off" class="stack-form">
           <input
             type="password"
             name="password"
@@ -403,15 +405,36 @@ button:hover{color:var(--white)}
             autocomplete="current-password"
             aria-label="Password">
           <button type="submit">Enter Portfolio →</button>
-        </div>
+        </form>
         <div class="err" role="status">${showError ? "Incorrect password." : ""}</div>
-      </form>
 
-      <div class="panel-access">
-        <span>For portfolio access:</span>
-        <a href="mailto:pedro@rodrigues.de">pedro@rodrigues.de</a>
-      </div>
-    </section>
+        <div class="panel-access">
+          <span>For portfolio access:</span>
+          <a href="mailto:pedro@rodrigues.de">pedro@rodrigues.de</a>
+        </div>
+      </section>
+
+      <section class="portal-card">
+        <div class="kicker">Client transfer</div>
+        <h2>Client Files</h2>
+        <p class="card-copy">Download delivered files and upload project material.</p>
+        <div class="card-spacer"></div>
+
+        <form class="stack-form" onsubmit="event.preventDefault();var v=this.elements.code.value.trim();if(!v)return;var m=v.match(/\\/files\\/([^/?#]+)|\\/d\\/([^/?#]+)/);var c=(m&&(m[1]||m[2]))||v;location.href='/files/'+encodeURIComponent(c)+'/';">
+          <input type="text" name="code" placeholder="PROJECT CODE" autocomplete="off" aria-label="Project code">
+          <button type="submit">Open Files →</button>
+        </form>
+      </section>
+
+      <section class="portal-card">
+        <div class="kicker">Generative work</div>
+        <h2>AI Lab</h2>
+        <p class="card-copy">Generative imaging, AI-assisted retouching and experimental workflows.</p>
+        <div class="card-spacer"></div>
+        <a class="card-action" href="/lab/">Enter AI Lab →</a>
+      </section>
+
+    </div>
   </main>
 
   <footer class="bottom">
