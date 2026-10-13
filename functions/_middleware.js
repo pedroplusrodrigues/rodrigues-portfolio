@@ -65,9 +65,7 @@ function loginPage(showError) {
 <style>
 @font-face{
   font-family:"Phosphate";
-  src:url("/fonts/Phosphate.woff2") format("woff2"),
-      url("/fonts/Phosphate.woff") format("woff"),
-      url("/fonts/Phosphate.otf") format("opentype");
+  src:local("Phosphate Solid");
   font-weight:400;
   font-style:normal;
   font-display:swap;
@@ -76,12 +74,7 @@ function loginPage(showError) {
   font-family:"RockwellBold";
   src:local("Rockwell Bold"),
       local("Rockwell-Bold"),
-      local("Rockwell Std Bold"),
-      url("/fonts/Rockwell-Bold.woff2") format("woff2"),
-      url("/fonts/Rockwell-Bold.woff") format("woff"),
-      url("/fonts/Rockwell-Bold.otf") format("opentype"),
-      url("/fonts/Rockwell-Bold.ttf") format("truetype"),
-      url("/fonts/Rockwell.ttc") format("collection");
+      url("/fonts/Rockwell.ttc#Rockwell-Bold") format("collection");
   font-weight:700;
   font-style:normal;
   font-display:swap;
@@ -209,8 +202,13 @@ body{
   width:100%;
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:12px;
+  gap:0 12px;
+  align-items:stretch;
 }
+.portal-card.primary{grid-column:1;grid-row:1}
+.portal-card.client{grid-column:2;grid-row:1}
+.portal-card.lab-card{grid-column:3;grid-row:1}
+.portal-grid>.panel-access{grid-column:1;grid-row:2;margin:16px 0 0 24px;align-self:start}
 
 .portal-card{
   min-width:0;
@@ -343,15 +341,19 @@ button:hover,
 @media(max-width:1100px){
   .hero{grid-template-columns:1fr}
   .copyflow{margin-top:16px;max-width:760px}
-  .portal-grid{grid-template-columns:1fr 1fr}
-  .portal-card:last-child{grid-column:1/-1}
+  .portal-grid{grid-template-columns:1fr 1fr;row-gap:12px}
+  .portal-card.lab-card{grid-column:1/-1;grid-row:3}
+  .portal-grid>.panel-access{grid-column:1;grid-row:2;margin-top:0}
 }
 
 @media(max-width:760px){
   .scope-services{grid-template-columns:1fr;gap:10px}
   .scope-services .flowmark{width:52px;height:4px;min-height:4px}
   .portal-grid{grid-template-columns:1fr}
-  .portal-card:last-child{grid-column:auto}
+  .portal-card.primary{grid-column:1;grid-row:1}
+  .portal-grid>.panel-access{grid-column:1;grid-row:2;margin:0 0 12px 22px}
+  .portal-card.client{grid-column:1;grid-row:3}
+  .portal-card.lab-card{grid-column:1;grid-row:4}
 }
 
 @media(max-width:600px){
@@ -408,34 +410,80 @@ button:hover,
         </form>
         <div class="err" role="status">${showError ? "Incorrect password." : ""}</div>
 
-        <div class="panel-access">
-          <span>For portfolio access:</span>
-          <a href="mailto:pedro@rodrigues.de">pedro@rodrigues.de</a>
-        </div>
       </section>
 
-      <section class="portal-card">
+      <div class="panel-access">
+        <span>For portfolio access:</span>
+        <a href="mailto:pedro@rodrigues.de">pedro@rodrigues.de</a>
+      </div>
+
+      <section class="portal-card client">
         <div class="kicker">Client transfer</div>
         <h2>Client Files</h2>
         <p class="card-copy">Download delivered files and upload project material.</p>
         <div class="card-spacer"></div>
 
-        <form class="stack-form" onsubmit="event.preventDefault();var v=this.elements.code.value.trim();if(!v)return;var m=v.match(/\\/files\\/([^/?#]+)|\\/d\\/([^/?#]+)/);var c=(m&&(m[1]||m[2]))||v;location.href='/files/'+encodeURIComponent(c)+'/';">
-          <input type="text" name="code" placeholder="PROJECT CODE" autocomplete="off" aria-label="Project code">
+        <form class="stack-form" id="client-code-form" autocomplete="off" novalidate>
+          <input type="text" name="code" placeholder="PROJECT CODE" autocomplete="off" aria-label="Project code" aria-describedby="client-code-error">
           <button type="submit">Open Files →</button>
         </form>
+        <div class="err" id="client-code-error" role="status" aria-live="polite"></div>
       </section>
 
-      <section class="portal-card">
+      <section class="portal-card lab-card">
         <div class="kicker">Generative work</div>
         <h2>AI Lab</h2>
-        <p class="card-copy">Generative imaging, AI-assisted retouching and experimental workflows.</p>
+        <p class="card-copy">Specialized ComfyUI workflows, local AI and API-based production.</p>
         <div class="card-spacer"></div>
         <a class="card-action" href="/lab/">Enter AI Lab →</a>
       </section>
 
     </div>
   </main>
+
+<script>
+(function(){
+  const form = document.getElementById("client-code-form");
+  const input = form.elements.code;
+  const error = document.getElementById("client-code-error");
+  const button = form.querySelector("button");
+  function getCode(value){
+    let code = value.trim();
+    if (code.includes("/")) {
+      try {
+        const link = new URL(code);
+        if (link.protocol !== "https:" || !["cloud.rodrigues.de", "rodrigues.de", "www.rodrigues.de"].includes(link.hostname)) return "";
+        const parts = link.pathname.split("/").filter(Boolean);
+        if (parts.length !== 2 || !["d", "files"].includes(parts[0])) return "";
+        code = parts[1];
+      } catch (_) { return ""; }
+    }
+    return /^[A-Za-z0-9_-]{16,128}$/.test(code) ? code : "";
+  }
+  input.addEventListener("input", function(){error.textContent = "";});
+  form.addEventListener("submit", async function(event){
+    event.preventDefault();
+    if (button.disabled) return;
+    error.textContent = "";
+    const code = getCode(input.value);
+    if (!code) { error.textContent = "Invalid project code."; return; }
+    button.disabled = true;
+    try {
+      const res = await fetch("/files/" + encodeURIComponent(code) + "/?check=1", {cache:"no-store", credentials:"same-origin"});
+      const result = await res.json();
+      if (res.ok && result.valid === true) {
+        window.location.assign("/files/" + encodeURIComponent(code) + "/");
+        return;
+      }
+      error.textContent = res.status === 404 ? "Project code not found." :
+        res.status === 403 ? "This project still requires a password. Please contact me." :
+        "Unable to verify project code. Please try again.";
+    } catch (_) {
+      error.textContent = "Unable to verify project code. Please try again.";
+    } finally { button.disabled = false; }
+  });
+})();
+</script>
 
   <footer class="bottom">
     <nav class="links" aria-label="Legal">
