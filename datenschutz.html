@@ -8,18 +8,13 @@
 <style>
 @font-face{
   font-family:"Phosphate";
-  src:url("fonts/Phosphate.woff2") format("woff2"),
-      url("fonts/Phosphate.woff") format("woff"),
-      url("fonts/Phosphate.otf") format("opentype");
+  src:local("Phosphate Solid");
   font-display:swap;
 }
 @font-face{
   font-family:"RockwellBold";
-  src:url("fonts/Rockwell-Bold.woff2") format("woff2"),
-      url("fonts/Rockwell-Bold.woff") format("woff"),
-      url("fonts/Rockwell-Bold.otf") format("opentype"),
-      url("fonts/Rockwell-Bold.ttf") format("truetype"),
-      url("fonts/Rockwell.ttc") format("collection");
+  src:local("Rockwell Bold"),
+      url("/fonts/Rockwell.ttc#Rockwell-Bold") format("collection");
   font-weight:700;
   font-display:swap;
 }
@@ -28,7 +23,7 @@
   --fg:#f4f4f2;
   --dim:#a0a09d;
   --line:#242429;
-  --acid:#dfff00;
+  --acid:#ffd800;
   --pad:clamp(18px,4vw,52px);
   --display:"Phosphate","Arial Black",sans-serif;
   --text:"RockwellBold","Courier New",monospace;
@@ -86,9 +81,10 @@ a{color:inherit}
   justify-content:space-between;
 }
 h1{
+  --heading-size:clamp(46px,7vw,104px);
   font-family:var(--display);
   text-transform:uppercase;
-  font-size:clamp(46px,7vw,104px);
+  font-size:var(--heading-size);
   line-height:.82;
   letter-spacing:-.01em;
   margin:0;
@@ -190,6 +186,9 @@ strong{color:var(--fg)}
   .section{grid-template-columns:1fr}
   .tech{grid-template-columns:1fr}
 }
+
+.headline-svg{display:block;width:min(100%,calc(var(--heading-size) * var(--headline-ratio)));height:auto;fill:currentColor}
+.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 </style>
 </head>
 <body>
@@ -199,7 +198,7 @@ strong{color:var(--fg)}
 
 <main class="layout">
   <aside class="intro">
-    <h1>DATEN<br>SCHUTZ</h1>
+    <h1><span class="visually-hidden">DATENSCHUTZ</span><svg class="headline-svg" viewBox="0 0 3281 1720" style="--headline-ratio:3.28100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><g transform="translate(0,760) scale(1,-1)"><path transform="translate(0,0)" d="M35 0V667H220Q314 667 387.5 646.0Q461 625 511.5 583.0Q562 541 588.5 478.5Q615 416 615 334Q615 252 588.5 189.5Q562 127 511.5 85.0Q461 43 387.5 21.5Q314 0 220 0ZM248 190Q323 190 364.0 225.5Q405 261 405 334Q405 407 364.0 442.0Q323 477 248 477Z"/><path transform="translate(635,0)" d="M233 667H393L646 0H436L414 60H212L190 0H-20ZM358 207 313 324 268 207Z"/><path transform="translate(1261,0)" d="M123 492H0V667H466V492H343V0H123Z"/><path transform="translate(1727,0)" d="M35 667H428V492H248V418H425V252H248V175H435V0H35Z"/><path transform="translate(2187,0)" d="M35 667H210L394 410V667H603V0H427L244 256V0H35Z"/></g><g transform="translate(0,1580) scale(1,-1)"><path transform="translate(0,0)" d="M17 207Q39 200 63 196Q83 191 108.5 188.0Q134 185 160 185Q206 185 206 219Q206 232 192.0 245.5Q178 259 156.5 275.5Q135 292 110.5 312.0Q86 332 64.5 358.0Q43 384 29.0 416.5Q15 449 15 491Q15 538 32.0 574.0Q49 610 79.0 634.0Q109 658 149.5 670.5Q190 683 236 683Q260 683 284.0 680.5Q308 678 327 676Q349 673 370 670V483Q362 484 352 485Q344 486 334.0 487.0Q324 488 313 488Q307 488 298.0 487.5Q289 487 281.0 485.0Q273 483 267.0 478.0Q261 473 261 464Q261 456 274.5 444.0Q288 432 307.5 416.0Q327 400 350.5 379.0Q374 358 393.5 331.0Q413 304 426.5 270.0Q440 236 440 194Q440 150 426.0 111.5Q412 73 382.5 44.5Q353 16 307.0 -0.5Q261 -17 198 -17Q160 -17 127.5 -13.5Q95 -10 70 -5Q41 0 17 7Z"/><path transform="translate(450,0)" d="M20 333Q20 413 48.0 477.5Q76 542 124.0 588.0Q172 634 236.0 658.5Q300 683 372 683Q429 683 473.5 672.0Q518 661 550 647Q587 631 614 612L509 427Q493 439 474 450Q457 458 433.5 465.5Q410 473 380 473Q349 473 323.0 462.0Q297 451 277.5 432.0Q258 413 247.0 387.5Q236 362 236 333Q236 304 247.5 278.5Q259 253 279.0 234.0Q299 215 326.0 204.0Q353 193 385 193Q417 193 442.0 201.0Q467 209 484 219Q504 230 519 245L624 60Q597 38 560 21Q528 7 483.0 -5.0Q438 -17 380 -17Q302 -17 236.0 8.5Q170 34 122.0 80.0Q74 126 47.0 190.5Q20 255 20 333Z"/><path transform="translate(1064,0)" d="M35 667H248V440H367V667H581V0H367V247H248V0H35Z"/><path transform="translate(1680,0)" d="M308 -17Q245 -17 194.0 -1.0Q143 15 107.0 47.0Q71 79 51.5 128.0Q32 177 32 243V667H245V252Q245 217 259.5 198.5Q274 180 308 180Q342 180 356.5 198.5Q371 217 371 252V667H585V243Q585 177 565.5 128.0Q546 79 509.5 47.0Q473 15 422.0 -1.0Q371 -17 308 -17Z"/><path transform="translate(2297,0)" d="M123 492H0V667H466V492H343V0H123Z"/><path transform="translate(2763,0)" d="M212 492H28L96 667H523L291 175H510L443 0H-20Z"/></g></svg></h1>
     <a class="back-main" href="/">← Zurück zum Portfolio</a>
     <div class="intro-note">
       Informationen zur Verarbeitung personenbezogener Daten auf dieser Website.

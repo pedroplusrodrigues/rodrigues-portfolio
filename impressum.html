@@ -8,18 +8,13 @@
 <style>
 @font-face{
   font-family:"Phosphate";
-  src:url("fonts/Phosphate.woff2") format("woff2"),
-      url("fonts/Phosphate.woff") format("woff"),
-      url("fonts/Phosphate.otf") format("opentype");
+  src:local("Phosphate Solid");
   font-display:swap;
 }
 @font-face{
   font-family:"RockwellBold";
-  src:url("fonts/Rockwell-Bold.woff2") format("woff2"),
-      url("fonts/Rockwell-Bold.woff") format("woff"),
-      url("fonts/Rockwell-Bold.otf") format("opentype"),
-      url("fonts/Rockwell-Bold.ttf") format("truetype"),
-      url("fonts/Rockwell.ttc") format("collection");
+  src:local("Rockwell Bold"),
+      url("/fonts/Rockwell.ttc#Rockwell-Bold") format("collection");
   font-weight:700;
   font-display:swap;
 }
@@ -28,7 +23,7 @@
   --fg:#f4f4f2;
   --dim:#a0a09d;
   --line:#242429;
-  --acid:#dfff00;
+  --acid:#ffd800;
   --pad:clamp(18px,4vw,52px);
   --display:"Phosphate","Arial Black",sans-serif;
   --text:"RockwellBold","Courier New",monospace;
@@ -64,8 +59,9 @@ a{color:inherit}
   display:flex;flex-direction:column;justify-content:space-between
 }
 h1{
+  --heading-size:clamp(46px,7vw,104px);
   font-family:var(--display);text-transform:uppercase;
-  font-size:clamp(46px,7vw,104px);line-height:.82;
+  font-size:var(--heading-size);line-height:.82;
   letter-spacing:-.01em;margin:0
 }
 .intro-note{
@@ -107,6 +103,9 @@ p{margin:0 0 12px;color:var(--dim);font-size:13px;line-height:1.7;max-width:68ch
   .intro{position:relative;top:0;height:auto;min-height:330px;border-right:0;border-bottom:1px solid var(--line)}
   .section{grid-template-columns:1fr}
 }
+
+.headline-svg{display:block;width:min(100%,calc(var(--heading-size) * var(--headline-ratio)));height:auto;fill:currentColor}
+.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 </style>
 </head>
 <body>
@@ -116,7 +115,7 @@ p{margin:0 0 12px;color:var(--dim);font-size:13px;line-height:1.7;max-width:68ch
 
 <main class="layout">
   <aside class="intro">
-    <h1>IMPRES<br>SUM</h1>
+    <h1><span class="visually-hidden">IMPRESSUM</span><svg class="headline-svg" viewBox="0 0 3127 1720" style="--headline-ratio:3.12700" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><g transform="translate(0,760) scale(1,-1)"><path transform="translate(0,0)" d="M35 667H261V0H35Z"/><path transform="translate(296,0)" d="M35 667H211L385 411L558 667H734V0H521V240L385 40L248 240V0H35Z"/><path transform="translate(1065,0)" d="M554 413Q554 344 530.0 295.5Q506 247 464.5 217.0Q423 187 367.5 173.0Q312 159 248 159V0H35V667H248Q312 667 367.5 653.0Q423 639 464.5 609.0Q506 579 530.0 530.5Q554 482 554 413ZM248 339H257Q299 339 317.5 358.5Q336 378 336 413Q336 448 317.5 467.5Q299 487 257 487H248Z"/><path transform="translate(1634,0)" d="M35 667H265Q329 667 383.5 650.0Q438 633 478.0 600.0Q518 567 540.5 518.5Q563 470 563 407Q563 357 549.0 322.0Q535 287 518 264Q498 238 473 220L598 0H348L248 169V0H35ZM248 339H259Q297 339 323.5 356.0Q350 373 350 413Q350 453 323.5 470.0Q297 487 259 487H248Z"/><path transform="translate(2217,0)" d="M35 667H428V492H248V418H425V252H248V175H435V0H35Z"/><path transform="translate(2677,0)" d="M17 207Q39 200 63 196Q83 191 108.5 188.0Q134 185 160 185Q206 185 206 219Q206 232 192.0 245.5Q178 259 156.5 275.5Q135 292 110.5 312.0Q86 332 64.5 358.0Q43 384 29.0 416.5Q15 449 15 491Q15 538 32.0 574.0Q49 610 79.0 634.0Q109 658 149.5 670.5Q190 683 236 683Q260 683 284.0 680.5Q308 678 327 676Q349 673 370 670V483Q362 484 352 485Q344 486 334.0 487.0Q324 488 313 488Q307 488 298.0 487.5Q289 487 281.0 485.0Q273 483 267.0 478.0Q261 473 261 464Q261 456 274.5 444.0Q288 432 307.5 416.0Q327 400 350.5 379.0Q374 358 393.5 331.0Q413 304 426.5 270.0Q440 236 440 194Q440 150 426.0 111.5Q412 73 382.5 44.5Q353 16 307.0 -0.5Q261 -17 198 -17Q160 -17 127.5 -13.5Q95 -10 70 -5Q41 0 17 7Z"/></g><g transform="translate(0,1580) scale(1,-1)"><path transform="translate(0,0)" d="M17 207Q39 200 63 196Q83 191 108.5 188.0Q134 185 160 185Q206 185 206 219Q206 232 192.0 245.5Q178 259 156.5 275.5Q135 292 110.5 312.0Q86 332 64.5 358.0Q43 384 29.0 416.5Q15 449 15 491Q15 538 32.0 574.0Q49 610 79.0 634.0Q109 658 149.5 670.5Q190 683 236 683Q260 683 284.0 680.5Q308 678 327 676Q349 673 370 670V483Q362 484 352 485Q344 486 334.0 487.0Q324 488 313 488Q307 488 298.0 487.5Q289 487 281.0 485.0Q273 483 267.0 478.0Q261 473 261 464Q261 456 274.5 444.0Q288 432 307.5 416.0Q327 400 350.5 379.0Q374 358 393.5 331.0Q413 304 426.5 270.0Q440 236 440 194Q440 150 426.0 111.5Q412 73 382.5 44.5Q353 16 307.0 -0.5Q261 -17 198 -17Q160 -17 127.5 -13.5Q95 -10 70 -5Q41 0 17 7Z"/><path transform="translate(450,0)" d="M308 -17Q245 -17 194.0 -1.0Q143 15 107.0 47.0Q71 79 51.5 128.0Q32 177 32 243V667H245V252Q245 217 259.5 198.5Q274 180 308 180Q342 180 356.5 198.5Q371 217 371 252V667H585V243Q585 177 565.5 128.0Q546 79 509.5 47.0Q473 15 422.0 -1.0Q371 -17 308 -17Z"/><path transform="translate(1067,0)" d="M35 667H211L385 411L558 667H734V0H521V240L385 40L248 240V0H35Z"/></g></svg></h1>
     <a class="back-main" href="/">← Zurück zum Portfolio</a>
     <div class="intro-note">Anbieterkennzeichnung und Kontaktinformationen.</div>
   </aside>
