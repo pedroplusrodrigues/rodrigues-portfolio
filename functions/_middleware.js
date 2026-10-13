@@ -25,7 +25,6 @@ async function tokenFor(pw) {
 function configuredPasswords(env) {
   const passwords = [];
 
-  // Neue Variante: mehrere benannte Zugangscodes aus SITE_PASSWORDS.
   const raw = env && env.SITE_PASSWORDS;
   if (raw) {
     try {
@@ -33,16 +32,14 @@ function configuredPasswords(env) {
       const values = Array.isArray(parsed)
         ? parsed
         : (parsed && typeof parsed === "object" ? Object.values(parsed) : []);
-
       for (const value of values) {
         if (typeof value === "string" && value.length > 0) passwords.push(value);
       }
     } catch (e) {
-      // Bei fehlerhaftem JSON bleibt der alte SITE_PASSWORD-Fallback nutzbar.
+      // Falsches JSON sperrt nicht aus; der alte SITE_PASSWORD bleibt als Fallback nutzbar.
     }
   }
 
-  // Legacy-Fallback während der Umstellung.
   const legacy = (env && env.SITE_PASSWORD) || HARDCODED_PASSWORD;
   if (legacy) passwords.push(legacy);
 
@@ -50,8 +47,7 @@ function configuredPasswords(env) {
 }
 
 function cookieValue(header, name) {
-  const parts = (header || "").split(";");
-  for (const part of parts) {
+  for (const part of (header || "").split(";")) {
     const item = part.trim();
     if (item.startsWith(name + "=")) return item.slice(name.length + 1);
   }
@@ -65,7 +61,7 @@ function loginPage(showError) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Private Portfolio — Pedro Rodrigues</title>
+<title>Portfolio — Pedro Rodrigues</title>
 <style>
 @font-face{
   font-family:"Phosphate";
@@ -74,179 +70,306 @@ function loginPage(showError) {
       url("/fonts/Phosphate.otf") format("opentype");
   font-display:swap;
 }
+@font-face{
+  font-family:"RockwellBold";
+  src:url("/fonts/Rockwell-Bold.woff2") format("woff2"),
+      url("/fonts/Rockwell-Bold.woff") format("woff"),
+      url("/fonts/Rockwell-Bold.otf") format("opentype"),
+      url("/fonts/Rockwell-Bold.ttf") format("truetype"),
+      url("/fonts/Rockwell.ttc") format("collection");
+  font-weight:700;
+  font-display:swap;
+}
 :root{
   color-scheme:dark;
-  --bg:#08080a;
-  --fg:#f4f4f2;
-  --dim:#8f8f91;
-  --line:#2a2a2f;
-  --yellow:#e8ff00;
+  --black:#0a0a0b;
+  --white:#f4f4ef;
+  --yellow:#ffd800;
+  --line:#2b2b2f;
+  --dim:#a0a0a3;
+  --display:"Phosphate","Arial Black",sans-serif;
+  --rock:"RockwellBold",ui-monospace,"SF Mono",Menlo,Monaco,Consolas,"Courier New",monospace;
 }
 *{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:var(--bg)}
+html,body{margin:0;min-height:100%;background:var(--black)}
 body{
   min-height:100dvh;
-  color:var(--fg);
-  font-family:"Courier New",ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  color:var(--white);
+  font-family:var(--rock);
   -webkit-font-smoothing:antialiased;
 }
 .page{
   min-height:100dvh;
+  padding:10px;
   display:grid;
   grid-template-rows:auto 1fr auto;
-  padding:clamp(18px,3vw,38px);
+  gap:10px;
+  background:var(--black);
 }
-.top{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:20px;
+
+/* same visual language as Chroma Clean */
+.hero{
+  min-height:250px;
+  padding:26px;
+  background:var(--black);
+  color:var(--white);
+  display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(320px,.85fr);
+  gap:34px;
+  align-items:end;
 }
-.name{
-  margin:0;
-  font-family:"Phosphate","Arial Black","Helvetica Neue",Arial,sans-serif;
-  font-size:clamp(28px,4.6vw,62px);
-  font-weight:400;
-  line-height:.86;
-  letter-spacing:-.015em;
+.identity{
+  display:inline-block;
+  font-family:var(--display);
+  font-size:clamp(39px,6.15vw,88px);
+  line-height:.83;
+  letter-spacing:.005em;
   text-transform:uppercase;
 }
-.mark{
-  width:clamp(46px,7vw,88px);
-  height:7px;
-  margin-top:4px;
-  background:var(--yellow);
+.roleline{
+  font-family:var(--rock);
+  font-weight:700;
+  margin-top:12px;
+  font-size:clamp(12px,1.15vw,15px);
+  line-height:1.28;
 }
-.center{
+.copyflow{
+  display:grid;
+  grid-template-columns:minmax(180px,.9fr) 5px minmax(180px,1.1fr);
+  gap:18px;
+  align-items:end;
+  max-width:620px;
+}
+.sourceblock,
+.finishblock{
+  font-family:var(--rock);
+  font-weight:700;
+  display:grid;
+  gap:2px;
+  font-size:clamp(12px,1.15vw,15px);
+  line-height:1.24;
+}
+.flowmark{
+  width:5px;
+  min-height:82px;
+  background:var(--yellow);
+  box-shadow:none;
+}
+.finishblock strong{font-weight:700}
+
+/* login block */
+.access{
+  background:var(--black);
+  color:var(--white);
+  padding:clamp(28px,5vw,58px) 26px;
   display:flex;
   align-items:center;
-  justify-content:center;
-  padding:clamp(42px,8vh,90px) 0;
 }
 .panel{
-  width:min(100%,720px);
+  width:min(100%,760px);
+  margin:0 auto;
 }
 .kicker{
-  margin:0 0 12px;
+  margin:0 0 10px;
   color:var(--yellow);
-  font-size:10px;
-  font-weight:700;
-  letter-spacing:.18em;
+  font-size:9px;
+  line-height:1;
+  letter-spacing:.1em;
   text-transform:uppercase;
 }
 h1{
   margin:0;
-  font-family:"Helvetica Neue",Arial,sans-serif;
-  font-size:clamp(25px,3.2vw,42px);
-  font-weight:800;
-  line-height:.92;
-  letter-spacing:-.045em;
+  font-size:clamp(24px,3vw,40px);
+  line-height:.95;
+  font-family:var(--rock);
   text-transform:uppercase;
 }
 .copy{
-  max-width:none;
-  margin:16px 0 34px;
-  white-space:nowrap;
+  margin:14px 0 30px;
   color:var(--dim);
   font-size:12px;
-  line-height:1.55;
+  line-height:1.5;
 }
-form{margin:0}
 .field{
   display:grid;
   grid-template-columns:1fr auto;
-  border-top:2px solid var(--fg);
-  border-bottom:2px solid var(--fg);
+  gap:10px;
 }
 input{
   min-width:0;
   width:100%;
-  padding:17px 0;
+  padding:15px 16px;
   border:0;
   outline:0;
-  background:transparent;
-  color:var(--fg);
+  background:#151518;
+  color:var(--white);
   font:inherit;
   font-size:14px;
-  letter-spacing:.04em;
 }
-input::placeholder{color:#66666a}
+input::placeholder{color:#6d6d71}
 button{
-  margin:0;
-  padding:0 4px 0 24px;
+  padding:0 14px;
   border:0;
-  background:transparent;
+  background:#151518;
   color:var(--yellow);
   font:inherit;
   font-size:11px;
-  font-weight:700;
-  letter-spacing:.1em;
   text-transform:uppercase;
   cursor:pointer;
   white-space:nowrap;
 }
-button:hover{color:var(--fg)}
+button:hover{color:var(--white)}
 .err{
   min-height:20px;
   padding-top:10px;
-  color:#ff6b6b;
+  color:#ff7474;
   font-size:10px;
-  letter-spacing:.04em;
 }
 .bottom{
+  background:var(--black);
+  color:var(--dim);
+  padding:18px 26px 20px;
   display:flex;
   align-items:flex-end;
-  justify-content:space-between;
+  justify-content:flex-start;
   gap:28px;
-  padding-top:20px;
-  border-top:1px solid var(--line);
-  color:var(--dim);
-  font-size:10px;
+  font-size:9px;
   line-height:1.5;
+  text-transform:uppercase;
+  letter-spacing:.05em;
 }
-.links{
+.links{display:flex;gap:10px 16px;flex-wrap:wrap}
+.bottom a{color:inherit;text-decoration:none}
+.bottom a:hover{color:var(--white)}
+
+@media(max-width:850px){
+  .hero{grid-template-columns:1fr}
+  .copyflow{margin-top:16px}
+}
+@media(max-width:600px){
+  .page{padding:7px;gap:7px}
+  .hero{padding:22px;min-height:0}
+  .copyflow{grid-template-columns:1fr;gap:9px}
+  .flowmark{width:52px;height:4px;min-height:4px}
+  .access{padding:38px 22px}
+  .field{grid-template-columns:1fr}
+  button{padding:14px 16px;text-align:left}
+  .bottom{padding:18px 22px;align-items:flex-start;flex-direction:column}
+  .accessmail{text-align:left}
+}
+
+/* WORKING ACROSS / POST-PRODUCTION — same hierarchy as main site */
+.copyflow{
+  display:grid;
+  grid-template-columns:1fr!important;
+  gap:14px!important;
+  max-width:700px!important;
+}
+.scope-services{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 5px minmax(0,1fr);
+  gap:18px;
+  align-items:stretch;
+}
+.scopeblock,
+.serviceblock{
+  display:grid;
+  gap:7px;
+  align-content:end;
+}
+.copylabel{
+  font-size:9px;
+  line-height:1;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  opacity:.62;
+}
+.copyline{
+  font-size:clamp(12px,1.15vw,15px);
+  line-height:1.42;
+}
+.scope-services .flowmark{
+  width:5px;
+  min-height:86px;
+  background:var(--yellow);
+}
+.claimblock{
+  display:grid;
+  gap:2px;
+  font-size:clamp(12px,1.15vw,15px);
+  line-height:1.24;
+}
+.claimblock strong{font-weight:700}
+@media(max-width:600px){
+  .scope-services{grid-template-columns:1fr;gap:10px}
+  .scope-services .flowmark{
+    width:52px;
+    height:4px;
+    min-height:4px;
+  }
+}
+
+
+/* calmer scope/service copy */
+.copyline{line-height:1.48!important}
+.claimblock{display:block!important}
+
+
+.service-claim{
+  display:grid;
+  gap:2px;
+  margin-top:26px;
+  font-size:clamp(12px,1.15vw,15px);
+  line-height:1.24;
+}
+.service-claim strong{font-weight:700}
+
+
+.panel-access{
+  margin-top:34px;
   display:flex;
   flex-wrap:wrap;
-  gap:9px 16px;
-}
-.bottom a{
+  gap:6px 10px;
+  align-items:baseline;
   color:var(--dim);
+  font-size:9px;
+  line-height:1.5;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+}
+.panel-access a{
+  color:var(--white);
   text-decoration:none;
 }
-.bottom a:hover{color:var(--fg)}
-.access{text-align:right}
-.access a{
-  color:var(--fg);
-  border-bottom:1px solid #45454a;
-}
-.access a:hover{border-color:var(--fg)}
-@media(max-width:600px){
-  .page{padding:18px}
-  .copy{white-space:normal}
-  .center{align-items:center;padding:54px 0}
-  .field{grid-template-columns:1fr}
-  button{
-    padding:0 0 14px;
-    text-align:left;
-  }
-  .bottom{
-    align-items:flex-start;
-    flex-direction:column;
-  }
-  .access{text-align:left}
-}
+.panel-access a:hover{color:var(--yellow)}
+
 </style>
 </head>
 <body>
 <div class="page">
-  <header class="top">
+
+  <header class="hero">
     <div>
-      <div class="name">PEDRO<br>RODRIGUES</div>
+      <div class="identity">PEDRO<br>RODRIGUES</div>
+      <div class="roleline">Freelance Retouch &amp; Compositing Artist</div>
     </div>
-    <div class="mark" aria-hidden="true"></div>
+
+    <div class="copyflow">
+      <div class="scope-services">
+        <div class="scopeblock">
+          <div class="copylabel">Working Across</div>
+          <div class="copyline">Automotive. People. Advertising. Food. Still Life. Beauty. AI.</div>
+        </div>
+        <div class="flowmark" aria-hidden="true"></div>
+        <div class="serviceblock">
+          <div class="copylabel">Post-Production</div>
+          <div class="copyline">High-End Retouch. Compositing. CGI. Generative Workflows.</div>
+</div>
+      </div>
+    </div>
   </header>
 
-  <main class="center">
+  <main class="access">
     <section class="panel">
       <div class="kicker">Private access</div>
       <h1>Portfolio</h1>
@@ -265,6 +388,11 @@ button:hover{color:var(--fg)}
         </div>
         <div class="err" role="status">${showError ? "Incorrect password." : ""}</div>
       </form>
+
+      <div class="panel-access">
+        <span>For portfolio access:</span>
+        <a href="mailto:pedro@rodrigues.de">pedro@rodrigues.de</a>
+      </div>
     </section>
   </main>
 
@@ -274,11 +402,8 @@ button:hover{color:var(--fg)}
       <a href="/datenschutz">Datenschutz</a>
       <a href="mailto:pedro@rodrigues.de">Contact</a>
     </nav>
-    <div class="access">
-      For portfolio access:
-      <a href="mailto:pedro@rodrigues.de">pedro@rodrigues.de</a>
-    </div>
   </footer>
+
 </div>
 </body>
 </html>`;
@@ -288,7 +413,7 @@ export async function onRequest(context) {
   const { request, env, next } = context;
   const url = new URL(request.url);
 
-  // Canonical Domain: www immer auf die Hauptdomain umleiten.
+  // Canonical Domain
   if (url.hostname === "www.rodrigues.de") {
     return Response.redirect(`https://rodrigues.de${url.pathname}${url.search}`, 301);
   }
@@ -303,17 +428,15 @@ export async function onRequest(context) {
 
   const passwords = configuredPasswords(env);
 
-  // Kein Passwort gesetzt -> Seite bleibt offen (kein Aussperren).
+  // Kein Passwort gesetzt -> Seite bleibt offen.
   if (passwords.length === 0) return next();
 
-  // Cookie ist an den konkreten Zugangscode gebunden.
-  // Wird ein Code aus SITE_PASSWORDS entfernt/geändert, ist genau dessen Cookie sofort ungültig.
+  // Der Cookie ist an den konkreten Zugangscode gebunden.
+  // Wird ein Code entfernt/geändert, verliert nur dieser Cookie seine Gültigkeit.
   const validTokens = await Promise.all(passwords.map(tokenFor));
   const currentToken = cookieValue(request.headers.get("Cookie") || "", COOKIE);
 
-  if (currentToken && validTokens.includes(currentToken)) {
-    return next();
-  }
+  if (currentToken && validTokens.includes(currentToken)) return next();
 
   if (request.method === "POST") {
     let pw = "";
@@ -325,7 +448,6 @@ export async function onRequest(context) {
 
     if (matched) {
       const token = await tokenFor(matched);
-
       return new Response(null, {
         status: 302,
         headers: {
