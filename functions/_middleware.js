@@ -1,16 +1,17 @@
 // Passwortschutz für die ganze Seite (Cloudflare Pages Function).
 // Liegt unter  functions/_middleware.js  und läuft automatisch vor jeder Anfrage.
 //
-// Passwort setzen — zwei Wege:
-//  A) EMPFOHLEN: In Cloudflare → dein Pages-Projekt → Settings → Variables and Secrets
-//     eine Variable  SITE_PASSWORD  mit deinem Passwort anlegen, dann neu deployen.
-//  B) EINFACH:   Trag dein Passwort hier direkt ein (in die Anführungszeichen).
-//     Nachteil: es steht dann im Repo.
+// Passwortschutz:
+//  A) EMPFOHLEN: SITE_PASSWORDS als Cloudflare Secret anlegen.
+//     Erwartet JSON, z. B. {"Access-01":"code1","Access-02":"code2"}.
+//     Die Bezeichnungen links sind nur intern; im Login gibt es weiterhin nur EIN Passwortfeld.
+//  B) SITE_PASSWORD bleibt vorerst als Legacy-Fallback unterstützt.
+//  C) Optional kann ein einzelnes Passwort hier hart codiert werden (nicht empfohlen).
 const HARDCODED_PASSWORD = "";
 
 // Diese Pfade sind IMMER ohne Passwort erreichbar (Impressum/Datenschutz müssen öffentlich sein).
 const PUBLIC_PATHS = ["/impressum", "/impressum.html", "/datenschutz", "/datenschutz.html"];
-const PUBLIC_PREFIXES = ["/fonts/", "/files/"];
+const PUBLIC_PREFIXES = ["/fonts/"];
 
 const COOKIE = "site_auth";
 const MAX_AGE = 60 * 60 * 24 * 30; // 30 Tage eingeloggt bleiben
@@ -21,6 +22,42 @@ async function tokenFor(pw) {
   return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
 }
 
+function configuredPasswords(env) {
+  const passwords = [];
+
+  // Neue Variante: mehrere benannte Zugangscodes aus SITE_PASSWORDS.
+  const raw = env && env.SITE_PASSWORDS;
+  if (raw) {
+    try {
+      const parsed = JSON.parse(raw);
+      const values = Array.isArray(parsed)
+        ? parsed
+        : (parsed && typeof parsed === "object" ? Object.values(parsed) : []);
+
+      for (const value of values) {
+        if (typeof value === "string" && value.length > 0) passwords.push(value);
+      }
+    } catch (e) {
+      // Bei fehlerhaftem JSON bleibt der alte SITE_PASSWORD-Fallback nutzbar.
+    }
+  }
+
+  // Legacy-Fallback während der Umstellung.
+  const legacy = (env && env.SITE_PASSWORD) || HARDCODED_PASSWORD;
+  if (legacy) passwords.push(legacy);
+
+  return [...new Set(passwords)];
+}
+
+function cookieValue(header, name) {
+  const parts = (header || "").split(";");
+  for (const part of parts) {
+    const item = part.trim();
+    if (item.startsWith(name + "=")) return item.slice(name.length + 1);
+  }
+  return "";
+}
+
 function loginPage(showError) {
   return `<!DOCTYPE html>
 <html lang="en">
@@ -28,325 +65,188 @@ function loginPage(showError) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Portfolio — Pedro Rodrigues</title>
+<title>Private Portfolio — Pedro Rodrigues</title>
 <style>
 @font-face{
-  font-family:Phosphate;
+  font-family:"Phosphate";
   src:url("/fonts/Phosphate.woff2") format("woff2"),
       url("/fonts/Phosphate.woff") format("woff"),
       url("/fonts/Phosphate.otf") format("opentype");
-  font-weight:400;
-  font-style:normal;
-  font-display:swap;
-}
-@font-face{
-  font-family:"RockwellBold";
-  src:url("/fonts/Rockwell-Bold.woff2") format("woff2"),
-      url("/fonts/Rockwell-Bold.woff") format("woff"),
-      url("/fonts/Rockwell-Bold.otf") format("opentype"),
-      url("/fonts/Rockwell-Bold.ttf") format("truetype"),
-      url("/fonts/Rockwell.ttc") format("collection");
-  font-weight:700;
   font-display:swap;
 }
 :root{
   color-scheme:dark;
-  --black:#0a0a0b;
-  --white:#f4f4ef;
-  --yellow:#ffd800;
-  --line:#2b2b2f;
-  --dim:#a0a0a3;
-  --display:"Phosphate","Arial Black",sans-serif;
-  --rock:"RockwellBold",ui-monospace,"SF Mono",Menlo,Monaco,Consolas,"Courier New",monospace;
+  --bg:#08080a;
+  --fg:#f4f4f2;
+  --dim:#8f8f91;
+  --line:#2a2a2f;
+  --yellow:#e8ff00;
 }
 *{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:var(--black)}
+html,body{margin:0;min-height:100%;background:var(--bg)}
 body{
   min-height:100dvh;
-  color:var(--white);
-  font-family:var(--rock);
+  color:var(--fg);
+  font-family:"Courier New",ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
   -webkit-font-smoothing:antialiased;
 }
 .page{
   min-height:100dvh;
-  padding:10px;
   display:grid;
   grid-template-rows:auto 1fr auto;
-  gap:10px;
-  background:var(--black);
+  padding:clamp(18px,3vw,38px);
 }
-
-/* same visual language as Chroma Clean */
-.hero{
-  min-height:250px;
-  padding:26px;
-  background:var(--black);
-  color:var(--white);
-  display:grid;
-  grid-template-columns:minmax(0,1.15fr) minmax(320px,.85fr);
-  gap:34px;
-  align-items:end;
+.top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:20px;
 }
-.identity{
-  display:inline-block;
-  font-family:var(--display);
-  font-size:clamp(39px,6.15vw,88px);
-  line-height:.83;
-  letter-spacing:.005em;
+.name{
+  margin:0;
+  font-family:"Phosphate","Arial Black","Helvetica Neue",Arial,sans-serif;
+  font-size:clamp(28px,4.6vw,62px);
+  font-weight:400;
+  line-height:.86;
+  letter-spacing:-.015em;
   text-transform:uppercase;
 }
-.roleline{
-  font-family:var(--rock);
-  font-weight:700;
-  margin-top:12px;
-  font-size:clamp(12px,1.15vw,15px);
-  line-height:1.28;
-}
-.copyflow{
-  display:grid;
-  grid-template-columns:minmax(180px,.9fr) 5px minmax(180px,1.1fr);
-  gap:18px;
-  align-items:end;
-  max-width:620px;
-}
-.sourceblock,
-.finishblock{
-  font-family:var(--rock);
-  font-weight:700;
-  display:grid;
-  gap:2px;
-  font-size:clamp(12px,1.15vw,15px);
-  line-height:1.24;
-}
-.flowmark{
-  width:5px;
-  min-height:82px;
+.mark{
+  width:clamp(46px,7vw,88px);
+  height:7px;
+  margin-top:4px;
   background:var(--yellow);
-  box-shadow:none;
 }
-.finishblock strong{font-weight:700}
-
-/* login block */
-.access{
-  background:var(--black);
-  color:var(--white);
-  padding:clamp(28px,5vw,58px) 26px;
+.center{
   display:flex;
   align-items:center;
+  justify-content:center;
+  padding:clamp(42px,8vh,90px) 0;
 }
 .panel{
-  width:min(100%,760px);
-  margin:0 auto;
+  width:min(100%,720px);
 }
 .kicker{
-  margin:0 0 10px;
+  margin:0 0 12px;
   color:var(--yellow);
-  font-size:9px;
-  line-height:1;
-  letter-spacing:.1em;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.18em;
   text-transform:uppercase;
 }
 h1{
   margin:0;
-  font-size:clamp(24px,3vw,40px);
-  line-height:.95;
-  font-family:var(--rock);
+  font-family:"Helvetica Neue",Arial,sans-serif;
+  font-size:clamp(25px,3.2vw,42px);
+  font-weight:800;
+  line-height:.92;
+  letter-spacing:-.045em;
   text-transform:uppercase;
 }
 .copy{
-  margin:14px 0 30px;
+  max-width:none;
+  margin:16px 0 34px;
+  white-space:nowrap;
   color:var(--dim);
   font-size:12px;
-  line-height:1.5;
+  line-height:1.55;
 }
+form{margin:0}
 .field{
   display:grid;
   grid-template-columns:1fr auto;
-  gap:10px;
+  border-top:2px solid var(--fg);
+  border-bottom:2px solid var(--fg);
 }
 input{
   min-width:0;
   width:100%;
-  padding:15px 16px;
+  padding:17px 0;
   border:0;
   outline:0;
-  background:#151518;
-  color:var(--white);
+  background:transparent;
+  color:var(--fg);
   font:inherit;
   font-size:14px;
+  letter-spacing:.04em;
 }
-input::placeholder{color:#6d6d71}
+input::placeholder{color:#66666a}
 button{
-  padding:0 14px;
+  margin:0;
+  padding:0 4px 0 24px;
   border:0;
-  background:#151518;
+  background:transparent;
   color:var(--yellow);
   font:inherit;
   font-size:11px;
+  font-weight:700;
+  letter-spacing:.1em;
   text-transform:uppercase;
   cursor:pointer;
   white-space:nowrap;
 }
-button:hover{color:var(--white)}
+button:hover{color:var(--fg)}
 .err{
   min-height:20px;
   padding-top:10px;
-  color:#ff7474;
+  color:#ff6b6b;
   font-size:10px;
+  letter-spacing:.04em;
 }
 .bottom{
-  background:var(--black);
-  color:var(--dim);
-  padding:18px 26px 20px;
   display:flex;
   align-items:flex-end;
-  justify-content:flex-start;
+  justify-content:space-between;
   gap:28px;
-  font-size:9px;
+  padding-top:20px;
+  border-top:1px solid var(--line);
+  color:var(--dim);
+  font-size:10px;
   line-height:1.5;
-  text-transform:uppercase;
-  letter-spacing:.05em;
 }
-.links{display:flex;gap:10px 16px;flex-wrap:wrap}
-.bottom a{color:inherit;text-decoration:none}
-.bottom a:hover{color:var(--white)}
-
-@media(max-width:850px){
-  .hero{grid-template-columns:1fr}
-  .copyflow{margin-top:16px}
-}
-@media(max-width:600px){
-  .page{padding:7px;gap:7px}
-  .hero{padding:22px;min-height:0}
-  .copyflow{grid-template-columns:1fr;gap:9px}
-  .flowmark{width:52px;height:4px;min-height:4px}
-  .access{padding:38px 22px}
-  .field{grid-template-columns:1fr}
-  button{padding:14px 16px;text-align:left}
-  .bottom{padding:18px 22px;align-items:flex-start;flex-direction:column}
-  .accessmail{text-align:left}
-}
-
-/* WORKING ACROSS / POST-PRODUCTION — same hierarchy as main site */
-.copyflow{
-  display:grid;
-  grid-template-columns:1fr!important;
-  gap:14px!important;
-  max-width:700px!important;
-}
-.scope-services{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) 5px minmax(0,1fr);
-  gap:18px;
-  align-items:stretch;
-}
-.scopeblock,
-.serviceblock{
-  display:grid;
-  gap:7px;
-  align-content:end;
-}
-.copylabel{
-  font-size:9px;
-  line-height:1;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-  opacity:.62;
-}
-.copyline{
-  font-size:clamp(12px,1.15vw,15px);
-  line-height:1.42;
-}
-.scope-services .flowmark{
-  width:5px;
-  min-height:86px;
-  background:var(--yellow);
-}
-@media(max-width:600px){
-  .scope-services{grid-template-columns:1fr;gap:10px}
-  .scope-services .flowmark{
-    width:52px;
-    height:4px;
-    min-height:4px;
-  }
-}
-
-
-/* calmer scope/service copy */
-.copyline{line-height:1.48!important}
-.claimblock{display:block!important}
-
-
-.panel-access{
-  margin-top:34px;
+.links{
   display:flex;
   flex-wrap:wrap;
-  gap:6px 10px;
-  align-items:baseline;
-  color:var(--dim);
-  font-size:9px;
-  line-height:1.5;
-  text-transform:uppercase;
-  letter-spacing:.05em;
+  gap:9px 16px;
 }
-.panel-access a{
-  color:var(--white);
+.bottom a{
+  color:var(--dim);
   text-decoration:none;
 }
-.panel-access a:hover{color:var(--yellow)}
-
-
-
-/* fixed two-line Post-Production rhythm */
-.service-lines{
-  display:grid;
-  gap:2px;
+.bottom a:hover{color:var(--fg)}
+.access{text-align:right}
+.access a{
+  color:var(--fg);
+  border-bottom:1px solid #45454a;
 }
-.service-lines span{
-  display:block;
+.access a:hover{border-color:var(--fg)}
+@media(max-width:600px){
+  .page{padding:18px}
+  .copy{white-space:normal}
+  .center{align-items:center;padding:54px 0}
+  .field{grid-template-columns:1fr}
+  button{
+    padding:0 0 14px;
+    text-align:left;
+  }
+  .bottom{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+  .access{text-align:left}
 }
-
-
-/* identical two-line Post-Production layout on main site and portfolio access page */
-.service-lines{
-  display:grid!important;
-  gap:2px!important;
-  line-height:1.42!important;
-}
-.service-lines span{
-  display:block!important;
-}
-
 </style>
 </head>
 <body>
 <div class="page">
-
-  <header class="hero">
+  <header class="top">
     <div>
-      <div class="identity">PEDRO<br>RODRIGUES</div>
-      <div class="roleline">Freelance Retouch &amp; Compositing Artist</div>
+      <div class="name">PEDRO<br>RODRIGUES</div>
     </div>
-
-    <div class="copyflow">
-      <div class="scope-services">
-        <div class="scopeblock">
-          <div class="copylabel">Working Across</div>
-          <div class="copyline">Automotive. People. Advertising. Food. Still Life. Beauty. AI.</div>
-        </div>
-        <div class="flowmark" aria-hidden="true"></div>
-        <div class="serviceblock">
-          <div class="copylabel">Post-Production</div>
-          <div class="copyline service-lines">
-  <span>High-End Retouch. Compositing. CGI.</span>
-  <span>Generative Workflows.</span>
-</div>
-        </div>
-      </div>
-    </div>
+    <div class="mark" aria-hidden="true"></div>
   </header>
 
-  <main class="access">
+  <main class="center">
     <section class="panel">
       <div class="kicker">Private access</div>
       <h1>Portfolio</h1>
@@ -365,11 +265,6 @@ button:hover{color:var(--white)}
         </div>
         <div class="err" role="status">${showError ? "Incorrect password." : ""}</div>
       </form>
-
-      <div class="panel-access">
-        <span>For portfolio access:</span>
-        <a href="mailto:pedro@rodrigues.de">pedro@rodrigues.de</a>
-      </div>
     </section>
   </main>
 
@@ -379,8 +274,11 @@ button:hover{color:var(--white)}
       <a href="/datenschutz">Datenschutz</a>
       <a href="mailto:pedro@rodrigues.de">Contact</a>
     </nav>
+    <div class="access">
+      For portfolio access:
+      <a href="mailto:pedro@rodrigues.de">pedro@rodrigues.de</a>
+    </div>
   </footer>
-
 </div>
 </body>
 </html>`;
@@ -390,38 +288,61 @@ export async function onRequest(context) {
   const { request, env, next } = context;
   const url = new URL(request.url);
 
-  // www immer auf die Hauptdomain umleiten.
+  // Canonical Domain: www immer auf die Hauptdomain umleiten.
   if (url.hostname === "www.rodrigues.de") {
     return Response.redirect(`https://rodrigues.de${url.pathname}${url.search}`, 301);
   }
 
-  // Impressum/Datenschutz immer öffentlich
-  if (PUBLIC_PATHS.includes(url.pathname) || PUBLIC_PREFIXES.some(prefix => url.pathname.startsWith(prefix))) return next();
+  // Impressum/Datenschutz und Fonts immer öffentlich.
+  if (
+    PUBLIC_PATHS.includes(url.pathname) ||
+    PUBLIC_PREFIXES.some(prefix => url.pathname.startsWith(prefix))
+  ) {
+    return next();
+  }
 
-  const PASSWORD = (env && env.SITE_PASSWORD) || HARDCODED_PASSWORD;
+  const passwords = configuredPasswords(env);
 
   // Kein Passwort gesetzt -> Seite bleibt offen (kein Aussperren).
-  if (!PASSWORD) return next();
+  if (passwords.length === 0) return next();
 
-  const expected = await tokenFor(PASSWORD);
-  const cookie = request.headers.get("Cookie") || "";
-  const authed = cookie.split(";").some(c => c.trim() === COOKIE + "=" + expected);
-  if (authed) return next();
+  // Cookie ist an den konkreten Zugangscode gebunden.
+  // Wird ein Code aus SITE_PASSWORDS entfernt/geändert, ist genau dessen Cookie sofort ungültig.
+  const validTokens = await Promise.all(passwords.map(tokenFor));
+  const currentToken = cookieValue(request.headers.get("Cookie") || "", COOKIE);
+
+  if (currentToken && validTokens.includes(currentToken)) {
+    return next();
+  }
 
   if (request.method === "POST") {
     let pw = "";
-    try { pw = (await request.formData()).get("password") || ""; } catch (e) {}
-    if (pw === PASSWORD) {
+    try {
+      pw = (await request.formData()).get("password") || "";
+    } catch (e) {}
+
+    const matched = passwords.find(candidate => candidate === pw);
+
+    if (matched) {
+      const token = await tokenFor(matched);
+
       return new Response(null, {
         status: 302,
         headers: {
-          "Location": url.pathname,
-          "Set-Cookie": `${COOKIE}=${expected}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${MAX_AGE}`
+          "Location": url.pathname + url.search,
+          "Set-Cookie": `${COOKIE}=${token}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${MAX_AGE}`
         }
       });
     }
-    return new Response(loginPage(true), { status: 401, headers: { "Content-Type": "text/html; charset=utf-8" } });
+
+    return new Response(loginPage(true), {
+      status: 401,
+      headers: { "Content-Type": "text/html; charset=utf-8" }
+    });
   }
 
-  return new Response(loginPage(false), { status: 401, headers: { "Content-Type": "text/html; charset=utf-8" } });
+  return new Response(loginPage(false), {
+    status: 401,
+    headers: { "Content-Type": "text/html; charset=utf-8" }
+  });
 }
