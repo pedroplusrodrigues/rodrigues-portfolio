@@ -501,9 +501,10 @@ button:hover,
 </html>`;
 }
 
-// Adds a small, always-available route back to the three-card overview.
-// Uses Cloudflare's streaming HTMLRewriter so the existing portfolio and
-// AI Production HTML files do not need to be replaced or reserialized.
+// Adds an always-available typographic link back to the three-card overview.
+// SVG paths use the same Phosphate Solid shapes as the category headings.
+// Inserted by HTMLRewriter, then positioned under the existing roleline;
+// this also works when the portfolio renders the roleline dynamically.
 function addOverviewNavigation(response, fixLabBackLink = false) {
   if (!response || !response.ok ||
       !(response.headers.get("Content-Type") || "").toLowerCase().includes("text/html")) {
@@ -512,26 +513,58 @@ function addOverviewNavigation(response, fixLabBackLink = false) {
 
   const navMarkup = `<style id="pr-overview-style">
     #pr-overview-link {
-      position:fixed; top:16px; right:18px; z-index:9000;
-      display:inline-flex; align-items:center; justify-content:center;
-      box-sizing:border-box; padding:12px 14px;
-      border:1px solid #44444a; background:#151518;
-      color:#ffd800; text-decoration:none;
-      font-family:Georgia,serif; font-size:11px; font-weight:700;
-      letter-spacing:.045em; line-height:1.1; text-transform:uppercase;
-      box-shadow:0 2px 12px rgba(0,0,0,.3);
+      box-sizing:border-box; display:inline-flex; align-items:center;
+      max-width:calc(100vw - 44px);
+      padding:4px 0 7px; border:0; background:transparent;
+      color:#ff4db8; text-decoration:none; line-height:1;
+      transition:color 160ms ease;
+      visibility:hidden;
     }
-    #pr-overview-link:hover, #pr-overview-link:focus-visible {color:#f4f4ef; border-color:#ffd800;}
-    @media (max-width:700px) {
-      #pr-overview-link {top:auto; bottom:14px; right:14px; padding:11px 13px;}
+    #pr-overview-link.pr-under-logo {
+      display:flex; width:max-content; max-width:100%;
+      margin-top:18px; visibility:visible;
     }
-  </style><a id="pr-overview-link" href="/access/" aria-label="Back to the main overview">← HOME / OVERVIEW</a>`;
+    #pr-overview-link .pr-overview-mark {
+      display:block; width:auto; height:36px;
+      max-width:100%; fill:currentColor;
+    }
+    #pr-overview-link:hover, #pr-overview-link:focus-visible { color:#ffd800; }
+    #pr-overview-link:focus-visible {outline:2px solid currentColor;outline-offset:5px;}
+    /* Accessible fallback if a page template has no roleline. */
+    #pr-overview-link.pr-fallback {
+      position:fixed; left:20px; top:20px; z-index:9000;
+      visibility:visible; padding:12px;
+      background:#0a0a0b;
+    }
+    @media (max-width:600px) {
+      #pr-overview-link.pr-under-logo {margin-top:16px;}
+      #pr-overview-link .pr-overview-mark {height:29px;}
+    }
+  </style><a id="pr-overview-link" href="/access/" aria-label="Back to overview"><svg class="pr-overview-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5491 740" aria-hidden="true" focusable="false"><g transform="translate(0 700) scale(1 -1)" fill="currentColor"><path d="M680 305H211L396 119L317 39L2 356L317 672L396 593L211 408H680Z"/><path transform="translate(750 0)" d="M20 333Q20 405 47.5 469.0Q75 533 122.5 580.5Q170 628 234.0 655.5Q298 683 370 683Q442 683 506.0 655.5Q570 628 617.5 580.5Q665 533 692.5 469.0Q720 405 720 333Q720 261 692.5 197.0Q665 133 617.5 85.5Q570 38 506.0 10.5Q442 -17 370 -17Q298 -17 234.0 10.5Q170 38 122.5 85.5Q75 133 47.5 197.0Q20 261 20 333ZM230 333Q230 304 241.0 278.5Q252 253 271.0 234.0Q290 215 315.5 204.0Q341 193 370 193Q399 193 424.5 204.0Q450 215 469.0 234.0Q488 253 499.0 278.5Q510 304 510 333Q510 362 499.0 387.5Q488 413 469.0 432.0Q450 451 424.5 462.0Q399 473 370 473Q341 473 315.5 462.0Q290 451 271.0 432.0Q252 413 241.0 387.5Q230 362 230 333Z"/><path transform="translate(1490 0)" d="M213 667 326 377 440 667H673L413 0H240L-20 667Z"/><path transform="translate(2143 0)" d="M35 667H428V492H248V418H425V252H248V175H435V0H35Z"/><path transform="translate(2603 0)" d="M35 667H265Q329 667 383.5 650.0Q438 633 478.0 600.0Q518 567 540.5 518.5Q563 470 563 407Q563 357 549.0 322.0Q535 287 518 264Q498 238 473 220L598 0H348L248 169V0H35ZM248 339H259Q297 339 323.5 356.0Q350 373 350 413Q350 453 323.5 470.0Q297 487 259 487H248Z"/><path transform="translate(3186 0)" d="M213 667 326 377 440 667H673L413 0H240L-20 667Z"/><path transform="translate(3839 0)" d="M35 667H261V0H35Z"/><path transform="translate(4135 0)" d="M35 667H428V492H248V418H425V252H248V175H435V0H35Z"/><path transform="translate(4595 0)" d="M-20 667H206L283 434L360 667H506L583 434L660 667H886L666 0H500L433 202L366 0H200Z"/></g></svg></a>
+  <script id="pr-overview-position">
+  (function () {
+    const nav = document.getElementById('pr-overview-link');
+    if (!nav) return;
+    function moveUnderLogo() {
+      const role = document.querySelector('.identity + .roleline') || document.querySelector('.roleline');
+      if (!role) return;
+      if (role.nextElementSibling !== nav) role.insertAdjacentElement('afterend', nav);
+      nav.classList.remove('pr-fallback');
+      nav.classList.add('pr-under-logo');
+    }
+    moveUnderLogo();
+    // Portfolio pages may rebuild their header after initial load.
+    new MutationObserver(moveUnderLogo).observe(document.body, {childList:true, subtree:true});
+    setTimeout(function () {
+      if (!nav.classList.contains('pr-under-logo')) nav.classList.add('pr-fallback');
+    }, 1200);
+  })();
+  </script>`;
 
   let rewriter = new HTMLRewriter().on("body", {
     element(element) { element.append(navMarkup, { html: true }); }
   });
-  // The existing AI Production footer/back link must not return to the
-  // authenticated portfolio by accident.
+  // Preserve the AI Production footer/back-link correction.
   if (fixLabBackLink) {
     rewriter = rewriter.on('a.back[href="/"]', {
       element(element) { element.setAttribute("href", "/access/"); }
