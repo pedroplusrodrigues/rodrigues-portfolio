@@ -54,7 +54,21 @@ function cookieValue(header, name) {
   return "";
 }
 
-function loginPage(showError) {
+function loginPage(showError, portfolioUnlocked = false) {
+  // The overview can be opened while authenticated. Keep portfolio access
+  // simple in that case, but retain the original password form otherwise.
+  const portfolioAction = portfolioUnlocked
+    ? '<a class="card-action" href="/">Enter Portfolio →</a>'
+    : `<form method="POST" action="/" autocomplete="off" class="stack-form">
+          <input
+            type="password"
+            name="password"
+            placeholder="PASSWORD"
+            autofocus
+            autocomplete="current-password"
+            aria-label="Password">
+          <button type="submit">Enter Portfolio →</button>
+        </form>`;
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -405,16 +419,7 @@ button:hover,
         <p class="card-copy">Selected commercial work is password protected.</p>
         <div class="card-spacer"></div>
 
-        <form method="POST" autocomplete="off" class="stack-form">
-          <input
-            type="password"
-            name="password"
-            placeholder="PASSWORD"
-            autofocus
-            autocomplete="current-password"
-            aria-label="Password">
-          <button type="submit">Enter Portfolio →</button>
-        </form>
+        ${portfolioAction}
         <div class="err" role="status">${showError ? "Incorrect password." : ""}</div>
 
       </section>
@@ -496,6 +501,45 @@ button:hover,
 </html>`;
 }
 
+// Adds a small, always-available route back to the three-card overview.
+// Uses Cloudflare's streaming HTMLRewriter so the existing portfolio and
+// AI Production HTML files do not need to be replaced or reserialized.
+function addOverviewNavigation(response, fixLabBackLink = false) {
+  if (!response || !response.ok ||
+      !(response.headers.get("Content-Type") || "").toLowerCase().includes("text/html")) {
+    return response;
+  }
+
+  const navMarkup = `<style id="pr-overview-style">
+    #pr-overview-link {
+      position:fixed; top:16px; right:18px; z-index:9000;
+      display:inline-flex; align-items:center; justify-content:center;
+      box-sizing:border-box; padding:12px 14px;
+      border:1px solid #44444a; background:#151518;
+      color:#ffd800; text-decoration:none;
+      font-family:Georgia,serif; font-size:11px; font-weight:700;
+      letter-spacing:.045em; line-height:1.1; text-transform:uppercase;
+      box-shadow:0 2px 12px rgba(0,0,0,.3);
+    }
+    #pr-overview-link:hover, #pr-overview-link:focus-visible {color:#f4f4ef; border-color:#ffd800;}
+    @media (max-width:700px) {
+      #pr-overview-link {top:auto; bottom:14px; right:14px; padding:11px 13px;}
+    }
+  </style><a id="pr-overview-link" href="/access/" aria-label="Back to the main overview">← HOME / OVERVIEW</a>`;
+
+  let rewriter = new HTMLRewriter().on("body", {
+    element(element) { element.append(navMarkup, { html: true }); }
+  });
+  // The existing AI Production footer/back link must not return to the
+  // authenticated portfolio by accident.
+  if (fixLabBackLink) {
+    rewriter = rewriter.on('a.back[href="/"]', {
+      element(element) { element.setAttribute("href", "/access/"); }
+    });
+  }
+  return rewriter.transform(response);
+}
+
 export async function onRequest(context) {
   const { request, env, next } = context;
   const url = new URL(request.url);
@@ -505,25 +549,57 @@ export async function onRequest(context) {
     return Response.redirect(`https://rodrigues.de${url.pathname}${url.search}`, 301);
   }
 
-  // Impressum/Datenschutz und Fonts immer öffentlich.
+  // Independent, permanent access overview; NEVER serves the portfolio itself.
+  if (url.pathname === "/access") {
+    return Response.redirect(`${url.origin}/access/`, 308);
+  }
+  if (url.pathname === "/access/") {
+    if (request.method !== "GET" && request.method !== "HEAD") {
+      return new Response("Method Not Allowed", { status: 405, headers: { Allow: "GET, HEAD" } });
+    }
+    const passwords = configuredPasswords(env);
+    const validTokens = await Promise.all(passwords.map(tokenFor));
+    const currentToken = cookieValue(request.headers.get("Cookie") || "", COOKIE);
+    const unlocked = passwords.length === 0 || (currentToken && validTokens.includes(currentToken));
+    return new Response(request.method === "HEAD" ? null : loginPage(false, Boolean(unlocked)), {
+      status: 200,
+      headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" }
+    });
+  }
+
+  // Public pages remain public, and AI Production gets a route back to the overview.
   if (
     PUBLIC_PATHS.includes(url.pathname) ||
     PUBLIC_PREFIXES.some(prefix => url.pathname.startsWith(prefix))
   ) {
-    return next();
+    const response = await next();
+    if (request.method === "GET" &&
+        (url.pathname === "/lab" || url.pathname === "/lab/" || url.pathname === "/lab/index.html")) {
+      return addOverviewNavigation(response, true);
+    }
+    return response;
   }
 
   const passwords = configuredPasswords(env);
 
-  // Kein Passwort gesetzt -> Seite bleibt offen.
-  if (passwords.length === 0) return next();
+  // If the portfolio is unprotected, navigation still works.
+  if (passwords.length === 0) {
+    const response = await next();
+    return request.method === "GET" && (url.pathname === "/" || url.pathname === "/index.html")
+      ? addOverviewNavigation(response)
+      : response;
+  }
 
-  // Der Cookie ist an den konkreten Zugangscode gebunden.
-  // Wird ein Code entfernt/geändert, verliert nur dieser Cookie seine Gültigkeit.
+  // Existing 30-day, multi-password cookie validation is unchanged.
   const validTokens = await Promise.all(passwords.map(tokenFor));
   const currentToken = cookieValue(request.headers.get("Cookie") || "", COOKIE);
 
-  if (currentToken && validTokens.includes(currentToken)) return next();
+  if (currentToken && validTokens.includes(currentToken)) {
+    const response = await next();
+    return request.method === "GET" && (url.pathname === "/" || url.pathname === "/index.html")
+      ? addOverviewNavigation(response)
+      : response;
+  }
 
   if (request.method === "POST") {
     let pw = "";
