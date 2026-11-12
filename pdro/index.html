@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#dededc">
+  <meta name="description" content="PDRO. – Fotografie und digitale Bildproduktion für Unternehmen. Echte Maschinen, Menschen und Produkte. Neu inszeniert.">
+  <title>PDRO. — Bilder, die mehr zeigen.</title>
+  <style>
+    :root{--ink:#171717;--paper:#dededc;--paper2:#f5f4ef;--pink:#eba3cf;--yellow:#f9b839;--red:#ff564b;--green:#a1bfa9;--purple:#b2a3ea;--pad:clamp(18px,2.3vw,42px)}
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:70px}
+    body{margin:0;color:var(--ink);background:var(--paper2);font-family:Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
+    img{max-width:100%;display:block}
+    button,a{font:inherit}
+    a{color:inherit;text-decoration:none}
+    button{cursor:pointer}
+    ::selection{background:var(--pink);color:var(--ink)}
+    .skip{position:absolute;transform:translateY(-200%);left:1rem;top:1rem;background:white;padding:12px;z-index:40}
+    .skip:focus{transform:none}
+    .topbar{position:fixed;z-index:100;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;pointer-events:none;padding:clamp(18px,2.2vw,34px) var(--pad)}
+    .brand{pointer-events:auto;display:block;font-size:clamp(23px,2.1vw,35px);font-weight:750;letter-spacing:-.095em;line-height:1}
+    .menu-toggle{pointer-events:auto;width:47px;height:47px;border:0;border-radius:0;color:#fff;background:#161616;display:grid;place-items:center;transition:transform .25s,background .25s}
+    .menu-toggle:hover{transform:rotate(90deg);background:#333}
+    .menu-toggle svg{width:21px;height:21px;transition:transform .3s}
+    .menu-toggle[aria-expanded="true"] svg{transform:rotate(45deg)}
+    .menu-panel{position:fixed;inset:0;z-index:90;background:var(--yellow);padding:clamp(95px,12vw,190px) var(--pad) 35px;display:flex;flex-direction:column;justify-content:space-between;visibility:hidden;opacity:0;transform:translateY(-18px);transition:opacity .35s,transform .35s,visibility .35s}
+    .menu-panel.open{visibility:visible;opacity:1;transform:translateY(0)}
+    .menu-panel a{display:block;width:max-content;max-width:100%;font-weight:400;font-size:clamp(55px,9vw,140px);line-height:.98;letter-spacing:-.075em}
+    .menu-panel a:hover{text-decoration:underline;text-decoration-thickness:4px;text-underline-offset:9px}
+    .menu-panel p{font-size:15px;margin:0}
+    body.menu-open{overflow:hidden}
+
+    /* Oversized type + almost flat grey canvas inspired by THE1's visual rhythm */
+    .hero{background:var(--paper);min-height:760px;height:calc(100svh - 86px);max-height:1100px;position:relative;overflow:hidden;padding:clamp(105px,10vw,155px) var(--pad) 35px}
+    .hero-wordmark{font-size:clamp(78px,11.8vw,204px);line-height:.82;letter-spacing:-.086em;font-weight:400;white-space:nowrap;margin:0}
+    .hero-wordmark .line{display:block}
+    .hero-wordmark .second{text-align:right;padding-right:5.8vw}
+    .hero-wordmark .third{text-align:right;color:#191919;padding-right:5.8vw}
+    .hero-wordmark .word{display:inline-block;transition:opacity .2s,transform .2s}
+    .hero-wordmark .word.swap{opacity:0;transform:translateY(15px)}
+    .hero-bottom{position:absolute;bottom:38px;right:var(--pad);width:clamp(270px,28vw,420px);display:grid;grid-template-columns:1fr;gap:20px}
+    .hero-bottom p{font-size:clamp(15px,1.13vw,19px);line-height:1.27;letter-spacing:-.025em;margin:0}
+    .mini{font-size:12px!important;line-height:1.2!important;letter-spacing:-.005em!important;text-transform:none}
+    .pill{background:#171717;border:0;color:white;padding:8px 14px;font-size:13px;display:inline-flex;gap:22px;align-items:center;width:max-content;border-radius:0;transition:background .25s,transform .25s}
+    .pill:hover{background:#353535;transform:translateX(3px)}
+    .hero-scroll{position:absolute;bottom:40px;left:var(--pad);font-size:11px;letter-spacing:.04em;text-transform:uppercase}
+    .hero-scroll span{display:inline-block;transform:translateY(2px);margin-right:5px}
+
+    .feature{background:var(--paper);padding-bottom:60px}
+    .feature-track{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;padding:0 var(--pad)}
+    .feature-card{position:relative;overflow:hidden;aspect-ratio:.74;background:var(--pink);display:flex;flex-direction:column;justify-content:flex-end;transition:filter .25s}
+    .feature-card:hover{filter:saturate(1.25)}
+    .feature-card:nth-child(2){background:var(--yellow)}
+    .feature-card:nth-child(3){background:var(--red)}
+    .feature-card:nth-child(4){background:var(--green)}
+    .feature-card .cat{position:absolute;left:17px;top:18px;z-index:2;font-size:13px;font-weight:500}
+    .feature-card .num{position:absolute;right:17px;top:18px;z-index:2;font-size:12px}
+    .feature-card img{width:100%;height:71%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.7,.2,1);object-position:center}
+    .feature-card:hover img{transform:scale(1.06)}
+    .feature-caption{display:flex;justify-content:space-between;gap:20px;padding:19px var(--pad) 0;font-size:13px}
+
+    .section{padding:clamp(85px,12vw,190px) var(--pad)}
+    .eyebrow{font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin:0 0 20px}
+    .section-title{font-size:clamp(68px,11.2vw,200px);line-height:.86;letter-spacing:-.085em;font-weight:400;margin:0}
+    .intro{background:var(--paper2)}
+    .intro-head{max-width:1550px}
+    .intro-head .dot{color:var(--red)}
+    .intro-foot{display:grid;grid-template-columns:1.2fr .7fr;gap:clamp(40px,7vw,130px);align-items:end;margin-top:65px}
+    .intro-foot p{font-size:clamp(20px,2.25vw,34px);line-height:1.18;letter-spacing:-.045em;margin:0}
+    .intro-foot .aside{font-size:15px;line-height:1.4;letter-spacing:-.01em}
+
+    .work{background:var(--pink)}
+    .work .section-title{font-size:clamp(68px,10.5vw,175px)}
+    .case{margin-top:clamp(75px,8vw,140px)}
+    .case-top{display:flex;justify-content:space-between;align-items:baseline;gap:30px;margin-bottom:20px}
+    .case-title{font-size:clamp(36px,5vw,80px);font-weight:400;letter-spacing:-.065em;line-height:1;margin:0}
+    .case-top span{font-size:13px;white-space:nowrap}
+    .pair{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+    .pair figure{margin:0;background:#d6d6d3}
+    .pair figure.result{background:#ebbdc7}
+    .pair img{width:100%;height:clamp(230px,35vw,650px);object-fit:cover}
+    .pair figcaption{padding:15px 17px 16px;display:flex;align-items:center;justify-content:space-between;font-size:13px;gap:10px}
+    .case-description{display:flex;justify-content:space-between;gap:30px;margin-top:16px;font-size:15px;line-height:1.4}
+    .case-description p{max-width:500px;margin:0}
+    .work .note{max-width:580px;font-size:12px;line-height:1.5;margin-top:65px;opacity:.75}
+
+    .break{background:var(--yellow);padding:clamp(80px,12vw,180px) var(--pad);min-height:580px;display:flex;flex-direction:column;justify-content:space-between;gap:65px}
+    .break .section-title{max-width:1400px}
+    .break .small-foot{display:flex;justify-content:flex-end}
+    .break .small-foot p{max-width:350px;font-size:21px;line-height:1.17;letter-spacing:-.03em;margin:0}
+
+    .services{background:var(--paper2)}
+    .services .section-title{font-size:clamp(75px,11.5vw,190px)}
+    .services-grid{display:grid;grid-template-columns:repeat(3,1fr);margin-top:90px;gap:12px}
+    .service{padding:28px;aspect-ratio:.91;display:flex;flex-direction:column;justify-content:space-between;background:var(--green)}
+    .service:nth-child(2){background:var(--red)}
+    .service:nth-child(3){background:var(--purple)}
+    .service .n{font-size:12px}
+    .service h3{font-size:clamp(31px,3.5vw,56px);font-weight:400;line-height:.94;letter-spacing:-.06em;margin:0 0 12px}
+    .service p{max-width:280px;font-size:15px;line-height:1.3;margin:0}
+
+    .contact{background:#191919;color:#f3f3f1;min-height:85svh;padding:clamp(100px,9vw,145px) var(--pad) 40px;display:flex;flex-direction:column;justify-content:space-between;gap:60px}
+    .contact .section-title{max-width:1500px;font-size:clamp(82px,13vw,210px)}
+    .contact-bottom{display:flex;justify-content:space-between;gap:30px;align-items:end}
+    .contact-bottom p{font-size:17px;line-height:1.3;margin:0;max-width:370px}
+    .contact-link{background:var(--yellow);color:#191919;display:inline-flex;align-items:center;justify-content:space-between;gap:70px;padding:21px 22px;font-size:19px;min-width:280px}
+    .contact-link:hover{background:var(--pink)}
+    footer{background:#191919;color:#ccc;padding:20px var(--pad) 25px;border-top:1px solid #555;display:flex;justify-content:space-between;gap:20px;font-size:12px}
+    footer a{text-decoration:underline;text-underline-offset:3px}
+    .reveal{opacity:0;transform:translateY(32px);transition:opacity .65s ease,transform .65s ease}
+    .reveal.visible{opacity:1;transform:none}
+/* Scroll-driven immersive picture sequence — original PDRO design study */
+.scroll-sequence{height:600svh;position:relative;background:#121212}
+.scroll-stage{position:sticky;top:0;height:100svh;min-height:480px;overflow:hidden;background:#121212;color:white;isolation:isolate}
+.scroll-frame{position:absolute;inset:0;opacity:0;transition:opacity .62s ease;will-change:opacity;z-index:0}
+.scroll-frame.active{opacity:1;z-index:1}
+.scroll-frame img{width:100%;height:100%;object-fit:cover;object-position:center;transform:scale(1.04);will-change:transform}
+.scroll-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.14) 0%,transparent 22%,rgba(0,0,0,.04) 42%,rgba(0,0,0,.65) 100%)}
+.scroll-ui{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(105px,10vw,145px) var(--pad) clamp(34px,5vw,70px);pointer-events:none}
+.scroll-counter{font-size:15px;font-weight:600;letter-spacing:.06em;display:flex;align-items:center;gap:15px}
+.scroll-counter #sequence-counter{font-size:clamp(40px,5vw,76px);line-height:1;letter-spacing:-.07em}
+.scroll-hint{margin-left:auto;font-size:12px;font-weight:400;letter-spacing:0}
+.scroll-eyebrow{font-size:13px;font-weight:600;letter-spacing:.07em;margin:0 0 15px}
+.scroll-headline{font-weight:500;font-size:clamp(56px,12.8vw,208px);line-height:.79;letter-spacing:-.085em;margin:0 0 25px;max-width:90vw}
+.scroll-bottomline{font-size:13px;margin:0;color:#f1f1f1}
+.scroll-progress{position:absolute;bottom:0;left:0;right:0;height:7px;background:rgba(255,255,255,.3)}
+.scroll-progress span{display:block;width:16.67%;height:100%;background:#f6b53a;transition:width .2s linear}
+.scroll-markers{margin-top:-100svh;position:relative;z-index:2;pointer-events:none}
+.scroll-marker{height:100svh;min-height:480px}
+.detail-strip{background:#f5f4ef;padding:40px var(--pad) 100px}
+.detail-caption{font-size:12px;display:flex;justify-content:space-between;gap:30px;border-top:1px solid #171717;padding:14px 0 25px}
+.detail-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:13px}
+.detail-tile{position:relative;margin:0;height:clamp(220px,35vw,530px);overflow:hidden;background:#eee}
+.detail-tile img{height:100%;width:100%;object-fit:cover;transition:transform .75s ease}
+.detail-tile:hover img{transform:scale(1.045)}
+.detail-tile figcaption{position:absolute;bottom:0;left:0;background:#f4f3ed;padding:14px 17px;font-size:12px;font-weight:600}
+.pricing{background:#efeeea;padding:clamp(100px,12vw,180px) var(--pad) clamp(60px,7vw,110px)}
+.pricing .section-title{font-size:clamp(58px,10.8vw,170px)}
+.pricing-intro{margin:45px 0 70px;font-size:clamp(17px,2vw,27px);line-height:1.25;letter-spacing:-.025em}
+.pricing-row{display:grid;grid-template-columns:1fr 1.3fr 1.15fr 38px;align-items:center;gap:10px;background:#f9b839;padding:25px clamp(18px,2.5vw,40px);border-top:1px solid #171717;min-height:210px}
+.pricing-row:nth-child(2){background:#eba3cf}
+.pricing-row:nth-child(3){background:#a1bfa9;border-bottom:1px solid #171717}
+.pricing-index{align-self:start;font-size:13px}
+.pricing-count{display:flex;flex-direction:column;gap:5px}
+.pricing-count strong{font-size:clamp(80px,9vw,160px);font-weight:500;letter-spacing:-.09em;line-height:.85}
+.pricing-count span{font-size:clamp(18px,2.4vw,32px);letter-spacing:-.05em}
+.pricing-amount{font-size:clamp(30px,5vw,76px);letter-spacing:-.065em;white-space:nowrap;display:flex;flex-direction:column;gap:15px}
+.pricing-amount span{font-size:12px;letter-spacing:.02em}
+.pricing-arrow{font-size:clamp(32px,4vw,60px);align-self:start}
+.pricing-footnote{font-size:12px;line-height:1.45;max-width:740px;color:#474747;margin:24px 0 0}
+@media(max-width:900px){
+  .scroll-headline{font-size:clamp(64px,13vw,110px)}
+  .detail-grid{grid-template-columns:1fr 1fr}.detail-tile-wide{grid-column:span 2}.detail-tile{height:310px}
+  .pricing-row{grid-template-columns:90px 1fr 1fr 25px;min-height:180px}
+  .pricing-amount{font-size:clamp(28px,4.6vw,54px)}
+}
+@media(max-width:620px){
+  .scroll-stage{min-height:420px}.scroll-marker{min-height:420px}
+  .scroll-ui{padding:90px var(--pad) 44px}
+  .scroll-headline{font-size:clamp(54px,15vw,100px);line-height:.85}
+  .scroll-counter{font-size:13px}.scroll-hint{font-size:10px}
+  .scroll-bottomline{font-size:11px}
+  .detail-strip{padding:24px var(--pad) 65px}
+  .detail-caption{font-size:10px}.detail-caption span+span{display:none}
+  .detail-grid{grid-template-columns:1fr 1fr;gap:8px}.detail-tile{height:175px}.detail-tile-wide{height:290px}
+  .pricing{padding:88px var(--pad) 65px}
+  .pricing .section-title{font-size:clamp(52px,12vw,90px)}
+  .pricing-intro{margin:28px 0 50px}
+  .pricing-row{grid-template-columns:1fr auto;gap:15px;min-height:0;padding:24px 18px}
+  .pricing-index{grid-column:1;grid-row:1}.pricing-arrow{grid-column:2;grid-row:1}
+  .pricing-count{grid-column:1;grid-row:2}.pricing-count strong{font-size:100px}
+  .pricing-amount{grid-column:2;grid-row:2;align-self:end;font-size:clamp(24px,7vw,40px)}
+  .pricing-amount span{font-size:10px}
+}
+@media(prefers-reduced-motion:reduce){
+  .scroll-frame{transition:none}.scroll-frame img,.detail-tile img{transition:none;transform:none!important}
+}
+    @media(max-width:900px){
+      .hero{min-height:690px;height:95svh;padding-top:140px}
+      .hero-wordmark{font-size:clamp(67px,12.3vw,110px)}
+      .hero-wordmark .second,.hero-wordmark .third{padding-right:1vw}
+      .feature-track{grid-template-columns:repeat(4,clamp(210px,42vw,350px));overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin}
+      .feature-card{scroll-snap-align:start}
+      .intro-foot{grid-template-columns:1fr 1fr;gap:25px}
+      .services-grid{gap:7px}
+      .service{padding:17px}
+    }
+    @media(max-width:620px){
+      .topbar{padding:18px var(--pad)}
+      .hero{min-height:680px;max-height:none;height:92svh;padding-top:130px}
+      .hero-wordmark{font-size:clamp(55px,12.3vw,90px);letter-spacing:-.084em}
+      .hero-wordmark .second{margin-top:15px;text-align:left;padding-left:9vw}
+      .hero-wordmark .third{margin-top:14px;text-align:left;padding-left:3vw}
+      .hero-bottom{left:var(--pad);right:var(--pad);bottom:46px;width:auto;max-width:350px;gap:13px}
+      .hero-bottom p{font-size:16px}
+      .hero-scroll{display:none}
+      .feature-track{grid-template-columns:repeat(4,80vw);gap:8px}
+      .feature-caption{font-size:12px}
+      .section{padding:94px var(--pad)}
+      .intro-foot{grid-template-columns:1fr;margin-top:48px;gap:35px}
+      .intro-foot p{font-size:25px}
+      .section-title{font-size:clamp(55px,13.5vw,84px)}
+      .work .section-title{font-size:clamp(52px,12vw,80px)}
+      .case{margin-top:66px}
+      .case-title{font-size:38px}
+      .case-top span{font-size:11px}
+      .pair{grid-template-columns:1fr;gap:9px}
+      .pair img{height:auto;aspect-ratio:4/3}
+      .case-description{display:block}
+      .case-description p+p{margin-top:10px}
+      .break{min-height:480px}
+      .break .small-foot{justify-content:flex-start}
+      .services-grid{grid-template-columns:1fr;margin-top:65px;gap:8px}
+      .service{aspect-ratio:1.33;padding:22px}
+      .service h3{font-size:50px}
+      .contact{min-height:680px}
+      .contact .section-title{font-size:clamp(67px,14.2vw,95px)}
+      .contact-bottom{align-items:stretch;flex-direction:column;gap:35px}
+      .contact-link{min-width:0}
+      footer{flex-direction:column;gap:10px}
+    }
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.hero-wordmark .word,.feature-card img{transition:none}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#inhalt">Zum Inhalt</a>
+  <header class="topbar">
+    <a class="brand" href="#start" aria-label="PDRO. – zum Anfang">pdro.</a>
+    <button class="menu-toggle" type="button" aria-label="Menü öffnen" aria-controls="menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+    </button>
+  </header>
+  <nav class="menu-panel" id="menu" aria-label="Hauptmenü" inert>
+    <div><a href="#bildwelten">Bildwelten</a><a href="#arbeiten">Vorher / Nachher</a><a href="#preise">Preise</a><a href="#kontakt">Kontakt</a></div>
+    <p>PDRO. — Fotografie und digitale Bildproduktion für Unternehmen.</p>
+  </nav>
+  <main id="inhalt">
+    <section class="hero" id="start" aria-label="Willkommen">
+      <h1 class="hero-wordmark"><span class="line">Bilder, die</span><span class="line second">mehr</span><span class="line third"><span class="word" id="hero-rotate">zeigen.</span></span></h1>
+      <a class="hero-scroll" href="#bildwelten"><span>↓</span> Weiter scrollen</a>
+      <div class="hero-bottom"><p class="mini">Fotografie & digitale Bildproduktion für Unternehmen</p><p>Maschinen. Menschen. Produkte.<br>Aus echten Aufnahmen machen wir Bilder, die etwas zeigen.</p><a class="pill" href="#bildwelten">Bilder ansehen <span aria-hidden="true">↗</span></a></div>
+    </section>
+<section class="scroll-sequence" id="bildwelten" aria-label="Bildwelten aus verschiedenen Branchen">
+  <div class="scroll-stage" aria-live="off">
+    <div class="scroll-frame active" data-panel="0"><img src="assets/01_maschinenbau.webp" alt="Große industrielle Fertigungsmaschine in einer Produktionshalle" fetchpriority="high"><div class="scroll-shade"></div></div>
+    <div class="scroll-frame" data-panel="1"><img src="assets/02_metall_detail.webp" alt="Nahaufnahme eines präzise bearbeiteten Metallbauteils" loading="lazy"><div class="scroll-shade"></div></div>
+    <div class="scroll-frame" data-panel="2"><img src="assets/03_lebensmittel.webp" alt="Lebensmittelproduktion mit Edelstahltanks und frischen Tomaten" loading="lazy"><div class="scroll-shade"></div></div>
+    <div class="scroll-frame" data-panel="3"><img src="assets/04_labor.webp" alt="Laborinstrumente, Pipetten und Glasgefäße in einem Forschungslabor" loading="lazy"><div class="scroll-shade"></div></div>
+    <div class="scroll-frame" data-panel="4"><img src="assets/05_energie.webp" alt="Detailansicht aus dem Bereich Windkraft und Solarenergie" loading="lazy"><div class="scroll-shade"></div></div>
+    <div class="scroll-frame" data-panel="5"><img src="assets/06_elektro_detail.webp" alt="Technisches Produktdetail aus der Elektrotechnik" loading="lazy"><div class="scroll-shade"></div></div>
+    <div class="scroll-ui">
+      <div class="scroll-counter"><span id="sequence-counter">01</span> / 06 <span class="scroll-hint">SCROLLEN ↓</span></div>
+      <div class="scroll-copy"><p class="scroll-eyebrow" id="sequence-category">MASCHINENBAU</p><h2 class="scroll-headline" id="sequence-title">GENAU<br>HINGESCHAUT.</h2><p class="scroll-bottomline">Bilder aus verschiedenen Branchen · Konzeptmotive</p></div>
+      <div class="scroll-progress" aria-hidden="true"><span id="sequence-progress"></span></div>
+    </div>
+  </div>
+  <div class="scroll-markers" aria-hidden="true">
+    <div class="scroll-marker"></div><div class="scroll-marker"></div><div class="scroll-marker"></div>
+    <div class="scroll-marker"></div><div class="scroll-marker"></div><div class="scroll-marker"></div>
+  </div>
+</section>
+    <section class="section intro" id="idee">
+      <p class="eyebrow reveal">WAS WIR MACHEN</p>
+      <div class="intro-head reveal"><h2 class="section-title">Gute Arbeit.<br>Gute Bilder<span class="dot">.</span></h2></div>
+      <div class="intro-foot reveal"><p>Sie haben tolle Maschinen, gute Produkte und Menschen, die etwas können. Wir sorgen dafür, dass man das auch sieht.</p><p class="aside">Wir fotografieren gezielt bei Ihnen vor Ort oder arbeiten mit vorhandenem Material. Den Rest übernehmen Bildbearbeitung, Compositing und moderne Produktionstechniken.</p></div>
+    </section>
+<section class="detail-strip" aria-label="Material und Details">
+  <div class="detail-caption"><span>GROSSE BILDER. KLEINE DETAILS.</span><span>FERTIGUNG / LABOR / PRODUKTION</span></div>
+  <div class="detail-grid">
+    <figure class="detail-tile detail-tile-wide"><img src="assets/02_metall_detail.webp" alt="Detail eines Metallbauteils" loading="lazy"><figcaption>01 / OBERFLÄCHEN</figcaption></figure>
+    <figure class="detail-tile"><img src="assets/04_labor.webp" alt="Laborgeräte und Gläser" loading="lazy"><figcaption>02 / PRÄZISION</figcaption></figure>
+    <figure class="detail-tile"><img src="assets/06_elektro_detail.webp" alt="Technische Produktaufnahme aus der Elektrotechnik" loading="lazy"><figcaption>03 / TECHNIK</figcaption></figure>
+  </div>
+</section>
+    <section class="section work" id="arbeiten">
+      <p class="eyebrow reveal">VORHER / NACHHER</p>
+      <h2 class="section-title reveal">Aus Foto<br>wird Motiv.</h2>
+      <article class="case reveal" id="fall1">
+        <div class="case-top"><h3 class="case-title">Mensch & Maschine</h3><span>01 / 02</span></div>
+        <div class="pair">
+          <figure><img src="assets/person-original.jpg" alt="Illustrative Originalaufnahme eines Mitarbeiters an einer Maschine" loading="lazy"><figcaption><span>Originalaufnahme</span><span>01</span></figcaption></figure>
+          <figure class="result"><img src="assets/person-result.jpg" alt="Illustratives Ergebnis einer hochwertig inszenierten Arbeitssituation" loading="lazy"><figcaption><span>Bildproduktion</span><span>02</span></figcaption></figure>
+        </div>
+        <div class="case-description"><p>Eine reale Arbeitssituation – klarer, stimmungsvoller und professioneller erzählt.</p><p>Mehr aus dem vorhandenen Material. Ohne künstlichen Hochglanz.</p></div>
+      </article>
+      <article class="case reveal" id="fall2">
+        <div class="case-top"><h3 class="case-title">Maschine pur</h3><span>02 / 02</span></div>
+        <div class="pair">
+          <figure><img src="assets/machine-original.jpg" alt="Illustrative Originalaufnahme einer industriellen Maschine" loading="lazy"><figcaption><span>Originalaufnahme</span><span>01</span></figcaption></figure>
+          <figure class="result"><img src="assets/machine-result.jpg" alt="Illustrative professionelle Neuinszenierung einer industriellen Maschine" loading="lazy"><figcaption><span>Bildproduktion</span><span>02</span></figcaption></figure>
+        </div>
+        <div class="case-description"><p>Die Maschine bleibt das Original. Licht, Umgebung und Wirkung werden besser.</p><p>Für Websites, Broschüren und Werbung.</p></div>
+      </article>
+      <p class="note reveal">Hinweis: Diese Motive sind Konzeptillustrationen und noch keine dokumentierten Bearbeitungen derselben Kundenfotos. Sie werden vor Veröffentlichung durch echte Vorher-/Nachher-Projekte ersetzt.</p>
+    </section>
+    <section class="break" aria-label="Unser Anspruch">
+      <p class="eyebrow reveal">DIE IDEE DAHINTER</p>
+      <h2 class="section-title reveal">Echt<br>bleibt echt<span style="color:#ff564b">.</span></h2>
+      <div class="small-foot reveal"><p>Produkte, Maschinen und wichtige Details sollen stimmen. Neu ist die Inszenierung – nicht die Wirklichkeit.</p></div>
+    </section>
+    <section class="section services" id="leistungen">
+      <p class="eyebrow reveal">WAS WIR FÜR SIE TUN</p>
+      <h2 class="section-title reveal">Ganz<br>einfach.</h2>
+      <div class="services-grid">
+        <div class="service reveal"><span class="n">01 / AUFNAHME</span><div><h3>Fotos<br>machen.</h3><p>Wir kommen vorbei und fotografieren genau das, was wir für die Bildproduktion brauchen.</p></div></div>
+        <div class="service reveal"><span class="n">02 / BILDBEARBEITUNG</span><div><h3>Mehr<br>rausholen.</h3><p>Wir optimieren Licht, Umgebung und Bildwirkung – mit Retusche, Compositing und KI.</p></div></div>
+        <div class="service reveal"><span class="n">03 / ERGEBNIS</span><div><h3>Gut<br>aussehen.</h3><p>Sie bekommen Bilder, die zu Ihrem Betrieb passen. Für Website, Print und Kampagnen.</p></div></div>
+      </div>
+    </section>
+<section class="pricing" id="preise" aria-labelledby="pricing-headline">
+  <div class="pricing-top"><p class="eyebrow">BILDPAKETE / VORLÄUFIGE PREISBEISPIELE</p><h2 class="section-title" id="pricing-headline">VIELE BILDER.<br>KLARE ZAHLEN.</h2><p class="pricing-intro">Ein einheitlicher Look. Verschiedene Größen.<br>Die Details besprechen wir persönlich.</p></div>
+  <div class="pricing-list">
+    <div class="pricing-row"><div class="pricing-index">01 / KLEIN</div><div class="pricing-count"><strong>10</strong><span>BILDER</span></div><div class="pricing-amount">1.900 € <span>PLATZHALTER</span></div><span class="pricing-arrow" aria-hidden="true">↗</span></div>
+    <div class="pricing-row"><div class="pricing-index">02 / MITTEL</div><div class="pricing-count"><strong>20</strong><span>BILDER</span></div><div class="pricing-amount">3.400 € <span>PLATZHALTER</span></div><span class="pricing-arrow" aria-hidden="true">↗</span></div>
+    <div class="pricing-row"><div class="pricing-index">03 / GROSS</div><div class="pricing-count"><strong>40</strong><span>BILDER</span></div><div class="pricing-amount">6.000 € <span>PLATZHALTER</span></div><span class="pricing-arrow" aria-hidden="true">↗</span></div>
+  </div>
+  <p class="pricing-footnote">Diese Beträge dienen ausschließlich als Layout-Platzhalter, sind nicht kalkuliert und stellen kein Angebot dar. Leistungsumfang, Vor-Ort-Fotografie und mögliche Zusatzarbeiten werden später festgelegt.</p>
+</section>
+    <section class="contact" id="kontakt">
+      <div><p class="eyebrow">LUST AUF GUTE BILDER?</p><h2 class="section-title reveal">Zeigen<br>wir's allen.</h2></div>
+      <div class="contact-bottom"><p>Erzählen Sie, was Sie zeigen möchten. Wir finden heraus, was aus Ihren Bildern werden kann.</p><a class="contact-link" href="https://rodrigues.de/" target="_blank" rel="noopener">Kontakt aufnehmen <span aria-hidden="true">↗</span></a></div>
+    </section>
+  </main>
+  <footer><span>© PDRO. · Entwurfsfassung</span><span>Vorläufiges Projekt unter rodrigues.de/pdro/ · <a href="https://rodrigues.de/" target="_blank" rel="noopener">rodrigues.de</a></span></footer>
+  <script>
+    (()=>{
+      const toggle=document.querySelector('.menu-toggle');
+      const menu=document.getElementById('menu');
+      const setMenu=(open)=>{
+        toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?'Menü schließen':'Menü öffnen');
+        menu.classList.toggle('open',open);menu.inert=!open;document.body.classList.toggle('menu-open',open);
+      };
+      toggle.addEventListener('click',()=>setMenu(toggle.getAttribute('aria-expanded')!=='true'));
+      menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+      document.addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
+      const word=document.getElementById('hero-rotate');
+      if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+        const words=['zeigen.','bewegen.','bleiben.'];let idx=0;
+        setInterval(()=>{word.classList.add('swap');setTimeout(()=>{idx=(idx+1)%words.length;word.textContent=words[idx];word.classList.remove('swap')},220)},3400);
+      }
+const sequence=document.querySelector('.scroll-sequence');
+if(sequence){
+  const frames=[...sequence.querySelectorAll('.scroll-frame')];
+  const data=[
+    ['MASCHINENBAU','GENAU<br>HINGESCHAUT.'],
+    ['METALLBEARBEITUNG','AUF JEDES<br>DETAIL.'],
+    ['LEBENSMITTEL','NICHT NUR<br>SAUBER.'],
+    ['LABOR & FORSCHUNG','BIS INS<br>KLEINSTE.'],
+    ['ENERGIE','AUS NEUEM<br>BLICKWINKEL.'],
+    ['ELEKTROTECHNIK','GUT IM<br>BILD.']
+  ];
+  const count=document.getElementById('sequence-counter');
+  const category=document.getElementById('sequence-category');
+  const heading=document.getElementById('sequence-title');
+  const progress=document.getElementById('sequence-progress');
+  let current=-1,queued=false;
+  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+  const update=()=>{
+    queued=false;
+    const rect=sequence.getBoundingClientRect();
+    if(rect.bottom<0 || rect.top>innerHeight)return;
+    const segment=Math.max(1,innerHeight);
+    const position=Math.max(0,-rect.top);
+    const active=Math.max(0,Math.min(frames.length-1,Math.floor((position+segment*.38)/segment)));
+    if(active!==current){
+      current=active;
+      frames.forEach((frame,i)=>{frame.classList.toggle('active',i===active);frame.setAttribute('aria-hidden',String(i!==active));});
+      count.textContent=String(active+1).padStart(2,'0');
+      category.textContent=data[active][0];heading.innerHTML=data[active][1];
+      progress.style.width=((active+1)/frames.length*100)+'%';
+    }
+    if(!reduced.matches){
+      const phase=Math.max(0,Math.min(1,(position/segment)-Math.floor(position/segment)));
+      frames[active].querySelector('img').style.transform=`scale(${(1.03+phase*.07).toFixed(3)}) translateY(${((phase-.5)*10).toFixed(2)}px)`;
+    }
+  };
+  const schedule=()=>{if(!queued){queued=true;requestAnimationFrame(update)}};
+  addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule);schedule();
+}
+      if('IntersectionObserver' in window){
+        const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.12});
+        document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+      }else document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'));
+    })();
+  </script>
+</body>
+</html>
