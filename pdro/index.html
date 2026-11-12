@@ -404,6 +404,36 @@ body{background:var(--paper);font-family:Arial,Helvetica,sans-serif}
  .nav-wrap{gap:10px}.nav-wrap .brand{margin-right:2px}
 }
 
+
+/* PDRO v7 — revised messaging, all-white hero headline. */
+.hero-center h1 span{display:block;color:#fff}
+@media(max-width:760px){.hero-center h1{font-size:clamp(39px,8.9vw,69px);line-height:1.08}}
+@media(max-width:520px){.hero-center h1{font-size:clamp(34px,9.2vw,47px);line-height:1.1}}
+
+/* PDRO v8 — headline reduced and fixed to exactly two lines. */
+.hero-center h1{font-size:clamp(45px,6.6vw,110px);line-height:1.06;letter-spacing:-.025em;max-width:none}
+.hero-center h1 span{display:block;white-space:nowrap}
+@media(max-width:760px){.hero-center h1{font-size:clamp(28px,6.9vw,51px);line-height:1.12;letter-spacing:-.025em}}
+@media(max-width:520px){.hero-center h1{font-size:clamp(27px,7vw,37px);line-height:1.15;letter-spacing:-.025em}}
+
+/* PDRO v6 — MiniMax-like open navigation: no surface, panel, border or shadow. */
+.topbar{justify-content:flex-start;padding:24px var(--pad);color:#fff;mix-blend-mode:difference}
+.nav-wrap{display:flex;align-items:center;justify-content:flex-start;gap:0;width:100%;max-width:none;height:42px;padding:0;background:transparent;box-shadow:none;backdrop-filter:none;color:inherit}
+.nav-wrap .brand{font-size:27px;line-height:1;letter-spacing:-.035em;margin:0 clamp(36px,5vw,88px) 0 0;color:inherit}
+.nav-main{display:flex;align-items:center;gap:clamp(19px,2.6vw,44px)}
+.nav-shortcut,.nav-contact{color:inherit;font-size:14px;font-weight:500;line-height:1.4;letter-spacing:0;text-transform:none;white-space:nowrap;transition:opacity .2s}
+.nav-contact{margin-left:auto}
+.nav-shortcut:hover,.nav-contact:hover,.nav-wrap .brand:hover{opacity:.6}
+.nav-wrap .menu-toggle{display:none;background:transparent;color:inherit;border:0;box-shadow:none}
+.nav-wrap .menu-toggle:hover{background:transparent;color:inherit}
+@media(max-width:800px){
+  .topbar{padding:18px var(--pad)}
+  .nav-wrap{height:40px}
+  .nav-wrap .brand{font-size:24px;margin:0}
+  .nav-main,.nav-contact{display:none}
+  .nav-wrap .menu-toggle{display:grid;margin-left:auto;width:40px;height:40px;font-size:30px;place-items:center}
+}
+
   </style>
 </head>
 <body>
@@ -411,8 +441,13 @@ body{background:var(--paper);font-family:Arial,Helvetica,sans-serif}
   <header class="topbar">
     <nav class="nav-wrap" aria-label="Schnellnavigation">
       <a class="brand" href="#start" aria-label="PDRO. – zum Anfang">pdro.</a>
-      <a class="nav-shortcut" href="#arbeiten">ARBEITEN</a>
-      <a class="nav-shortcut" href="#preise">PREISE</a>
+      <div class="nav-main">
+        <a class="nav-shortcut" href="#arbeiten">Arbeiten</a>
+        <a class="nav-shortcut" href="#bildwelten">Bildwelten</a>
+        <a class="nav-shortcut" href="#leistungen">Leistungen</a>
+        <a class="nav-shortcut" href="#preise">Preise</a>
+      </div>
+      <a class="nav-contact" href="#kontakt">Kontakt</a>
       <button class="menu-toggle" type="button" aria-label="Menü öffnen" aria-controls="menu" aria-expanded="false">
         <span aria-hidden="true">+</span>
       </button>
@@ -427,7 +462,7 @@ body{background:var(--paper);font-family:Arial,Helvetica,sans-serif}
       <canvas class="hero-dots" id="hero-dots" aria-hidden="true"></canvas>
       <div class="hero-center">
         <p class="hero-kicker">FOTOGRAFIE & DIGITALE BILDPRODUKTION</p>
-        <h1>Nicht nur<span class="hero-soft">schöner.</span><span class="hero-strong">Besser.</span></h1>
+        <h1><span>Viel zu zeigen.</span><span>Aber keine Bilder?</span></h1>
         <p class="hero-intro">Ihre Maschinen, Produkte und Menschen.<br>Von uns richtig in Szene gesetzt.</p>
       </div>
       <div class="hero-footer">
@@ -484,7 +519,7 @@ body{background:var(--paper);font-family:Arial,Helvetica,sans-serif}
 </section>
     <section class="section work" id="arbeiten">
       <p class="eyebrow reveal">VORHER / NACHHER</p>
-      <h2 class="section-title reveal">Nicht nur<br><span class="muted">schöner.</span><br>Anders.</h2>
+      <h2 class="section-title reveal">Aus Fotos<br>wird mehr.</h2>
       <article class="case reveal" id="fall1">
         <div class="case-top"><h3 class="case-title">Mensch & Maschine</h3><span>01 / 02</span></div>
         <div class="pair">
