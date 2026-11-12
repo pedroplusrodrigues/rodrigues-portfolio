@@ -346,14 +346,72 @@ body{background:var(--paper);font-family:Arial,Helvetica,sans-serif}
 @media(max-width:760px){.hero-center h1{font-size:clamp(60px,10.3vw,92px)}}
 @media(max-width:520px){.hero-center{padding:55px 12px 20px}.hero-center h1{font-size:clamp(57px,13.4vw,77px);line-height:.9}.hero-intro{font-size:19px;margin-top:40px}.hero-kicker{margin-bottom:34px}}
 
+
+/* PDRO v5 — less condensed editorial typography, left-aligned navigation, craft credentials. */
+.topbar{justify-content:flex-start;padding:20px var(--pad)}
+.nav-wrap{display:flex;align-items:center;justify-content:flex-start;width:max-content;max-width:calc(100vw - 2*var(--pad));height:49px;gap:clamp(18px,2.2vw,33px);padding:0 9px 0 17px;grid-template-columns:none}
+.nav-wrap .brand{font-size:25px;letter-spacing:-.035em;margin-right:clamp(6px,1.6vw,20px);flex-shrink:0}
+.nav-shortcut{font-size:11px;letter-spacing:.025em;white-space:nowrap}
+.nav-wrap .menu-toggle{flex-shrink:0;margin-left:2px}
+.hero-center h1{letter-spacing:-.035em;line-height:.975;font-size:clamp(71px,9.5vw,158px)}
+.hero-intro{letter-spacing:-.012em;line-height:1.24}
+.hero-kicker{letter-spacing:.095em}
+.manifesto-text{letter-spacing:-.026em;line-height:1.13}
+.work-intro a{letter-spacing:-.035em;line-height:1.04}
+.section-title{letter-spacing:-.036em;line-height:.98}
+.case-title{letter-spacing:-.029em;line-height:1.06}
+.scroll-headline{letter-spacing:-.035em;line-height:.95}
+.service h3{letter-spacing:-.03em;line-height:1.03}
+.service p{letter-spacing:0;line-height:1.32}
+.pricing .section-title{letter-spacing:-.032em}
+.pricing-count strong{letter-spacing:-.048em;line-height:.95}
+.pricing-amount{letter-spacing:-.03em}
+.experience{display:grid;grid-template-columns:minmax(180px,.46fr) 1.55fr;gap:clamp(28px,6vw,95px);align-items:start;border-top:1px solid #171717;margin-top:clamp(60px,6.8vw,120px);padding-top:clamp(25px,2.8vw,48px);scroll-margin-top:105px}
+.experience-stamp{display:flex;flex-direction:column;align-items:flex-start;gap:2px}
+.experience-stamp strong{font-size:clamp(85px,10vw,155px);font-weight:700;letter-spacing:-.035em;line-height:.85}
+.experience-stamp strong span{font-size:.52em;vertical-align:top;line-height:1.07}
+.experience-stamp small{font-size:12px;font-weight:700;letter-spacing:.045em;padding-top:17px}
+.experience-copy h2{font-size:clamp(30px,3.4vw,57px);font-weight:700;letter-spacing:-.026em;line-height:1.08;margin:0 0 25px}
+.experience-copy h2 span{color:#969696}
+.experience-copy p{font-size:clamp(17px,1.7vw,26px);letter-spacing:-.007em;line-height:1.4;max-width:880px;margin:0}
+.jump-area{margin-top:clamp(80px,8.2vw,145px)}
+@media(max-width:760px){
+ .hero-center h1{font-size:clamp(54px,9.8vw,84px);line-height:1.01}
+ .manifesto-text{line-height:1.17;letter-spacing:-.018em}
+ .experience{grid-template-columns:1fr;gap:29px}
+ .experience-stamp strong{font-size:96px}
+ .experience-copy h2{font-size:clamp(30px,5.3vw,43px)}
+ .experience-copy p{font-size:18px}
+}
+@media(max-width:520px){
+ .topbar{padding:16px var(--pad)}
+ .nav-wrap{height:44px;gap:15px;padding:0 7px 0 13px}
+ .nav-wrap .brand{font-size:22px;margin-right:7px}
+ .nav-shortcut{font-size:9px;letter-spacing:.02em}
+ .nav-wrap .menu-toggle{width:32px;height:32px;margin-left:0}
+ .hero-center h1{font-size:clamp(53px,12.5vw,70px);line-height:1.015;letter-spacing:-.032em}
+ .hero-intro{font-size:19px;line-height:1.28}
+ .manifesto-text{letter-spacing:-.019em}
+ .experience{margin-top:55px;padding-top:27px}
+ .experience-stamp strong{font-size:84px}
+ .experience-copy h2{font-size:34px}
+ .experience-copy p{font-size:17px;line-height:1.42}
+ .jump-area{margin-top:80px}
+ .scroll-headline{letter-spacing:-.029em;line-height:1.01}
+ .section-title{line-height:1.01;letter-spacing:-.032em}
+}
+@media(max-width:355px){
+ .nav-wrap{gap:10px}.nav-wrap .brand{margin-right:2px}
+}
+
   </style>
 </head>
 <body>
   <a class="skip" href="#inhalt">Zum Inhalt</a>
   <header class="topbar">
     <nav class="nav-wrap" aria-label="Schnellnavigation">
-      <a class="nav-shortcut" href="#arbeiten">ARBEITEN</a>
       <a class="brand" href="#start" aria-label="PDRO. – zum Anfang">pdro.</a>
+      <a class="nav-shortcut" href="#arbeiten">ARBEITEN</a>
       <a class="nav-shortcut" href="#preise">PREISE</a>
       <button class="menu-toggle" type="button" aria-label="Menü öffnen" aria-controls="menu" aria-expanded="false">
         <span aria-hidden="true">+</span>
@@ -361,7 +419,7 @@ body{background:var(--paper);font-family:Arial,Helvetica,sans-serif}
     </nav>
   </header>
   <nav class="menu-panel" id="menu" aria-label="Hauptmenü" inert>
-    <div><a href="#bildwelten">Bildwelten</a><a href="#arbeiten">Vorher / Nachher</a><a href="#preise">Preise</a><a href="#kontakt">Kontakt</a></div>
+    <div><a href="#bildwelten">Bildwelten</a><a href="#arbeiten">Vorher / Nachher</a><a href="#erfahrung">Erfahrung</a><a href="#preise">Preise</a><a href="#kontakt">Kontakt</a></div>
     <p>PDRO. — Fotografie und digitale Bildproduktion für Unternehmen.</p>
   </nav>
   <main id="inhalt">
@@ -380,6 +438,13 @@ body{background:var(--paper);font-family:Arial,Helvetica,sans-serif}
     <section class="manifesto" id="idee">
       <div class="manifesto-text reveal">
         PDRO. macht <span>Fotografie und digitale Bildproduktion</span> für Unternehmen. Wir zeigen Maschinen, Produkte und Menschen so, wie sie es verdienen: <span>echt, überzeugend und mit dem richtigen Blick fürs Detail.</span>
+      </div>
+      <div class="experience reveal" id="erfahrung" aria-label="Erfahrung in High-End-Retusche und Compositing">
+        <div class="experience-stamp"><strong>20<span>+</span></strong><small>JAHRE ERFAHRUNG</small></div>
+        <div class="experience-copy">
+          <h2>High-End-Retusche.<br><span>Das Handwerk dahinter.</span></h2>
+          <p>Über zwei Jahrzehnte professionelle Retusche und Compositing für anspruchsvolle Marken- und Agenturproduktionen. Heute verbinden wir diese Erfahrung mit gezielter Fotografie vor Ort und KI-gestützter Bildproduktion. Der Anspruch bleibt derselbe: Licht, Material und jedes Detail müssen stimmen.</p>
+        </div>
       </div>
       <div class="jump-area" aria-label="Schnelleinstieg">
         <div class="jump-name"><span>Direkt zu</span><span class="jump-arrow">↘</span></div>
