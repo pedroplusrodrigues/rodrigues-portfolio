@@ -434,6 +434,84 @@ body{background:var(--paper);font-family:Arial,Helvetica,sans-serif}
   .nav-wrap .menu-toggle{display:grid;margin-left:auto;width:40px;height:40px;font-size:30px;place-items:center}
 }
 
+
+/* PDRO v9 — bold color panels, no decorative rules or diagonal hairline arrows. */
+.manifesto-text span,.experience-copy h2 span,.section-title .muted,.work-intro a span{color:inherit!important}
+.experience,.jump-name,.detail-caption,.case-top,.services-grid,.service,.pricing-row,footer{border:0!important}
+.experience{padding-top:0}
+.jump-name{justify-content:flex-start;padding-right:0}
+.jump-area{column-gap:clamp(24px,3vw,48px)}
+.jump-link{grid-template-columns:140px minmax(0,1fr) 42px;gap:13px}
+.jump-link b,.round-glyph{display:inline-grid;place-items:center;flex:none;width:42px;height:42px;border-radius:50%;background:#191919;color:white;font-size:28px;font-weight:700;line-height:1;font-style:normal;transition:transform .25s ease,background .25s ease}
+.jump-link:hover b,.contact-link:hover .round-glyph,.hero-footer a:hover .round-glyph{transform:rotate(90deg);background:#f26348}
+.hero-footer a{gap:12px}
+.hero-footer a .round-glyph{font-size:28px;font-weight:700}
+.work-intro a span{display:block;margin-top:6px}
+.detail-caption{padding:0 0 25px}
+.scroll-counter{justify-content:flex-end}
+.scroll-progress{display:none}
+.pricing-list{display:grid;gap:10px}
+.pricing-row{grid-template-columns:.95fr 1.15fr 1.25fr;gap:15px}
+.pricing-index{font-size:15px;font-weight:700}
+.pricing-amount{justify-self:end}
+.contact-link{gap:24px;min-width:0}
+.contact-link .round-glyph{background:#1b1b1b;color:#fff}
+/* Four large, immersive panels that slide over one another as the page scrolls. */
+.services-roll{background:#ececea}
+.services-roll-intro{padding:clamp(90px,10vw,175px) var(--pad);min-height:65svh;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:30px}
+.services-roll-intro .eyebrow{margin:0;font-size:13px}
+.services-roll-intro h2{font-size:clamp(57px,9vw,160px);font-weight:700;line-height:1.01;letter-spacing:-.035em;margin:0;max-width:1450px}
+.services-roll-intro>p:last-child{font-size:clamp(18px,2vw,30px);line-height:1.32;max-width:780px;margin:10px 0 0}
+.color-deck{position:relative}
+.color-panel{height:100svh;min-height:630px;position:sticky;top:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,42%);align-items:center;gap:clamp(30px,4vw,90px);padding:clamp(85px,10vw,140px) var(--pad) clamp(40px,6vw,85px);overflow:hidden;color:#191919;border:0;isolation:isolate}
+.color-panel--rose{background:#efa7c3;z-index:1}
+.color-panel--yellow{background:#f6c647;z-index:2}
+.color-panel--violet{background:#b9a7f2;z-index:3}
+.color-panel--mint{background:#a7c8b0;z-index:4}
+.panel-body{align-self:stretch;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;z-index:2;min-width:0}
+.panel-label{font-size:clamp(12px,1vw,16px);font-weight:700;letter-spacing:.035em;margin:0}
+.panel-body h3{font-size:clamp(66px,8.5vw,162px);letter-spacing:-.045em;line-height:.96;font-weight:700;margin:0;max-width:100%;overflow-wrap:normal}
+.panel-body>p:last-child{font-size:clamp(18px,1.75vw,29px);line-height:1.28;max-width:570px;margin:0}
+.panel-visual{height:100%;max-height:620px;min-height:320px;min-width:0;align-self:center;overflow:hidden;background:rgba(0,0,0,.08)}
+.panel-visual img{height:100%;width:100%;object-fit:cover;object-position:center;transform:scale(1.045);transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.color-panel:hover .panel-visual img{transform:scale(1)}
+@media(max-width:1050px){
+ .jump-link{grid-template-columns:95px minmax(0,1fr) 36px}
+ .jump-link b{width:36px;height:36px;font-size:24px}
+ .color-panel{grid-template-columns:minmax(0,1fr) 42%;gap:24px}
+ .panel-body h3{font-size:clamp(62px,8.5vw,100px)}
+ .pricing-row{grid-template-columns:.75fr 1fr 1fr}
+}
+@media(max-width:760px){
+ .jump-name{padding:0}
+ .jump-link{grid-template-columns:95px minmax(0,1fr) 36px}
+ .jump-link b{display:grid}
+ .services-roll-intro{min-height:52svh;padding:90px var(--pad)}
+ .services-roll-intro h2{font-size:clamp(52px,9vw,88px)}
+ .color-panel{height:100svh;min-height:650px;padding:80px var(--pad) 32px;grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);gap:24px}
+ .panel-body{justify-content:space-between;min-height:280px}
+ .panel-body h3{font-size:clamp(60px,12vw,96px);line-height:.98}
+ .panel-body>p:last-child{font-size:18px;max-width:540px}
+ .panel-visual{width:100%;height:100%;min-height:200px;max-height:none}
+ .pricing-row{grid-template-columns:minmax(0,1fr) auto}
+ .pricing-index{grid-column:1/-1;grid-row:1}
+ .pricing-count{grid-column:1;grid-row:2}
+ .pricing-amount{grid-column:2;grid-row:2;align-self:end}
+}
+@media(max-width:520px){
+ .jump-link{grid-template-columns:86px minmax(0,1fr) 34px;gap:11px}
+ .jump-link b{width:34px;height:34px;font-size:22px}
+ .color-panel{min-height:630px;padding-top:78px;padding-bottom:24px}
+ .panel-body{min-height:290px}
+ .panel-body h3{font-size:clamp(51px,12.3vw,72px)}
+ .panel-label{font-size:11px}
+ .panel-body>p:last-child{font-size:17px;line-height:1.28}
+ .pricing-count strong{font-size:clamp(72px,18vw,95px)}
+ .pricing-amount{font-size:clamp(26px,6.8vw,38px)}
+ .round-glyph{width:36px;height:36px;font-size:24px}
+}
+@media(prefers-reduced-motion:reduce){.panel-visual img,.jump-link b,.round-glyph{transition:none!important;transform:none!important}}
+
   </style>
 </head>
 <body>
@@ -467,7 +545,7 @@ body{background:var(--paper);font-family:Arial,Helvetica,sans-serif}
       </div>
       <div class="hero-footer">
         <span>PDRO. / FÜR UNTERNEHMEN</span>
-        <a href="#idee">MEHR ENTDECKEN <span aria-hidden="true">↓</span></a>
+        <a href="#idee">MEHR ENTDECKEN <span class="round-glyph" aria-hidden="true">+</span></a>
       </div>
     </section>
     <section class="manifesto" id="idee">
@@ -482,13 +560,13 @@ body{background:var(--paper);font-family:Arial,Helvetica,sans-serif}
         </div>
       </div>
       <div class="jump-area" aria-label="Schnelleinstieg">
-        <div class="jump-name"><span>Direkt zu</span><span class="jump-arrow">↘</span></div>
-        <a href="#bildwelten" class="jump-link"><img src="assets/01_maschinenbau.webp" alt=""><span><strong>Bildwelten</strong><small>Sehen, was möglich ist</small></span><b aria-hidden="true">↗</b></a>
-        <a href="#arbeiten" class="jump-link"><img src="assets/person-result.jpg" alt=""><span><strong>Vorher / Nachher</strong><small>Ausgangsmaterial und Ergebnis</small></span><b aria-hidden="true">↗</b></a>
-        <a href="#leistungen" class="jump-link"><img src="assets/03_lebensmittel.webp" alt=""><span><strong>Was wir machen</strong><small>Aufnahme, Bearbeitung, Fertig</small></span><b aria-hidden="true">↗</b></a>
-        <a href="#preise" class="jump-link"><img src="assets/02_metall_detail.webp" alt=""><span><strong>Preise</strong><small>10, 20 oder 40 Bilder</small></span><b aria-hidden="true">↗</b></a>
+        <div class="jump-name"><span>Direkt zu</span></div>
+        <a href="#bildwelten" class="jump-link"><img src="assets/01_maschinenbau.webp" alt=""><span><strong>Bildwelten</strong><small>Sehen, was möglich ist</small></span><b aria-hidden="true">+</b></a>
+        <a href="#arbeiten" class="jump-link"><img src="assets/person-result.jpg" alt=""><span><strong>Vorher / Nachher</strong><small>Ausgangsmaterial und Ergebnis</small></span><b aria-hidden="true">+</b></a>
+        <a href="#leistungen" class="jump-link"><img src="assets/03_lebensmittel.webp" alt=""><span><strong>Was wir machen</strong><small>Aufnahme, Bearbeitung, Fertig</small></span><b aria-hidden="true">+</b></a>
+        <a href="#preise" class="jump-link"><img src="assets/02_metall_detail.webp" alt=""><span><strong>Preise</strong><small>10, 20 oder 40 Bilder</small></span><b aria-hidden="true">+</b></a>
       </div>
-      <div class="work-intro"><a href="#bildwelten" aria-label="Zu unseren Bildwelten scrollen">Unsere Arbeit<br><span>Weiter ansehen ↓</span></a></div>
+      <div class="work-intro"><a href="#bildwelten" aria-label="Zu unseren Bildwelten scrollen">Unsere Arbeit<br><span>Weiter ansehen</span></a></div>
     </section>
 <section class="scroll-sequence" id="bildwelten" aria-label="Bildwelten aus verschiedenen Branchen">
   <div class="scroll-stage" aria-live="off">
@@ -499,7 +577,7 @@ body{background:var(--paper);font-family:Arial,Helvetica,sans-serif}
     <div class="scroll-frame" data-panel="4"><img src="assets/05_energie.webp" alt="Detailansicht aus dem Bereich Windkraft und Solarenergie" loading="lazy"><div class="scroll-shade"></div></div>
     <div class="scroll-frame" data-panel="5"><img src="assets/06_elektro_detail.webp" alt="Technisches Produktdetail aus der Elektrotechnik" loading="lazy"><div class="scroll-shade"></div></div>
     <div class="scroll-ui">
-      <div class="scroll-counter"><span id="sequence-counter">01</span> <span class="sequence-total">/ 06</span><span class="scroll-hint">WEITER SCROLLEN ↓</span></div>
+      <div class="scroll-counter"><span id="sequence-counter" hidden>01</span><span class="scroll-hint">WEITER SCROLLEN</span></div>
       <div class="scroll-copy"><p class="scroll-eyebrow" id="sequence-category">MASCHINENBAU</p><h2 class="scroll-headline" id="sequence-title">GENAU<br>HINGESCHAUT.</h2><p class="scroll-bottomline">BILDWELTEN / KONZEPTMOTIVE — NOCH KEINE KUNDENARBEITEN</p></div>
       <div class="scroll-progress" aria-hidden="true"><span id="sequence-progress"></span></div>
     </div>
@@ -512,27 +590,27 @@ body{background:var(--paper);font-family:Arial,Helvetica,sans-serif}
 <section class="detail-strip" aria-label="Material und Details">
   <div class="detail-caption"><span>GROSSE BILDER. KLEINE DETAILS.</span><span>FERTIGUNG / LABOR / PRODUKTION</span></div>
   <div class="detail-grid">
-    <figure class="detail-tile detail-tile-wide"><img src="assets/02_metall_detail.webp" alt="Detail eines Metallbauteils" loading="lazy"><figcaption>01 / OBERFLÄCHEN</figcaption></figure>
-    <figure class="detail-tile"><img src="assets/04_labor.webp" alt="Laborgeräte und Gläser" loading="lazy"><figcaption>02 / PRÄZISION</figcaption></figure>
-    <figure class="detail-tile"><img src="assets/06_elektro_detail.webp" alt="Technische Produktaufnahme aus der Elektrotechnik" loading="lazy"><figcaption>03 / TECHNIK</figcaption></figure>
+    <figure class="detail-tile detail-tile-wide"><img src="assets/02_metall_detail.webp" alt="Detail eines Metallbauteils" loading="lazy"><figcaption>OBERFLÄCHEN</figcaption></figure>
+    <figure class="detail-tile"><img src="assets/04_labor.webp" alt="Laborgeräte und Gläser" loading="lazy"><figcaption>PRÄZISION</figcaption></figure>
+    <figure class="detail-tile"><img src="assets/06_elektro_detail.webp" alt="Technische Produktaufnahme aus der Elektrotechnik" loading="lazy"><figcaption>TECHNIK</figcaption></figure>
   </div>
 </section>
     <section class="section work" id="arbeiten">
       <p class="eyebrow reveal">VORHER / NACHHER</p>
       <h2 class="section-title reveal">Aus Fotos<br>wird mehr.</h2>
       <article class="case reveal" id="fall1">
-        <div class="case-top"><h3 class="case-title">Mensch & Maschine</h3><span>01 / 02</span></div>
+        <div class="case-top"><h3 class="case-title">Mensch & Maschine</h3></div>
         <div class="pair">
-          <figure><img src="assets/person-original.jpg" alt="Illustrative Originalaufnahme eines Mitarbeiters an einer Maschine" loading="lazy"><figcaption><span>Originalaufnahme</span><span>01</span></figcaption></figure>
-          <figure class="result"><img src="assets/person-result.jpg" alt="Illustratives Ergebnis einer hochwertig inszenierten Arbeitssituation" loading="lazy"><figcaption><span>Bildproduktion</span><span>02</span></figcaption></figure>
+          <figure><img src="assets/person-original.jpg" alt="Illustrative Originalaufnahme eines Mitarbeiters an einer Maschine" loading="lazy"><figcaption><span>Originalaufnahme</span></figcaption></figure>
+          <figure class="result"><img src="assets/person-result.jpg" alt="Illustratives Ergebnis einer hochwertig inszenierten Arbeitssituation" loading="lazy"><figcaption><span>Bildproduktion</span></figcaption></figure>
         </div>
         <div class="case-description"><p>Eine reale Arbeitssituation – klarer, stimmungsvoller und professioneller erzählt.</p><p>Mehr aus dem vorhandenen Material. Ohne künstlichen Hochglanz.</p></div>
       </article>
       <article class="case reveal" id="fall2">
-        <div class="case-top"><h3 class="case-title">Maschine pur</h3><span>02 / 02</span></div>
+        <div class="case-top"><h3 class="case-title">Maschine pur</h3></div>
         <div class="pair">
-          <figure><img src="assets/machine-original.jpg" alt="Illustrative Originalaufnahme einer industriellen Maschine" loading="lazy"><figcaption><span>Originalaufnahme</span><span>01</span></figcaption></figure>
-          <figure class="result"><img src="assets/machine-result.jpg" alt="Illustrative professionelle Neuinszenierung einer industriellen Maschine" loading="lazy"><figcaption><span>Bildproduktion</span><span>02</span></figcaption></figure>
+          <figure><img src="assets/machine-original.jpg" alt="Illustrative Originalaufnahme einer industriellen Maschine" loading="lazy"><figcaption><span>Originalaufnahme</span></figcaption></figure>
+          <figure class="result"><img src="assets/machine-result.jpg" alt="Illustrative professionelle Neuinszenierung einer industriellen Maschine" loading="lazy"><figcaption><span>Bildproduktion</span></figcaption></figure>
         </div>
         <div class="case-description"><p>Die Maschine bleibt das Original. Licht, Umgebung und Wirkung werden besser.</p><p>Für Websites, Broschüren und Werbung.</p></div>
       </article>
@@ -543,27 +621,59 @@ body{background:var(--paper);font-family:Arial,Helvetica,sans-serif}
       <h2 class="section-title reveal">Echt<br>bleibt echt<span style="color:#ff564b">.</span></h2>
       <div class="small-foot reveal"><p>Produkte, Maschinen und wichtige Details sollen stimmen. Neu ist die Inszenierung – nicht die Wirklichkeit.</p></div>
     </section>
-    <section class="section services" id="leistungen">
-      <p class="eyebrow reveal">WAS WIR FÜR SIE TUN</p>
-      <h2 class="section-title reveal">Klingt<br><span class="muted">einfach.</span><br>Ist es auch.</h2>
-      <div class="services-grid">
-        <div class="service reveal"><span class="n">01 / AUFNAHME</span><div><h3>Fotos<br>machen.</h3><p>Wir kommen vorbei und fotografieren genau das, was wir für die Bildproduktion brauchen.</p></div></div>
-        <div class="service reveal"><span class="n">02 / BILDBEARBEITUNG</span><div><h3>Mehr<br>rausholen.</h3><p>Wir optimieren Licht, Umgebung und Bildwirkung – mit Retusche, Compositing und KI.</p></div></div>
-        <div class="service reveal"><span class="n">03 / ERGEBNIS</span><div><h3>Gut<br>aussehen.</h3><p>Sie bekommen Bilder, die zu Ihrem Betrieb passen. Für Website, Print und Kampagnen.</p></div></div>
+    <section class="services-roll" id="leistungen" aria-label="Unsere Leistungen">
+      <div class="services-roll-intro">
+        <p class="eyebrow">WAS WIR MACHEN</p>
+        <h2>Sie machen Ihr Ding.<br>Wir zeigen es.</h2>
+        <p>Sie müssen kein großes Fotoshooting organisieren. Wir fotografieren gezielt, nutzen vorhandene Bilder und kümmern uns um die Ausarbeitung.</p>
+      </div>
+      <div class="color-deck" aria-label="Leistungsbereiche">
+        <article class="color-panel color-panel--rose">
+          <div class="panel-body">
+            <p class="panel-label">FOTOGRAFIE VOR ORT</p>
+            <h3>Wir kommen<br>vorbei.</h3>
+            <p>Maschinen, Menschen, Arbeitsabläufe. Wir fotografieren, was zählt. Ohne riesiges Team.</p>
+          </div>
+          <div class="panel-visual"><img src="assets/01_maschinenbau.webp" alt="Fotografisches Beispiel aus einer Produktionshalle" loading="lazy"></div>
+        </article>
+        <article class="color-panel color-panel--yellow">
+          <div class="panel-body">
+            <p class="panel-label">DIGITALE BILDPRODUKTION</p>
+            <h3>Wir machen<br>mehr draus.</h3>
+            <p>Aus vorhandenen Bildern werden starke Motive. Mit Compositing, Retusche und KI – aber ohne künstlichen Look.</p>
+          </div>
+          <div class="panel-visual"><img src="assets/03_lebensmittel.webp" alt="Fotografisches Beispiel aus der Lebensmittelproduktion" loading="lazy"></div>
+        </article>
+        <article class="color-panel color-panel--violet">
+          <div class="panel-body">
+            <p class="panel-label">DAS BESONDERE MOTIV</p>
+            <h3>Das eine<br>Bild.</h3>
+            <p>Ein Produkt, ein Prozess, ein Detail. Das Key Visual, das zeigt, was Ihren Betrieb besonders macht.</p>
+          </div>
+          <div class="panel-visual"><img src="assets/02_metall_detail.webp" alt="Detailaufnahme eines präzise bearbeiteten Metallbauteils" loading="lazy"></div>
+        </article>
+        <article class="color-panel color-panel--mint">
+          <div class="panel-body">
+            <p class="panel-label">HIGH-END-RETUSCHE</p>
+            <h3>Bis ins<br>Detail.</h3>
+            <p>Über 20 Jahre Erfahrung mit anspruchsvoller Markenproduktion. Für Bilder, bei denen Material, Licht und jedes Detail stimmen.</p>
+          </div>
+          <div class="panel-visual"><img src="assets/06_elektro_detail.webp" alt="Großaufnahme eines industriellen Produktdetails" loading="lazy"></div>
+        </article>
       </div>
     </section>
 <section class="pricing" id="preise" aria-labelledby="pricing-headline">
   <div class="pricing-top"><p class="eyebrow">BILDPAKETE / VORLÄUFIGE PREISBEISPIELE</p><h2 class="section-title" id="pricing-headline">VIELE BILDER.<br>KLARE ZAHLEN.</h2><p class="pricing-intro">Ein einheitlicher Look. Verschiedene Größen.<br>Die Details besprechen wir persönlich.</p></div>
   <div class="pricing-list">
-    <div class="pricing-row"><div class="pricing-index">01 / KLEIN</div><div class="pricing-count"><strong>10</strong><span>BILDER</span></div><div class="pricing-amount">1.900 € <span>PLATZHALTER</span></div><span class="pricing-arrow" aria-hidden="true">↗</span></div>
-    <div class="pricing-row"><div class="pricing-index">02 / MITTEL</div><div class="pricing-count"><strong>20</strong><span>BILDER</span></div><div class="pricing-amount">3.400 € <span>PLATZHALTER</span></div><span class="pricing-arrow" aria-hidden="true">↗</span></div>
-    <div class="pricing-row"><div class="pricing-index">03 / GROSS</div><div class="pricing-count"><strong>40</strong><span>BILDER</span></div><div class="pricing-amount">6.000 € <span>PLATZHALTER</span></div><span class="pricing-arrow" aria-hidden="true">↗</span></div>
+    <div class="pricing-row"><div class="pricing-index">KLEINES PAKET</div><div class="pricing-count"><strong>10</strong><span>BILDER</span></div><div class="pricing-amount">1.900 € <span>PLATZHALTER</span></div></div>
+    <div class="pricing-row"><div class="pricing-index">MITTLERES PAKET</div><div class="pricing-count"><strong>20</strong><span>BILDER</span></div><div class="pricing-amount">3.400 € <span>PLATZHALTER</span></div></div>
+    <div class="pricing-row"><div class="pricing-index">GROSSES PAKET</div><div class="pricing-count"><strong>40</strong><span>BILDER</span></div><div class="pricing-amount">6.000 € <span>PLATZHALTER</span></div></div>
   </div>
   <p class="pricing-footnote">Diese Beträge dienen ausschließlich als Layout-Platzhalter, sind nicht kalkuliert und stellen kein Angebot dar. Leistungsumfang, Vor-Ort-Fotografie und mögliche Zusatzarbeiten werden später festgelegt.</p>
 </section>
     <section class="contact" id="kontakt">
       <div><p class="eyebrow">LUST AUF GUTE BILDER?</p><h2 class="section-title reveal">Zeigen<br>wir's allen.</h2></div>
-      <div class="contact-bottom"><p>Erzählen Sie, was Sie zeigen möchten. Wir finden heraus, was aus Ihren Bildern werden kann.</p><a class="contact-link" href="https://rodrigues.de/" target="_blank" rel="noopener">Kontakt aufnehmen <span aria-hidden="true">↗</span></a></div>
+      <div class="contact-bottom"><p>Erzählen Sie, was Sie zeigen möchten. Wir finden heraus, was aus Ihren Bildern werden kann.</p><a class="contact-link" href="https://rodrigues.de/" target="_blank" rel="noopener">Kontakt aufnehmen <span class="round-glyph" aria-hidden="true">+</span></a></div>
     </section>
   </main>
   <footer><span>© PDRO. · Entwurfsfassung</span><span>Vorläufiges Projekt unter rodrigues.de/pdro/ · <a href="https://rodrigues.de/" target="_blank" rel="noopener">rodrigues.de</a></span></footer>
