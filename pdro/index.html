@@ -221,15 +221,128 @@
       footer{flex-direction:column;gap:10px}
     }
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.hero-wordmark .word,.feature-card img{transition:none}}
+  
+/* PDRO v3 — visual study informed by the generous editorial hierarchy of Analogue.
+   This is independent markup, CSS and imagery, not a copy of that site's assets. */
+:root{--pad:clamp(20px,2.5vw,47px);--paper:#ededed;--paper2:#ededed;--ink:#161616}
+body{background:var(--paper);font-family:Arial,Helvetica,sans-serif}
+.topbar{justify-content:center;padding:22px 18px;pointer-events:none}
+.nav-wrap{width:min(440px,calc(100vw - 38px));height:44px;background:rgba(233,233,233,.94);color:#111;display:grid;grid-template-columns:1fr 1.25fr 1fr 38px;align-items:center;gap:0;pointer-events:auto;box-shadow:0 1px 12px rgba(0,0,0,.09);backdrop-filter:blur(15px);padding:0 5px 0 11px}
+.nav-wrap .brand{font-size:24px;letter-spacing:-.095em;text-align:center;line-height:1}
+.nav-shortcut{font-size:10px;letter-spacing:.02em;text-align:center;font-weight:700}
+.nav-wrap .menu-toggle{width:34px;height:34px;background:transparent;color:#171717;font-size:24px;display:grid;place-items:center;transition:background .2s;line-height:1}
+.menu-toggle:hover{transform:none;background:#d2d2d2}
+.nav-wrap .menu-toggle span{transition:transform .3s}
+.nav-wrap .menu-toggle[aria-expanded=true] span{transform:rotate(45deg)}
+.menu-panel{background:#efad34}
+.menu-panel a{font-size:clamp(50px,8.2vw,125px);font-weight:700}
+.hero{height:86svh;min-height:620px;max-height:1100px;background:#030d2b;color:#f6f7ff;padding:0;isolation:isolate;display:flex;align-items:center;justify-content:center}
+.hero-beams{position:absolute;inset:-65%;z-index:-2;pointer-events:none;background:repeating-conic-gradient(from 0deg at 50% 50%,rgba(136,180,253,.09) 0deg,rgba(172,214,255,.8) .23deg,rgba(36,83,151,.13) .66deg,transparent 1.22deg,transparent 3.2deg,rgba(125,188,251,.11) 4deg,transparent 5.4deg,transparent 7.2deg);transform:scaleX(1.35) rotate(-9deg);animation:beams-slow 34s linear infinite;filter:blur(.85px)}
+.hero-glow{position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse 13% 28% at 50% 50%,rgba(245,250,255,.92),rgba(130,191,255,.25) 29%,transparent 70%),linear-gradient(90deg,rgba(2,9,31,.63) 0%,transparent 44%,transparent 56%,rgba(2,9,31,.55) 100%);mix-blend-mode:screen;opacity:.42;pointer-events:none}
+@keyframes beams-slow{from{transform:scaleX(1.35) rotate(-9deg)}to{transform:scaleX(1.35) rotate(-4deg)}}
+.hero-center{text-align:center;position:relative;z-index:1;width:min(1300px,94vw);padding:80px 25px 30px}
+.hero-kicker{font-size:clamp(10px,.92vw,14px);letter-spacing:.07em;font-weight:700;margin:0 0 clamp(28px,5vw,88px);color:#e7ecfb}
+.hero-center h1{font-size:clamp(64px,8.6vw,156px);letter-spacing:-.077em;line-height:.86;font-weight:700;margin:0 auto;max-width:1500px;text-wrap:balance;text-shadow:0 2px 15px rgba(0,0,0,.16)}
+.hero-center h1 span{display:inline-block}
+.hero-intro{font-size:clamp(23px,2.55vw,45px);line-height:1.13;font-weight:600;letter-spacing:-.048em;margin:clamp(45px,6vw,105px) auto 0;max-width:950px;text-wrap:balance;text-shadow:0 2px 15px rgba(0,0,0,.2)}
+.hero-footer{position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:0 var(--pad) 25px;z-index:2;font-size:11px;letter-spacing:.04em;font-weight:700}
+.hero-footer a{display:flex;gap:18px;align-items:center;transition:transform .2s}.hero-footer a:hover{transform:translateY(4px)}
+.hero-footer a span{font-size:26px;font-weight:400}
+.manifesto{padding:clamp(80px,7.6vw,145px) var(--pad) 80px;background:#ededed;color:#161616}
+.manifesto-text{font-size:clamp(32px,3.75vw,77px);line-height:1.05;letter-spacing:-.063em;font-weight:700;max-width:1800px;text-wrap:pretty}
+.manifesto-text span{color:#969696}
+.jump-area{display:grid;grid-template-columns:minmax(120px,1fr) 1.5fr 1.5fr;grid-template-rows:repeat(2,140px);column-gap:clamp(32px,4vw,70px);row-gap:25px;margin-top:clamp(85px,10vw,180px);padding-bottom:50px}
+.jump-name{grid-row:1 / span 2;display:flex;justify-content:space-between;border-right:1px solid #161616;padding-right:30px;font-size:13px;font-weight:700}
+.jump-arrow{font-size:21px}
+.jump-link{display:grid;grid-template-columns:140px minmax(0,1fr) 16px;gap:13px;align-items:start;transition:transform .24s}
+.jump-link:hover{transform:translateY(-5px)}
+.jump-link img{height:140px;width:140px;object-fit:cover;background:#aaa}
+.jump-link span{display:flex;flex-direction:column;gap:6px}
+.jump-link strong{font-size:16px;line-height:1.08;letter-spacing:-.035em}
+.jump-link small{color:#969696;font-size:13px;line-height:1.23}
+.jump-link b{font-size:17px;font-weight:400}
+.work-intro{min-height:clamp(190px,27vw,440px);display:flex;align-items:end;justify-content:center;text-align:center;padding-top:60px}
+.work-intro a{font-size:clamp(45px,5.1vw,90px);letter-spacing:-.067em;font-weight:700;line-height:.94}
+.work-intro a span{color:#929292}
+.scroll-sequence{background:#202020}
+.scroll-ui{padding:clamp(103px,8vw,140px) var(--pad) clamp(34px,5vw,70px)}
+.scroll-counter{font-size:13px}.scroll-counter #sequence-counter{font-size:clamp(50px,6vw,93px);font-weight:700}
+.scroll-counter .sequence-total{color:#d4d4d4}
+.scroll-headline{font-weight:700;letter-spacing:-.076em;font-size:clamp(67px,12.5vw,202px);line-height:.83}
+.scroll-shade{background:linear-gradient(180deg,rgba(0,0,0,.22),transparent 36%,rgba(0,0,0,.13) 60%,rgba(0,0,0,.6))}
+.scroll-bottomline{font-size:11px;letter-spacing:.03em;font-weight:700}
+.detail-strip{background:#ededed;padding:35px var(--pad) 130px}
+.detail-grid{gap:10px}.detail-tile img{filter:saturate(1.03)}
+.section{padding:clamp(105px,10vw,170px) var(--pad)}
+.section-title{font-weight:700;letter-spacing:-.079em;line-height:.89}
+.section-title .muted{color:rgba(0,0,0,.35)}
+.work{background:#ededed}
+.work .section-title{font-size:clamp(65px,10vw,175px)}
+.case-title{font-weight:700}
+.case{margin-top:clamp(80px,9vw,160px)}
+.case-top{border-top:1px solid #171717;padding-top:18px}
+.pair{gap:10px}.pair figure{background:#e4e4e4}.pair figure.result{background:#f2b9d6}
+.pair figcaption{font-weight:700;font-size:12px}
+.work .note{max-width:650px}
+.break{background:#ff744e}.break .section-title{font-size:clamp(72px,11vw,175px)}
+.services{background:#ededed}
+.services-grid{display:block;margin-top:90px;border-top:1px solid #161616}
+.service{aspect-ratio:auto;display:grid;grid-template-columns:1.1fr 2.1fr;align-items:center;gap:35px;background:transparent!important;border-bottom:1px solid #161616;padding:clamp(25px,3vw,50px) 5px;min-height:210px}
+.service .n{font-size:13px;align-self:start}
+.service>div{display:grid;grid-template-columns:1.3fr .9fr;align-items:center;gap:35px}
+.service h3{font-size:clamp(48px,5vw,96px);font-weight:700;line-height:.87;letter-spacing:-.07em;margin:0}
+.service p{font-size:clamp(16px,1.4vw,21px);line-height:1.22;letter-spacing:-.03em;max-width:350px}
+.pricing{background:#ededed}.pricing .section-title{font-weight:700;letter-spacing:-.074em}
+.pricing-row{border-color:#1b1b1b;min-height:230px}
+.pricing-row:nth-child(1){background:#faba40}.pricing-row:nth-child(2){background:#eaa0c9}.pricing-row:nth-child(3){background:#8eb9a8}
+.pricing-count strong{font-weight:700}.pricing-amount{font-weight:700}
+.contact{background:#171717}.contact .section-title{font-weight:700}.contact-link{font-weight:700}
+@media(max-width:1100px){
+ .jump-area{grid-template-columns:130px 1fr 1fr;gap:20px}.jump-link{grid-template-columns:100px 1fr 12px}.jump-link img{width:100px;height:100px}.jump-area{grid-template-rows:repeat(2,112px)}
+}
+@media(max-width:760px){
+ .hero{height:89svh;min-height:540px;max-height:none}
+ .hero-center{padding:65px 21px 15px}
+ .hero-center h1{font-size:clamp(55px,10.2vw,88px)}
+ .hero-intro{font-size:clamp(19px,4vw,31px);margin-top:58px}
+ .hero-kicker{font-size:10px;margin-bottom:45px}
+ .hero-footer{font-size:10px;padding-bottom:20px}.hero-footer>span{display:none}
+ .manifesto{padding-top:75px}.manifesto-text{font-size:clamp(29px,5vw,49px);line-height:1.1}
+ .jump-area{grid-template-columns:1fr 1fr;grid-template-rows:auto;margin-top:85px;row-gap:19px;column-gap:15px}
+ .jump-name{grid-column:1 / -1;grid-row:auto;border-right:0;border-bottom:1px solid;padding:0 0 17px}
+ .jump-link{grid-template-columns:95px 1fr;gap:10px}.jump-link img{width:95px;height:95px}.jump-link b{display:none}
+ .jump-link strong{font-size:14px}.jump-link small{font-size:11px}
+ .work-intro{min-height:260px}.work-intro a{font-size:clamp(45px,8vw,75px)}
+ .services-grid{margin-top:55px}.service{grid-template-columns:1fr;gap:20px}.service>div{grid-template-columns:1.2fr 1fr;gap:20px}.service h3{font-size:clamp(43px,6vw,70px)}
+}
+@media(max-width:520px){
+ .nav-wrap{width:min(310px,calc(100vw - 25px));grid-template-columns:1fr 1.2fr 1fr 33px;height:43px}.nav-shortcut{font-size:9px}
+ .hero{min-height:560px;height:88svh}.hero-center h1{font-size:clamp(53px,11.6vw,72px);line-height:.92}.hero-intro{font-size:22px;margin-top:60px;line-height:1.17}
+ .hero-glow{opacity:.65}.hero-beams{inset:-90%}
+ .manifesto{padding-top:67px;padding-bottom:40px}.manifesto-text{font-size:clamp(29px,7.4vw,43px)}
+ .jump-area{grid-template-columns:1fr;row-gap:15px;margin-top:65px;padding-bottom:25px}
+ .jump-name{grid-column:1}.jump-link{grid-template-columns:88px 1fr 15px;gap:14px;min-height:88px}.jump-link img{width:88px;height:88px}.jump-link b{display:block}
+ .jump-link strong{font-size:15px}.jump-link small{font-size:12px}
+ .work-intro{min-height:230px}.work-intro a{font-size:clamp(43px,12vw,65px)}
+ .scroll-headline{font-size:clamp(52px,13vw,78px)}
+ .service>div{grid-template-columns:1fr;gap:15px}.service h3{font-size:62px}.service p{max-width:360px}
+ .pricing-row{min-height:0}.pricing-count strong{font-size:95px}
+}
+@media(prefers-reduced-motion:reduce){.hero-beams{animation:none}}
+
   </style>
 </head>
 <body>
   <a class="skip" href="#inhalt">Zum Inhalt</a>
   <header class="topbar">
-    <a class="brand" href="#start" aria-label="PDRO. – zum Anfang">pdro.</a>
-    <button class="menu-toggle" type="button" aria-label="Menü öffnen" aria-controls="menu" aria-expanded="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-    </button>
+    <nav class="nav-wrap" aria-label="Schnellnavigation">
+      <a class="nav-shortcut" href="#arbeiten">ARBEITEN</a>
+      <a class="brand" href="#start" aria-label="PDRO. – zum Anfang">pdro.</a>
+      <a class="nav-shortcut" href="#preise">PREISE</a>
+      <button class="menu-toggle" type="button" aria-label="Menü öffnen" aria-controls="menu" aria-expanded="false">
+        <span aria-hidden="true">+</span>
+      </button>
+    </nav>
   </header>
   <nav class="menu-panel" id="menu" aria-label="Hauptmenü" inert>
     <div><a href="#bildwelten">Bildwelten</a><a href="#arbeiten">Vorher / Nachher</a><a href="#preise">Preise</a><a href="#kontakt">Kontakt</a></div>
@@ -237,9 +350,30 @@
   </nav>
   <main id="inhalt">
     <section class="hero" id="start" aria-label="Willkommen">
-      <h1 class="hero-wordmark"><span class="line">Bilder, die</span><span class="line second">mehr</span><span class="line third"><span class="word" id="hero-rotate">zeigen.</span></span></h1>
-      <a class="hero-scroll" href="#bildwelten"><span>↓</span> Weiter scrollen</a>
-      <div class="hero-bottom"><p class="mini">Fotografie & digitale Bildproduktion für Unternehmen</p><p>Maschinen. Menschen. Produkte.<br>Aus echten Aufnahmen machen wir Bilder, die etwas zeigen.</p><a class="pill" href="#bildwelten">Bilder ansehen <span aria-hidden="true">↗</span></a></div>
+      <div class="hero-beams" aria-hidden="true"></div>
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="hero-center">
+        <p class="hero-kicker">FOTOGRAFIE & DIGITALE BILDPRODUKTION</p>
+        <h1>Gute Arbeit.<br><span>Gute Bilder.</span></h1>
+        <p class="hero-intro">Ihre Maschinen, Produkte und Menschen.<br>Von uns richtig in Szene gesetzt.</p>
+      </div>
+      <div class="hero-footer">
+        <span>PDRO. / FÜR UNTERNEHMEN</span>
+        <a href="#idee">MEHR ENTDECKEN <span aria-hidden="true">↓</span></a>
+      </div>
+    </section>
+    <section class="manifesto" id="idee">
+      <div class="manifesto-text reveal">
+        PDRO. macht <span>Fotografie und digitale Bildproduktion</span> für Unternehmen. Wir zeigen Maschinen, Produkte und Menschen so, wie sie es verdienen: <span>echt, überzeugend und mit dem richtigen Blick fürs Detail.</span>
+      </div>
+      <div class="jump-area" aria-label="Schnelleinstieg">
+        <div class="jump-name"><span>Direkt zu</span><span class="jump-arrow">↘</span></div>
+        <a href="#bildwelten" class="jump-link"><img src="assets/01_maschinenbau.webp" alt=""><span><strong>Bildwelten</strong><small>Sehen, was möglich ist</small></span><b aria-hidden="true">↗</b></a>
+        <a href="#arbeiten" class="jump-link"><img src="assets/person-result.jpg" alt=""><span><strong>Vorher / Nachher</strong><small>Ausgangsmaterial und Ergebnis</small></span><b aria-hidden="true">↗</b></a>
+        <a href="#leistungen" class="jump-link"><img src="assets/03_lebensmittel.webp" alt=""><span><strong>Was wir machen</strong><small>Aufnahme, Bearbeitung, Fertig</small></span><b aria-hidden="true">↗</b></a>
+        <a href="#preise" class="jump-link"><img src="assets/02_metall_detail.webp" alt=""><span><strong>Preise</strong><small>10, 20 oder 40 Bilder</small></span><b aria-hidden="true">↗</b></a>
+      </div>
+      <div class="work-intro"><a href="#bildwelten" aria-label="Zu unseren Bildwelten scrollen">Unsere Arbeit<br><span>Weiter ansehen ↓</span></a></div>
     </section>
 <section class="scroll-sequence" id="bildwelten" aria-label="Bildwelten aus verschiedenen Branchen">
   <div class="scroll-stage" aria-live="off">
@@ -250,8 +384,8 @@
     <div class="scroll-frame" data-panel="4"><img src="assets/05_energie.webp" alt="Detailansicht aus dem Bereich Windkraft und Solarenergie" loading="lazy"><div class="scroll-shade"></div></div>
     <div class="scroll-frame" data-panel="5"><img src="assets/06_elektro_detail.webp" alt="Technisches Produktdetail aus der Elektrotechnik" loading="lazy"><div class="scroll-shade"></div></div>
     <div class="scroll-ui">
-      <div class="scroll-counter"><span id="sequence-counter">01</span> / 06 <span class="scroll-hint">SCROLLEN ↓</span></div>
-      <div class="scroll-copy"><p class="scroll-eyebrow" id="sequence-category">MASCHINENBAU</p><h2 class="scroll-headline" id="sequence-title">GENAU<br>HINGESCHAUT.</h2><p class="scroll-bottomline">Bilder aus verschiedenen Branchen · Konzeptmotive</p></div>
+      <div class="scroll-counter"><span id="sequence-counter">01</span> <span class="sequence-total">/ 06</span><span class="scroll-hint">WEITER SCROLLEN ↓</span></div>
+      <div class="scroll-copy"><p class="scroll-eyebrow" id="sequence-category">MASCHINENBAU</p><h2 class="scroll-headline" id="sequence-title">GENAU<br>HINGESCHAUT.</h2><p class="scroll-bottomline">BILDWELTEN / KONZEPTMOTIVE — NOCH KEINE KUNDENARBEITEN</p></div>
       <div class="scroll-progress" aria-hidden="true"><span id="sequence-progress"></span></div>
     </div>
   </div>
@@ -260,11 +394,6 @@
     <div class="scroll-marker"></div><div class="scroll-marker"></div><div class="scroll-marker"></div>
   </div>
 </section>
-    <section class="section intro" id="idee">
-      <p class="eyebrow reveal">WAS WIR MACHEN</p>
-      <div class="intro-head reveal"><h2 class="section-title">Gute Arbeit.<br>Gute Bilder<span class="dot">.</span></h2></div>
-      <div class="intro-foot reveal"><p>Sie haben tolle Maschinen, gute Produkte und Menschen, die etwas können. Wir sorgen dafür, dass man das auch sieht.</p><p class="aside">Wir fotografieren gezielt bei Ihnen vor Ort oder arbeiten mit vorhandenem Material. Den Rest übernehmen Bildbearbeitung, Compositing und moderne Produktionstechniken.</p></div>
-    </section>
 <section class="detail-strip" aria-label="Material und Details">
   <div class="detail-caption"><span>GROSSE BILDER. KLEINE DETAILS.</span><span>FERTIGUNG / LABOR / PRODUKTION</span></div>
   <div class="detail-grid">
@@ -275,7 +404,7 @@
 </section>
     <section class="section work" id="arbeiten">
       <p class="eyebrow reveal">VORHER / NACHHER</p>
-      <h2 class="section-title reveal">Aus Foto<br>wird Motiv.</h2>
+      <h2 class="section-title reveal">Nicht nur<br><span class="muted">schöner.</span><br>Anders.</h2>
       <article class="case reveal" id="fall1">
         <div class="case-top"><h3 class="case-title">Mensch & Maschine</h3><span>01 / 02</span></div>
         <div class="pair">
@@ -301,7 +430,7 @@
     </section>
     <section class="section services" id="leistungen">
       <p class="eyebrow reveal">WAS WIR FÜR SIE TUN</p>
-      <h2 class="section-title reveal">Ganz<br>einfach.</h2>
+      <h2 class="section-title reveal">Klingt<br><span class="muted">einfach.</span><br>Ist es auch.</h2>
       <div class="services-grid">
         <div class="service reveal"><span class="n">01 / AUFNAHME</span><div><h3>Fotos<br>machen.</h3><p>Wir kommen vorbei und fotografieren genau das, was wir für die Bildproduktion brauchen.</p></div></div>
         <div class="service reveal"><span class="n">02 / BILDBEARBEITUNG</span><div><h3>Mehr<br>rausholen.</h3><p>Wir optimieren Licht, Umgebung und Bildwirkung – mit Retusche, Compositing und KI.</p></div></div>
